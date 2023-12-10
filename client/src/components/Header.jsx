@@ -11,6 +11,9 @@ export default function Header() {
           building permit and inspection authority
         </span>
         <ul className="flex gap-6">
+          <Link to="/">
+            <li className="hover:underline">Home</li>
+          </Link>
           <Link to="/service-one">
             <li className="hover:underline">ServiceOne</li>
           </Link>
