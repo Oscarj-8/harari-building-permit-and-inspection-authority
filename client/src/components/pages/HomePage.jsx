@@ -53,7 +53,7 @@ export default function HomePage() {
             </h2>
 
             <CloseIcon
-              className="bg-blue-600 text-white rounded "
+              className="bg-blue-600 text-white rounded cursor-pointer "
               onClick={closeModal}
               sx={{ fontSize: 32 }}
             />
