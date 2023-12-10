@@ -17,7 +17,9 @@ const Modal = ({ isOpen, onClose, children }) => {
         className="absolute inset-0 bg-black bg-opacity-50"
         onClick={handleOverlayClick}
       ></div>
-      <div className="bg-white p-4 rounded-lg relative z-10">{children}</div>
+      <div className="bg-white flex flex-col gap-6 p-6 rounded-lg relative z-10 w-">
+        {children}
+      </div>
     </div>
   );
 };

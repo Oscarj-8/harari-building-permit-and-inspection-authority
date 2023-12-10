@@ -45,44 +45,52 @@ export default function HomePage() {
 
         <Modal isOpen={isModalOpen}>
           <div
-            className="flex items-center justify-center gap-4"
+            className="flex items-end justify-between gap-4"
             style={{ fontFamily: "Roboto, sans-serif" }}
           >
-            <h2 className="text-lg text-black">
+            <h2 className="text-2xl text-zinc-700">
               What service are you looking for?
             </h2>
-            {/* <span className="font-bold" onClick={closeModal}>
-              &times;
-            </span> */}
-            {/* <FontAwesomeIcon
-              className="cursor-pointer"
-              icon={faTimes}
-              onClick={closeModal}
-              // size="2x"
-            /> */}
+
             <CloseIcon
-              className="fa-plus-circle"
+              className="bg-blue-600 text-white rounded "
               onClick={closeModal}
               sx={{ fontSize: 32 }}
             />
           </div>
-
-          <ul className="flex flex-col items-center gap-4">
+          <hr className="border-1 border-black" />
+          <ul className="flex flex-col gap-2 ">
             <Link to="/service-one">
-              <li className="hover:underline">Plan consent</li>
+              <Button
+                className="w-full hover:bg-blue-700 hover:text-white"
+                variant="outlined"
+              >
+                Plan consent
+              </Button>
             </Link>
             <Link to="/service-two">
-              <li className="hover:underline">
+              <Button
+                className="w-full hover:bg-blue-700 hover:text-white"
+                variant="outlined"
+              >
                 Design evaluation and building permit
-              </li>
+              </Button>
             </Link>
             <Link to="/service-three">
-              <li className="hover:underline">
+              <Button
+                className="w-full hover:bg-blue-700 hover:text-white"
+                variant="outlined"
+              >
                 Building inspection and occupancy permit
-              </li>
+              </Button>
             </Link>
             <Link to="/service-four">
-              <li className="hover:underline">Construction regulatory</li>
+              <Button
+                className="w-full hover:bg-blue-700 hover:text-white"
+                variant="outlined"
+              >
+                Building inspection and occupancy permit
+              </Button>
             </Link>
           </ul>
         </Modal>
