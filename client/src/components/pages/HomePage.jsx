@@ -94,7 +94,7 @@ export default function HomePage() {
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"
                 >
-                  Building inspection and occupancy permit
+                  Construction regulatory
                 </Button>
               </Link>
             </ul>
