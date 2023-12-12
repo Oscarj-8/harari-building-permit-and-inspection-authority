@@ -1,5 +1,5 @@
+import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
-
 export default function Header() {
   return (
     <header className=" relative h-20 z-10 bg-slate-200 border p-5 shadow-md ">
@@ -14,12 +14,22 @@ export default function Header() {
           <Link to="/">
             <li className="hover:underline">Home</li>
           </Link>
-          <Link to="/">
+          <ScrollLink
+            className="hover:cursor-pointer"
+            to="services"
+            smooth={true}
+            duration={500}
+          >
             <li className="hover:underline">Services</li>
-          </Link>
-          <Link to="/about">
+          </ScrollLink>
+          <ScrollLink
+            className="hover:cursor-pointer"
+            to="about"
+            smooth={true}
+            duration={500}
+          >
             <li className="hover:underline">About us</li>
-          </Link>
+          </ScrollLink>
         </ul>
       </div>
     </header>

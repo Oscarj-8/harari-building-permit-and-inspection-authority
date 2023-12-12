@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Services from "../Services";
+import About from "../About";
 import Footer from "../Footer";
+import { Element } from "react-scroll";
 
 export default function HomePage() {
   const textStyle = {
@@ -99,7 +101,12 @@ export default function HomePage() {
           </Modal>
         </div>
       </main>
-      <Services />
+      <Element name="services" className="element">
+        <Services />
+      </Element>
+      <Element name="about" className="element">
+        <About />
+      </Element>
       <Footer />
     </div>
   );
