@@ -14,25 +14,12 @@ export default function Header() {
           <Link to="/">
             <li className="hover:underline">Home</li>
           </Link>
+          <Link to="/">
+            <li className="hover:underline">Services</li>
+          </Link>
           <Link to="/about">
             <li className="hover:underline">About us</li>
           </Link>
-          {/* <Link to="/service-one">
-            <li className="hover:underline">Plan consent</li>
-          </Link>
-          <Link to="/service-two">
-            <li className="hover:underline">
-              SDesign evaluation and building permit
-            </li>
-          </Link>
-          <Link to="/service-three">
-            <li className="hover:underline">
-              Building inspection and occupancy permit
-            </li>
-          </Link>
-          <Link to="/service-four">
-            <li className="hover:underline">Construction regulatory</li>
-          </Link> */}
         </ul>
       </div>
     </header>
