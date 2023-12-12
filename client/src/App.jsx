@@ -5,6 +5,7 @@ import ServiceOne from "./components/pages/ServiceOne";
 import ServiceTwo from "./components/pages/ServiceTwo";
 import ServiceThree from "./components/pages/ServiceThree";
 import ServiceFour from "./components/pages/ServiceFour";
+import Services from "./components/pages/Services";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/service-three" element={<ServiceThree />} />
         <Route path="/service-four" element={<ServiceFour />} />
       </Routes>
+      <Services />
     </BrowserRouter>
   );
 }
