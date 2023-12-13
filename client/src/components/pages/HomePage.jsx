@@ -24,7 +24,7 @@ export default function HomePage() {
     setIsModalOpen(false);
   };
   return (
-    <div>
+    <div className="flex flex-col gap-16">
       <main
         className="flex items-center text-slate-700 p-5 "
         style={{
