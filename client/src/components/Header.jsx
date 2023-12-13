@@ -18,7 +18,7 @@ export default function Header() {
             className="hover:cursor-pointer"
             to="services"
             smooth={true}
-            duration={500}
+            duration={2000}
           >
             <li className="hover:underline">Services</li>
           </ScrollLink>
@@ -26,7 +26,7 @@ export default function Header() {
             className="hover:cursor-pointer"
             to="about"
             smooth={true}
-            duration={500}
+            duration={2000}
           >
             <li className="hover:underline">About us</li>
           </ScrollLink>

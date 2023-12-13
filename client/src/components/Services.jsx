@@ -38,15 +38,15 @@ export default function Services() {
   }, []);
 
   return (
-    <main className={`flex flex-col gap-24 items-center `}>
+    <main className={` flex flex-col gap-24 items-center `}>
       <h1 className="text-5xl font-medium text-customBlue">Services</h1>
       <div className="flex w-full flex-wrap items-stretch justify-center gap-8">
-        {services.map((service, index) => (
+        {services.map((service) => (
           <AnimatedCard
             key={service.id}
             className={`${
               isAnimated ? "fade-in" : ""
-            } flex flex-col justify-center items-center text-center w-full sm:w-3/4 md:w-1/4 rounded-lg p-4 gap-6 border border-slate-400 shadow-xl`}
+            } bg-white flex flex-col cursor-pointer justify-center items-center text-center w-full sm:w-3/4 md:w-1/4 rounded-lg p-4 gap-6 shadow-xl hover:translate-y-[-20px]`}
           >
             <Card.Header>
               <img className="w-24" src={service.image} alt="service image" />
