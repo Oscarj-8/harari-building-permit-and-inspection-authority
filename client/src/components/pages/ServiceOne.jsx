@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useRef, useState } from "react";
-import pdf from "../../assets/awaqi.pdf";
+import AblazeLabsCV from "../../../public/documents/AblazeLabsCV.docx";
 
 export default function ServiceOne() {
   const fileRef = useRef(null);
@@ -24,7 +24,7 @@ export default function ServiceOne() {
         </div>
         <div className="flex w-full items-center justify-center gap-8">
           <Button variant="contained" className="bg-blue-700 ">
-            <a download href={pdf}>
+            <a download="AblazeLabsCV.docx" href={AblazeLabsCV}>
               Download
             </a>
           </Button>
