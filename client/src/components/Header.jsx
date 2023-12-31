@@ -1,8 +1,8 @@
+import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
-
 export default function Header() {
   return (
-    <header className=" relative h-20 z-10 bg-slate-200 border p-5 shadow-md ">
+    <header className="relative h-20 z-10 bg-slate-200 border p-5 shadow-md ">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <span className="text-slate-700 text-lg">
           <Link to="/">
@@ -14,25 +14,22 @@ export default function Header() {
           <Link to="/">
             <li className="hover:underline">Home</li>
           </Link>
-          <Link to="/about">
+          <ScrollLink
+            className="hover:cursor-pointer"
+            to="services"
+            smooth={true}
+            duration={2000}
+          >
+            <li className="hover:underline">Services</li>
+          </ScrollLink>
+          <ScrollLink
+            className="hover:cursor-pointer"
+            to="about"
+            smooth={true}
+            duration={2000}
+          >
             <li className="hover:underline">About us</li>
-          </Link>
-          {/* <Link to="/service-one">
-            <li className="hover:underline">Plan consent</li>
-          </Link>
-          <Link to="/service-two">
-            <li className="hover:underline">
-              SDesign evaluation and building permit
-            </li>
-          </Link>
-          <Link to="/service-three">
-            <li className="hover:underline">
-              Building inspection and occupancy permit
-            </li>
-          </Link>
-          <Link to="/service-four">
-            <li className="hover:underline">Construction regulatory</li>
-          </Link> */}
+          </ScrollLink>
         </ul>
       </div>
     </header>
