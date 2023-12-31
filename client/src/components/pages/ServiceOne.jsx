@@ -22,7 +22,7 @@ export default function ServiceOne() {
           debitis. Consequatur, assumenda necessitatibus? Unde vero soluta sint
           fugiat dolor?
         </div>
-        <div className="flex w-full bg-slate-500 items-center justify-center gap-8">
+        <div className="flex w-full items-center justify-center gap-8">
           <Button variant="contained" className="bg-blue-700 ">
             <a download href={pdf}>
               Download
