@@ -2,7 +2,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
 export default function Header() {
   return (
-    <header className=" relative h-20 z-10 bg-slate-200 border p-5 shadow-md ">
+    <header className="relative h-20 z-10 bg-slate-200 border p-5 shadow-md ">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <span className="text-slate-700 text-lg">
           <Link to="/">
