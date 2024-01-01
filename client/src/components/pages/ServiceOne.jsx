@@ -6,6 +6,36 @@ export default function ServiceOne() {
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
   console.log(file);
+
+  const handleImport = async () => {
+    try {
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+
+      // Create a FormData object to append the file
+      const formData = new FormData();
+      formData.append("file", file);
+
+      // Make an HTTP POST request to the server
+      const response = await fetch("http://localhost:3000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      // Handle the response from the server (if needed)
+      console.log(responseData);
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error("Error uploading file:", error.message);
+    }
+  };
   return (
     <div className="flex items-center justify-center">
       <main className=" flex flex-col gap-8 w-full p-8">
@@ -41,6 +71,14 @@ export default function ServiceOne() {
             className="bg-blue-700"
           >
             Import
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleImport}
+            className="bg-blue-700"
+            disabled={!file} // Disable the button if no file is selected
+          >
+            Upload to MongoDB
           </Button>
         </div>
       </main>
