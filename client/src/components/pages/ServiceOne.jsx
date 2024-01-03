@@ -8,34 +8,30 @@ export default function ServiceOne() {
   console.log(file);
 
   const handleImport = async () => {
-    try {
-      if (!file) {
-        console.error("No file selected");
-        return;
-      }
-
-      // Create a FormData object to append the file
+    if (file) {
       const formData = new FormData();
       formData.append("file", file);
 
-      // Make an HTTP POST request to the server
-      const response = await fetch("http://localhost:3000/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      try {
+        const response = await fetch("http://localhost:3000/api/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.ok) {
+          console.log("File uploaded successfully");
+          // Handle success
+        } else {
+          console.error("File upload failed");
+          // Handle error
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+        // Handle error
       }
-
-      const responseData = await response.json();
-      // Handle the response from the server (if needed)
-      console.log(responseData);
-    } catch (error) {
-      // Handle any errors that occur during the request
-      console.error("Error uploading file:", error.message);
     }
   };
+
   return (
     <div className="flex items-center justify-center">
       <main className=" flex flex-col gap-8 w-full p-8">

@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const fileSchema = new mongoose.Schema({
-  filename: String,
-  contentType: String,
-  chunkSize: Number, // Optional for GridFS configuration
+  name: { type: String, required: true },
+  path: { type: String, required: true },
 });
 
-module.exports = mongoose.model("File", fileSchema);
+const FileModel = mongoose.model("File", fileSchema);
+
+export default FileModel;

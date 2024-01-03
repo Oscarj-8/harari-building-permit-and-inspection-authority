@@ -1,22 +1,21 @@
-import multer from "multer";
-import mongoose from "mongoose";
+// controllers/fileUpload.controller.js
+import FileModel from "../models/file.model.js";
 
-const conn = mongoose.connection;
+const uploadFile = async (req, res) => {
+  try {
+    // Create a new document in MongoDB with the file name and path
+    const newFile = new FileModel({
+      name: req.file.originalname,
+      path: req.file.path,
+    });
+    await newFile.save();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "../uploads"); // Specify upload destination
-  },
-  filename: (req, file, cb) => {
-    // Custom filename logic (optional)
-    cb(null, file.originalname);
-  },
-  fileFilter: (req, file, cb) => {
-    // File filtering logic (optional)
-    cb(null, true);
-  },
-});
+    res.status(201).json({ message: "File uploaded successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "File upload failed", error: error.message });
+  }
+};
 
-const upload = multer({ storage });
-
-export default upload.single("file");
+export default uploadFile;
