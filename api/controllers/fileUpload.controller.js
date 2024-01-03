@@ -1,9 +1,7 @@
-// controllers/fileUpload.controller.js
 import FileModel from "../models/file.model.js";
 
 const uploadFile = async (req, res) => {
   try {
-    // Create a new document in MongoDB with the file name and path
     const newFile = new FileModel({
       name: req.file.originalname,
       path: req.file.path,

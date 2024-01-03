@@ -15,7 +15,6 @@ mongoose.connect(process.env.MONGO).then(() => {
   console.log("Connected to MongoDB!");
 });
 
-// Use the file upload route
 app.use("/api", fileUploadRoutes);
 
 app.listen(3000, () => {
