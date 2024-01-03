@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import fileUploadRoutes from "./routes/fileUpload.route.js";
+import fileGetRoutes from "./routes/fileGet.route.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGO).then(() => {
 });
 
 app.use("/api", fileUploadRoutes);
+app.use("/api", fileGetRoutes);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
