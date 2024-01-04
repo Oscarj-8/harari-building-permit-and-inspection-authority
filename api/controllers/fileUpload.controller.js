@@ -2,8 +2,10 @@ import FileModel from "../models/file.model.js";
 
 const uploadFile = async (req, res) => {
   try {
+    const uniqueFileName = req.file.filename;
+
     const newFile = new FileModel({
-      name: req.file.originalname,
+      name: uniqueFileName,
       path: req.file.path,
     });
     await newFile.save();
