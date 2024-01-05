@@ -6,12 +6,14 @@ import ServiceTwo from "./components/pages/ServiceTwo";
 import ServiceThree from "./components/pages/ServiceThree";
 import ServiceFour from "./components/pages/ServiceFour";
 import SignUp from "./components/pages/SignUp";
+import SignIn from "./components/pages/SignIn";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/service-one" element={<ServiceOne />} />
