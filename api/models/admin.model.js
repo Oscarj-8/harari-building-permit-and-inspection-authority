@@ -1,7 +1,12 @@
-import mongoose from "mongooe";
+import mongoose from "mongoose";
 
 const adminSchema = new mongoose.Schema({
   username: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  email: {
     type: String,
     require: true,
     unique: true,

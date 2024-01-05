@@ -7,7 +7,7 @@ const FileList = () => {
   useEffect(() => {
     const fetchFiles = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/files");
+        const response = await fetch("/api/files");
         if (response.ok) {
           const data = await response.json();
           setFiles(data.files);
