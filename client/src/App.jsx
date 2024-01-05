@@ -8,6 +8,7 @@ import ServiceFour from "./components/pages/ServiceFour";
 import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
 import AdminPage from "./components/pages/AdminPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
   return (
@@ -21,7 +22,9 @@ export default function App() {
         <Route path="/service-two" element={<ServiceTwo />} />
         <Route path="/service-three" element={<ServiceThree />} />
         <Route path="/service-four" element={<ServiceFour />} />
-        <Route path="/admin-page" element={<AdminPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/admin-page" element={<AdminPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
