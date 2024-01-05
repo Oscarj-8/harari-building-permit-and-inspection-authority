@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemText, Button } from "@mui/material";
 
 const FileList = () => {
   const [files, setFiles] = useState([]);
@@ -27,19 +27,25 @@ const FileList = () => {
   }, []);
 
   return (
-    <List>
+    <List className="flex flex-col gap-3">
       {files.map((file) => (
-        <ListItem key={file._id}>
-          <ListItemText primary={file.name} />
-
-          <a
-            href={"data:application/msword;base64," + file.content}
-            target="_blank"
-            rel="noreferrer"
-            download={file.name}
-          >
-            Download Link
-          </a>
+        <ListItem key={file._id} className="border mx-4 p-4 rounded-lg">
+          <ListItemText className="text-slate-900" primary={file.name} />
+          <div className="flex flex-col gap-3">
+            <Button variant="contained" className="bg-blue-700">
+              <a
+                href={"data:application/msword;base64," + file.content}
+                target="_blank"
+                rel="noreferrer"
+                download={file.name}
+              >
+                Download File
+              </a>
+            </Button>
+            <Button className="bg-red-700 text-white hover:text-red-900 ">
+              Delete File
+            </Button>
+          </div>
         </ListItem>
       ))}
     </List>
