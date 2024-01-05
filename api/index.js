@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import adminAuthRouter from "./routes/adminAuth.route.js";
 import fileUploadRoutes from "./routes/fileUpload.route.js";
 import fileGetRoutes from "./routes/fileGet.route.js";
-import adminAuthRouter from "./routes/adminAuth.route.js";
 
 dotenv.config();
 
