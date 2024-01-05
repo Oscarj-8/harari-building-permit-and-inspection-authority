@@ -27,7 +27,7 @@ const FileList = () => {
   }, []);
 
   return (
-    <List className="flex flex-wrap gap-3 items-center">
+    <List className="flex flex-wrap gap-3 items-strech">
       {files.map((file) => (
         <ListItem
           key={file._id}
