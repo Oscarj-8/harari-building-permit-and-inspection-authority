@@ -7,6 +7,7 @@ import ServiceThree from "./components/pages/ServiceThree";
 import ServiceFour from "./components/pages/ServiceFour";
 import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
+import AdminPage from "./components/pages/AdminPage";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/service-two" element={<ServiceTwo />} />
         <Route path="/service-three" element={<ServiceThree />} />
         <Route path="/service-four" element={<ServiceFour />} />
+        <Route path="/admin-page" element={<AdminPage />} />
       </Routes>
     </BrowserRouter>
   );

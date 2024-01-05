@@ -27,7 +27,7 @@ export default function SignIn() {
         return;
       }
 
-      navigate("/");
+      navigate("/admin-page");
     } catch (error) {
       console.log(error.message);
     }
