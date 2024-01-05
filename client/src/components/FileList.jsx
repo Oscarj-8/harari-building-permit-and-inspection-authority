@@ -27,11 +27,14 @@ const FileList = () => {
   }, []);
 
   return (
-    <List className="flex flex-col gap-3">
+    <List className="flex flex-wrap gap-3 items-center">
       {files.map((file) => (
-        <ListItem key={file._id} className="border mx-4 p-4 rounded-lg">
+        <ListItem
+          key={file._id}
+          className="flex flex-col items-start border mx-4 max-w-md p-4 w-1/3 rounded-lg shadow-sm hover:shadow-lg "
+        >
           <ListItemText className="text-slate-900" primary={file.name} />
-          <div className="flex flex-col gap-3">
+          <div className="flex gap-3">
             <Button variant="contained" className="bg-blue-700">
               <a
                 href={"data:application/msword;base64," + file.content}
@@ -42,7 +45,10 @@ const FileList = () => {
                 Download File
               </a>
             </Button>
-            <Button className="bg-red-700 text-white hover:text-red-900 ">
+            <Button
+              variant="contained"
+              className="bg-red-700 hover:bg-red-700 "
+            >
               Delete File
             </Button>
           </div>

@@ -21,9 +21,7 @@ const getAllFiles = async (req, res) => {
         const filePath = path.resolve(process.cwd(), "api/uploads", file.path);
 
         try {
-          console.log("File path:", filePath);
           const fileContent = await fs.promises.readFile(filePath);
-          console.log(fileContent);
           return {
             _id: file._id,
             name: file.name,
