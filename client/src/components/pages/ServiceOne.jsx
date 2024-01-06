@@ -1,11 +1,15 @@
 import { Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
+import ReusableModal from "../ReusableModal";
 import AblazeLabsCV from "../../../public/documents/AblazeLabsCV.docx";
 
 export default function ServiceOne() {
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
-  const [fileUploadSuccess, setFileUploadSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
   console.log(file);
 
   const handleImport = async () => {
@@ -21,13 +25,12 @@ export default function ServiceOne() {
 
         if (response.ok) {
           console.log("File uploaded successfully");
-          setFileUploadSuccess(true);
-          setTimeout(() => {
-            setFileUploadSuccess(false);
-          }, 5000);
+          setOpen(true);
+          // setTimeout(() => {
+          //   setOpen(false);
+          // }, 5000);
         } else {
           console.error("File upload failed");
-          setFileUploadSuccess(false);
         }
       } catch (error) {
         console.error("An error occurred", error);
@@ -172,7 +175,7 @@ export default function ServiceOne() {
         <div className="flex w-full items-center justify-center gap-8">
           <Button variant="contained" className="bg-blue-700 ">
             <a download="AblazeLabsCV.docx" href={AblazeLabsCV}>
-              CLick here to Download the file
+              Click here to Download the file
             </a>
           </Button>
           <input
@@ -198,13 +201,29 @@ export default function ServiceOne() {
             Submit
           </Button>
         </div>
-        {fileUploadSuccess && (
-          <p className="text-green-700 font-semibold text-center text-2xl">
+      </main>
+      <ReusableModal open={open} onClose={handleClose}>
+        <div className="flex flex-col items-center">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirmation
+          </Typography>
+          <Typography
+            className="text-green-700 text-center"
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
             You have successfully Uploaded and sent the request, we will get in
             touch with in a few days
-          </p>
-        )}
-      </main>
+          </Typography>
+          <Button
+            variant="contained"
+            className="w-full bg-blue-700 mt-6"
+            onClick={handleClose}
+          >
+            Ok
+          </Button>
+        </div>
+      </ReusableModal>
     </div>
   );
 }
