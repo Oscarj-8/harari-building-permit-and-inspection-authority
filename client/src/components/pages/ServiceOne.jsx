@@ -5,6 +5,7 @@ import AblazeLabsCV from "../../../public/documents/AblazeLabsCV.docx";
 export default function ServiceOne() {
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
+  const [fileUploadSuccess, setFileUploadSuccess] = useState(false);
   console.log(file);
 
   const handleImport = async () => {
@@ -20,14 +21,16 @@ export default function ServiceOne() {
 
         if (response.ok) {
           console.log("File uploaded successfully");
-          // Handle success
+          setFileUploadSuccess(true);
+          setTimeout(() => {
+            setFileUploadSuccess(false);
+          }, 5000);
         } else {
           console.error("File upload failed");
-          // Handle error
+          setFileUploadSuccess(false);
         }
       } catch (error) {
         console.error("An error occurred", error);
-        // Handle error
       }
     }
   };
@@ -72,11 +75,17 @@ export default function ServiceOne() {
             variant="contained"
             onClick={handleImport}
             className="bg-blue-700"
-            disabled={!file} // Disable the button if no file is selected
+            disabled={!file}
           >
             Upload to MongoDB
           </Button>
         </div>
+        {fileUploadSuccess && (
+          <p className="text-green-700 font-semibold text-center text-2xl">
+            You have successfully Uploaded and sent the request, we will get in
+            touch with in a few days
+          </p>
+        )}
       </main>
     </div>
   );
