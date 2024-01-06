@@ -23,7 +23,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispath(signInStart);
+      dispath(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
