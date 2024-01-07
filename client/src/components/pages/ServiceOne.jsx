@@ -174,7 +174,10 @@ export default function ServiceOne() {
         </div>
         <div className="flex w-full items-center justify-center gap-8">
           <Button variant="contained" className="bg-blue-700 ">
-            <a download="AblazeLabsCV.docx" href={planFile}>
+            <a
+              download="ፕላን ስምምነት with Header with choosen item.docx"
+              href={planFile}
+            >
               Click here to Download the file
             </a>
           </Button>
