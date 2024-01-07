@@ -19,7 +19,8 @@ mongoose
     console.log(err);
   });
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const app = express();
 
