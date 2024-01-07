@@ -9,29 +9,35 @@ import path from "path";
 
 dotenv.config();
 
-const app = express();
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => {
+    console.log("connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const __dirname = path.resolve();
 
+const app = express();
+
 app.use(cors());
 app.use(express.json());
-
-mongoose.connect(process.env.MONGO).then(() => {
-  console.log("Connected to MongoDB!");
-});
+app.use(cookieParser());
 
 app.use("/api", fileUploadRoutes);
 app.use("/api", fileGetRoutes);
 app.use("/api/auth", adminAuthRouter);
 
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
+
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.htm l"));
-});
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
 });
 
 app.use((err, req, res, next) => {
