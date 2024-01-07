@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
-import AblazeLabsCV from "../../../public/documents/AblazeLabsCV.docx";
+import planFile from "../../../public/documents/ፕላን ስምምነት with Header with choosen item.docx";
 
 export default function ServiceOne() {
   const fileRef = useRef(null);
@@ -174,7 +174,7 @@ export default function ServiceOne() {
         </div>
         <div className="flex w-full items-center justify-center gap-8">
           <Button variant="contained" className="bg-blue-700 ">
-            <a download="AblazeLabsCV.docx" href={AblazeLabsCV}>
+            <a download="AblazeLabsCV.docx" href={planFile}>
               Click here to Download the file
             </a>
           </Button>
