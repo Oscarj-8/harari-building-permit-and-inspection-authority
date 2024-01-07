@@ -27,7 +27,7 @@ app.use("/api/auth", adminAuthRouter);
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.htm l"));
 });
 
 app.listen(3000, () => {
