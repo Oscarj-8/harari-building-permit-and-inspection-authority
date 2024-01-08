@@ -6,16 +6,19 @@ import AblazeLabsCV from "../../../public/documents/AblazeLabsCV.docx";
 
 export default function ServiceOne() {
   const fileRef = useRef(null);
-  const [file, setFile] = useState(undefined);
+  const scannedImagesRef = useRef(null);
+  const [documentFile, setDocumentFile] = useState(undefined);
+  const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
-  console.log(file);
+  console.log(documentFile);
+  console.log(scannedImages);
 
   const handleImport = async () => {
-    if (file) {
+    if (documentFile) {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", documentFile);
 
       try {
         const response = await fetch("http://localhost:3000/api/upload", {
@@ -178,25 +181,44 @@ export default function ServiceOne() {
               Click here to Download the file
             </a>
           </Button>
-          <input
-            type="file"
-            ref={fileRef}
-            id="file"
-            className="hidden"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <Button
-            variant="contained"
-            onClick={() => fileRef.current.click()}
-            className="bg-blue-700"
-          >
-            Click here to import the file
-          </Button>
+          <div id="scannedImages" className="">
+            <input
+              type="file"
+              ref={scannedImagesRef}
+              id="file"
+              className="hidden"
+              multiple
+              onChange={(e) => setScannedImages(e.target.files)}
+            />
+            <Button
+              variant="contained"
+              onClick={() => scannedImagesRef.current.click()}
+              className="bg-blue-700"
+            >
+              Click here to import Scanned images
+            </Button>
+          </div>
+          <div id="docFile" className="">
+            <input
+              type="file"
+              ref={fileRef}
+              id="file"
+              className="hidden"
+              onChange={(e) => setDocumentFile(e.target.files[0])}
+            />
+            <Button
+              variant="contained"
+              onClick={() => fileRef.current.click()}
+              className="bg-blue-700"
+            >
+              Click here to import the file
+            </Button>
+          </div>
           <Button
             variant="contained"
             onClick={handleImport}
             className="bg-blue-700"
-            disabled={!file}
+            disabled={!documentFile || !scannedImages}
           >
             Submit
           </Button>
