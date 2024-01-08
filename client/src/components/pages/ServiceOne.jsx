@@ -12,14 +12,16 @@ export default function ServiceOne() {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
-  console.log(documentFile);
-  console.log(scannedImages);
 
   const handleImport = async () => {
-    if (documentFile) {
+    if (documentFile && scannedImages) {
       const formData = new FormData();
       formData.append("file", documentFile);
 
+      for (let i = 0; i < scannedImages.length; i++) {
+        formData.append("scannedImages", scannedImages[i]);
+      }
+      console.log(formData);
       try {
         const response = await fetch("http://localhost:3000/api/upload", {
           method: "POST",
