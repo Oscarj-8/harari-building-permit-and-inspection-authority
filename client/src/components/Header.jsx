@@ -14,6 +14,9 @@ export default function Header() {
           <Link to="/">
             <li className="hover:underline">Home</li>
           </Link>
+          <Link to="/admin-page">
+            <li className="hover:underline">Admin</li>
+          </Link>
           <ScrollLink
             className="hover:cursor-pointer"
             to="services"
