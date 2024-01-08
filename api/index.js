@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import adminAuthRouter from "./routes/adminAuth.route.js";
+import adminPageRouter from "./routes/admin.route.js";
 import fileUploadRoutes from "./routes/fileUpload.route.js";
 import fileGetRoutes from "./routes/fileGet.route.js";
 import path from "path";
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use("/api", fileUploadRoutes);
 app.use("/api", fileGetRoutes);
 app.use("/api/auth", adminAuthRouter);
+app.use(adminPageRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
@@ -37,9 +39,9 @@ app.listen(3000, () => {
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
