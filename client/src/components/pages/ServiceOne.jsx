@@ -10,8 +10,10 @@ export default function ServiceOne() {
   const [documentFile, setDocumentFile] = useState(undefined);
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
-
   const handleClose = () => setOpen(false);
+
+  console.log(scannedImages);
+  console.log(documentFile);
 
   const handleImport = async () => {
     if (documentFile && scannedImages) {
