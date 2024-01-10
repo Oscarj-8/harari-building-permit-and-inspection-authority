@@ -10,6 +10,7 @@ export default function ServiceOne() {
   const [documentFile, setDocumentFile] = useState(undefined);
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [submitLoader, setSubmitLoader] = useState(false);
 
@@ -47,6 +48,8 @@ export default function ServiceOne() {
     }
   };
 
+  const handleInfoOpenClose = () => setInfoOpen(false);
+
   return (
     <div className="flex items-center justify-center text-black pb-16">
       <main className="flex flex-col gap-8 max-w-7xl">
@@ -63,6 +66,16 @@ export default function ServiceOne() {
             documents ready before proceeding. If you encounter any difficulties
             or have questions, feel free to reach out to our support team for
             assistance.
+          </p>
+          <p>
+            ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}
+            <Button
+              variant="contained"
+              className="bg-blue-700"
+              onClick={() => setInfoOpen(true)}
+            >
+              Click here
+            </Button>
           </p>
           <div className="flex flex-col items-center justify-center gap-4">
             <h2 className="text-2xl text-start w-full font-semibold underline">
@@ -250,6 +263,75 @@ export default function ServiceOne() {
             variant="contained"
             className="w-full bg-blue-700 mt-6"
             onClick={handleClose}
+          >
+            Ok
+          </Button>
+        </div>
+      </ReusableModal>
+      <ReusableModal open={infoOpen} onClose={handleClose}>
+        <div className="flex flex-col items-center w-[1200px]">
+          <Typography id="modal-modal-title" variant="h5">
+            ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎች
+          </Typography>
+          <div className="flex">
+            <div>
+              <h2 className="text-lg font-semibold l text-slate-700">
+                ለኢንቨስትመንት
+              </h2>
+              <ul className="list-disc px-4">
+                <li>ከመሬት ልማት ማኔጅመንት ባለስልጣን ከእዳና እገዳ ነፃ (ክሊራንስ)</li>
+                <li>የኢንቨስትመነት ፍቃድና ፕሮፖዛል</li>
+                <li>ከክልሉ ካቢኔ የፀደቀበት ቃለ-ጉባዬ (አዲስ መሬት ሲሆን)</li>
+                <li>ካርታ እና የመሬት ልማት ቃለ-ጉባዬ (በራሱ ይዞታ ላይ ለሚያለማ)</li>
+                <li>የሊዝ ክፍያ ሪሲት ኮፒ</li>
+                <li>ግብር ሪሲት ኮፒ</li>
+                <li>የማንነት መታወቂያ ኮፒ</li>
+                <li>ውክልና ኮፒ(ባለቤቱ ካልሆነ)</li>
+                <li>-አካባቢ ተፅኖ ጥናት (E.IA)</li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold l text-slate-700">ለግል ቤት</h2>
+              <ul className="list-disc px-4">
+                <li>ከመሬት ልማት ማኔጅመንት ባለሥልጣን ከእዳና እገዳ ነፃ (ኪሊራንስ)</li>
+                <li>ካርታ ፎቶ ኮፒ</li>
+                <li>ግብር ሪሲት ኮፒ</li>
+                <li>የማንነት መታወቂያ ኮፒ</li>
+                <li>ውክልና ኮፒ( ባለቤቱ ካልሆነ)</li>
+                <li>ግብር ሪሲት ኮፒ</li>
+                <li>የማንነት መታወቂያ ኮፒ</li>
+                <li>ጀጎል ከሆነ(የቅርስ ጥበቃ ደብዳቤ )</li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold l text-slate-700">
+                ለቀበሌ ቤት
+              </h2>
+              <ul className="list-disc px-4">
+                <li>ከሚኖሩበት ወረዳ ደብዳቤ</li>
+                <li>ቤት ኪራይ ከደብዳቤው ስም ጋር አንድ አይነት ኮፒ</li>
+                <li>የማንነት መታወቂያ ኮፒ</li>
+                <li>ውክልና ኮፒ(ባለቤቱ ካልሆነ)</li>
+                <li>ጀጎል ከሆነ(የቅርስ ጥበቃ ደብዳቤ )</li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold l text-slate-700">
+                ኪራይ ቤቶች
+              </h2>
+              <ul className="list-disc px-4">
+                <li>ከኪራይ ቤቶች ደብዳቤ</li>
+                <li>የቤት ኪራይ ሪሲት ኮፒ</li>
+                <li>ውል ኮፒ</li>
+                <li>-የማንነት የሚገልፅ መታወቂያ</li>
+              </ul>
+            </div>
+          </div>
+
+          <Button
+            variant="contained"
+            className="w-[100px] bg-blue-700 mt-6"
+            onClick={handleInfoOpenClose}
           >
             Ok
           </Button>
