@@ -11,11 +11,13 @@ export default function ServiceOne() {
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
+  const [submitLoader, setSubmitLoader] = useState(false);
 
   console.log(scannedImages);
   console.log(documentFile);
 
   const handleImport = async () => {
+    setSubmitLoader(true);
     if (documentFile && scannedImages) {
       const formData = new FormData();
       formData.append("file", documentFile);
@@ -33,9 +35,9 @@ export default function ServiceOne() {
         if (response.ok) {
           console.log("File uploaded successfully");
           setOpen(true);
-          // setTimeout(() => {
-          //   setOpen(false);
-          // }, 5000);
+          setDocumentFile(null);
+          setScannedImages(null);
+          setSubmitLoader(false);
         } else {
           console.error("File upload failed");
         }
@@ -227,7 +229,7 @@ export default function ServiceOne() {
             className="bg-blue-700"
             disabled={!documentFile || !scannedImages}
           >
-            Submit
+            {submitLoader ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </main>
