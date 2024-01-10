@@ -181,7 +181,7 @@ export default function ServiceOne() {
             </p>
           </div>
         </div>
-        <div className="flex w-full items-center justify-center gap-8">
+        <div className="flex flex-wrap w-full items-center justify-center gap-8">
           <Button variant="contained" className="bg-blue-700 ">
             <a
               download="ፕላን ስምምነት with Header with choosen item.docx"
