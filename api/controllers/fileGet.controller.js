@@ -149,48 +149,61 @@
 
 // export default getAllFiles;
 
-import FileModel from "../models/file.model.js";
-import fs from "fs";
+// import path from "path";
+// import fs from "fs";
+
+// const getUserFolders = (req, res) => {
+//   const uploadsPath = path.join(process.cwd(), "api/uploads");
+
+//   // Read all folders in the uploads directory
+//   fs.readdir(uploadsPath, (err, folders) => {
+//     if (err) {
+//       return res.status(500).json({ message: "Error fetching user folders" });
+//     }
+
+//     // Send the list of folders to the client
+//     res.status(200).json({ userFolders: folders });
+//   });
+// };
+
+// export default getUserFolders;
+
+// file: fileGet.controller.js
 import path from "path";
+import fs from "fs";
 import archiver from "archiver";
 
-const getAllFiles = async (req, res) => {
-  try {
-    const filesFromDB = await FileModel.find({}, { name: 1, path: 1, _id: 1 });
+const getUserFolders = (req, res) => {
+  const uploadsPath = path.join(process.cwd(), "api/uploads");
 
-    const zip = archiver("zip", { zlib: { level: 9 } });
+  // Read all folders in the uploads directory
+  fs.readdir(uploadsPath, (err, folders) => {
+    if (err) {
+      return res.status(500).json({ message: "Error fetching user folders" });
+    }
 
-    res.attachment("files.zip");
-    zip.pipe(res);
-
-    await Promise.all(
-      filesFromDB.map(async (file) => {
-        const userFolder = path.join(process.cwd(), "api/uploads", file.path);
-
-        const filesInFolder = fs.existsSync(userFolder)
-          ? fs.readdirSync(userFolder)
-          : [];
-
-        await Promise.all(
-          filesInFolder.map(async (fileName) => {
-            const filePath = path.join(userFolder, fileName);
-
-            // Read the file as a buffer
-            const fileContent = fs.readFileSync(filePath);
-
-            // Append the file content to the zip with a relative path
-            zip.append(fileContent, { name: fileName });
-          })
-        );
-      })
-    );
-
-    zip.finalize();
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching files", error: error.message });
-  }
+    // Send the list of folders to the client
+    res.status(200).json({ userFolders: folders });
+  });
 };
 
-export default getAllFiles;
+const downloadFolder = (req, res) => {
+  const folderName = req.params.folderName;
+  const folderPath = path.join(process.cwd(), "api/uploads", folderName);
+
+  // Create a ZIP archive
+  const archive = archiver("zip", {
+    zlib: { level: 9 }, // Compression level
+  });
+
+  // Pipe the archive to the response
+  archive.pipe(res);
+
+  // Add the folder to the archive
+  archive.directory(folderPath, folderName);
+
+  // Finalize the archive and send it to the client
+  archive.finalize();
+};
+
+export { getUserFolders, downloadFolder };
