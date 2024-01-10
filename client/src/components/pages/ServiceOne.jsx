@@ -269,16 +269,20 @@ export default function ServiceOne() {
         </div>
       </ReusableModal>
       <ReusableModal open={infoOpen} onClose={handleClose}>
-        <div className="flex flex-col items-center w-[1200px]">
-          <Typography id="modal-modal-title" variant="h5">
+        <div className="flex flex-col  items-center w-[1200px]">
+          <Typography
+            id="modal-modal-title"
+            className="mb-8  text-3xl"
+            variant="h5"
+          >
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎች
           </Typography>
-          <div className="flex">
+          <div className="flex gap-4">
             <div>
-              <h2 className="text-lg font-semibold l text-slate-700">
+              <h2 className="text-2xl font-semibold l text-slate-700">
                 ለኢንቨስትመንት
               </h2>
-              <ul className="list-disc px-4">
+              <ul className="list-disc px-4 text-lg">
                 <li>ከመሬት ልማት ማኔጅመንት ባለስልጣን ከእዳና እገዳ ነፃ (ክሊራንስ)</li>
                 <li>የኢንቨስትመነት ፍቃድና ፕሮፖዛል</li>
                 <li>ከክልሉ ካቢኔ የፀደቀበት ቃለ-ጉባዬ (አዲስ መሬት ሲሆን)</li>
@@ -291,8 +295,10 @@ export default function ServiceOne() {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg font-semibold l text-slate-700">ለግል ቤት</h2>
-              <ul className="list-disc px-4">
+              <h2 className="text-2xl font-semibold l text-slate-700">
+                ለግል ቤት
+              </h2>
+              <ul className="list-disc px-4 text-lg">
                 <li>ከመሬት ልማት ማኔጅመንት ባለሥልጣን ከእዳና እገዳ ነፃ (ኪሊራንስ)</li>
                 <li>ካርታ ፎቶ ኮፒ</li>
                 <li>ግብር ሪሲት ኮፒ</li>
@@ -304,10 +310,10 @@ export default function ServiceOne() {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg font-semibold l text-slate-700">
+              <h2 className="text-2xl font-semibold l text-slate-700">
                 ለቀበሌ ቤት
               </h2>
-              <ul className="list-disc px-4">
+              <ul className="list-disc px-4 text-lg">
                 <li>ከሚኖሩበት ወረዳ ደብዳቤ</li>
                 <li>ቤት ኪራይ ከደብዳቤው ስም ጋር አንድ አይነት ኮፒ</li>
                 <li>የማንነት መታወቂያ ኮፒ</li>
@@ -316,14 +322,14 @@ export default function ServiceOne() {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg font-semibold l text-slate-700">
+              <h2 className="text-2xl font-semibold l text-slate-700">
                 ኪራይ ቤቶች
               </h2>
-              <ul className="list-disc px-4">
+              <ul className="list-disc px-4 text-lg">
                 <li>ከኪራይ ቤቶች ደብዳቤ</li>
                 <li>የቤት ኪራይ ሪሲት ኮፒ</li>
                 <li>ውል ኮፒ</li>
-                <li>-የማንነት የሚገልፅ መታወቂያ</li>
+                <li>የማንነት የሚገልፅ መታወቂያ</li>
               </ul>
             </div>
           </div>
