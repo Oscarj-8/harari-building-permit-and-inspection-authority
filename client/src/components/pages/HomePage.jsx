@@ -30,7 +30,7 @@ export default function HomePage() {
         style={{
           backgroundImage: `url(${background})`,
           backgroundSize: "cover",
-          height: "calc(100vh - 5rem)",
+          height: "calc(100vh - 4rem)",
         }}
       >
         <div className="absolute inset-0 bg-blue-950 opacity-40 filter blur-lg"></div>
