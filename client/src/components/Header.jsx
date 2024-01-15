@@ -61,7 +61,7 @@ export default function Header() {
               </svg>
             </button>
           ) : (
-            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 items-center shadow-2xl">
+            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 items-center shadow-2xl pb-12">
               <button
                 onClick={toggleMenu}
                 className="block focus:outline-none self-end"
