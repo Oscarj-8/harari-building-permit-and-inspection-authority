@@ -46,7 +46,7 @@ export default function Header() {
           {!showMenu ? (
             <button onClick={toggleMenu} className="block focus:outline-none">
               <svg
-                className="h-6 w-6"
+                className="h-9 w-9"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -67,7 +67,7 @@ export default function Header() {
                 className="block focus:outline-none self-end"
               >
                 <svg
-                  className="h-6 w-6"
+                  className="h-8 w-8"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
