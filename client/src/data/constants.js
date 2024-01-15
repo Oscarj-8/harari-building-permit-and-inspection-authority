@@ -30,3 +30,7 @@ export const services = [
     footer: "4",
   },
 ];
+
+export const about = {
+  text: "Welcome to Harari building permit and inspection authority, your trusted partner in ensuring a seamless and compliant construction process. We specialize in Plan Consent, where we carefully review and approve your project plans. Our Design Evaluation and Building Permit services streamline the authorization process, ensuring that your designs align with regulatory standards. With Building Inspection, we guarantee that construction adheres to safety and quality standards, culminating in the issuance of an Occupancy Permit. At [Government Organization Name], we pride ourselves on our commitment to Construction Regulatory measures, working diligently to create a built environment that is not only aesthetically pleasing but also safe and compliant. Trust us to navigate the complexities of construction regulations and make your vision a reality.",
+};

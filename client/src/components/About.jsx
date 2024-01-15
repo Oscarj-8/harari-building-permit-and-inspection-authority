@@ -1,29 +1,12 @@
+import { about } from "../data/constants";
+
 export default function About() {
   return (
     <div className="flex items-center justify-center">
       <div className="flex  max-w-[1500px] gap-12 ">
         <div className="flex-1 flex flex-col gap-6">
           <h1 className="text-slate-700 font-semibold text-5xl">About Us</h1>
-          <p className="text-slate-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Necessitatibus id quidem ut saepe nam, maiores ducimus deserunt
-            blanditiis illo numquam exercitationem sequi, mollitia officiis
-            error minus dolorum cupiditate eius velit? Lorem ipsum dolor sit
-            amet consectetur, adipisicing elit. Necessitatibus id quidem ut
-            saepe nam, maiores ducimus deserunt blanditiis illo numquam
-            exercitationem sequi, mollitia officiis error minus dolorum
-            cupiditate eius velit? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Necessitatibus id quidem ut saepe nam, maiores
-            ducimus deserunt blanditiis illo numquam exercitationem sequi,
-            mollitia us dolorum cupiditate eius velit? Lorem ipsum dolor sit
-            amet consectetur, adipisicing elit. Necessitatibus id quidem ut
-            saepe nam, maiores ducimus deserunt blanditiis illo numquam
-            exercitationem sequi, mollitia officiis error minus dolorum
-            cupiditate eius velit? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Necessitatibus id quidem ut saepe nam, maiores
-            ducimus deserunt blanditiis illo numquam exercitationem sequi,
-            officiis error minus dolorum cupiditate eius velit?
-          </p>
+          <p className="text-slate-600">{about.text}</p>
         </div>
         <div className=" flex-1 max-w-lg flex items-center justify-end">
           <img
