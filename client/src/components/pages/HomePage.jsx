@@ -53,7 +53,7 @@ export default function HomePage() {
               className="flex items-end justify-between gap-4"
               style={{ fontFamily: "Roboto, sans-serif" }}
             >
-              <h2 className="text-2xl text-zinc-700">
+              <h2 className="text-xl text-zinc-700">
                 What service are you looking for?
               </h2>
 
