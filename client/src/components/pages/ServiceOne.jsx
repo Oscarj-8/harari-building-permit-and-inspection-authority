@@ -51,7 +51,7 @@ export default function ServiceOne() {
   const handleInfoOpenClose = () => setInfoOpen(false);
 
   return (
-    <div className="flex items-center justify-center text-black pb-16">
+    <div className="flex items-center justify-center text-black p-4">
       <main className="flex flex-col gap-8 max-w-7xl">
         <div className=" text-lg ">
           <h1 className="text-center font-bold text-2xl my-7">
@@ -194,15 +194,17 @@ export default function ServiceOne() {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap w-full items-center justify-center gap-8">
-          <Button variant="contained" className="bg-blue-700 ">
-            <a
-              download="ፕላን ስምምነት with Header with choosen item.docx"
-              href={planFile}
-            >
-              Click here to Download the file
-            </a>
-          </Button>
+        <div className="flex flex-col md:flex-row flex-wrap w-full items-center justify-center gap-8 pb-12">
+          <div>
+            <Button variant="contained" className="w-[300px] bg-blue-700">
+              <a
+                download="ፕላን ስምምነት with Header with choosen item.docx"
+                href={planFile}
+              >
+                Download file
+              </a>
+            </Button>
+          </div>
           <div id="scannedImages" className="">
             <input
               type="file"
@@ -215,9 +217,9 @@ export default function ServiceOne() {
             <Button
               variant="contained"
               onClick={() => scannedImagesRef.current.click()}
-              className="bg-blue-700"
+              className="bg-blue-700 w-[300px]"
             >
-              Click here to import Scanned images
+              import Scanned images
             </Button>
           </div>
           <div id="docFile" className="">
@@ -231,19 +233,21 @@ export default function ServiceOne() {
             <Button
               variant="contained"
               onClick={() => fileRef.current.click()}
-              className="bg-blue-700"
+              className="bg-blue-700 w-[300px]"
             >
-              Click here to import the file
+              import the file
             </Button>
           </div>
-          <Button
-            variant="contained"
-            onClick={handleImport}
-            className="bg-blue-700"
-            disabled={!documentFile || !scannedImages}
-          >
-            {submitLoader ? "Submitting..." : "Submit"}
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              onClick={handleImport}
+              className="bg-blue-700 w-[300px]"
+              disabled={!documentFile || !scannedImages}
+            >
+              {submitLoader ? "Submitting..." : "Submit"}
+            </Button>
+          </div>
         </div>
       </main>
       <ReusableModal open={open} onClose={handleClose}>
