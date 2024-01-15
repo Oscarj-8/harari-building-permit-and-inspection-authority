@@ -82,16 +82,27 @@ export default function Header() {
                 </svg>
               </button>
               <Link to="/">
-                <span className="hover:underline cursor-pointer">Home</span>
+                <span
+                  className="hover:underline cursor-pointer"
+                  onClick={toggleMenu}
+                >
+                  Home
+                </span>
               </Link>
               <Link to="/admin-page">
-                <span className="hover:underline cursor-pointer">Admin</span>
+                <span
+                  className="hover:underline cursor-pointer"
+                  onClick={toggleMenu}
+                >
+                  Admin
+                </span>
               </Link>
               <ScrollLink
                 className="hover:cursor-pointer"
                 to="services"
                 smooth={true}
                 duration={2000}
+                onClick={toggleMenu}
               >
                 <span className="hover:underline cursor-pointer">Services</span>
               </ScrollLink>
@@ -100,6 +111,7 @@ export default function Header() {
                 to="about"
                 smooth={true}
                 duration={2000}
+                onClick={toggleMenu}
               >
                 <span className="hover:underline cursor-pointer">About us</span>
               </ScrollLink>
