@@ -10,8 +10,8 @@ export default function Header() {
   };
 
   return (
-    <header className="relative z-10 bg-slate-200 border p-5 shadow-md">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
+    <header className="relative z-10 bg-slate-200 border p-4 shadow-md">
+      <div className="flex justify-between items-center max-w-7xl gap-16 mx-auto">
         <span className="text-slate-700 text-lg">
           <Link to="/">
             <span className="text-3xl font-black">Harari </span>
