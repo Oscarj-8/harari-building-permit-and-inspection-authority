@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import adminAuthRouter from "./routes/adminAuth.route.js";
-import adminPageRouter from "./routes/admin.route.js";
+import adminRoutes from "./routes/admin.route.js";
 import fileUploadRoutes from "./routes/fileUpload.route.js";
 import fileGetRoutes from "./routes/fileGet.route.js";
 // import downloadRoute from "./routes/download.route.js";
@@ -32,7 +32,8 @@ app.use(cookieParser());
 app.use("/api", fileUploadRoutes);
 app.use("/api", fileGetRoutes);
 app.use("/api/auth", adminAuthRouter);
-app.use(adminPageRouter);
+app.use("/admin", adminRoutes);
+
 // app.use("/api", downloadRoute);
 
 app.listen(3000, () => {

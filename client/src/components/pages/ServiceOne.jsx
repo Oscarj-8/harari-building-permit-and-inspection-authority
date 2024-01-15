@@ -256,7 +256,7 @@ export default function ServiceOne() {
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
-            You have successfully Uploaded and sent the request, we will get in
+            You have successfully uploaded and sent the request, we will get in
             touch with in a few days
           </Typography>
           <Button

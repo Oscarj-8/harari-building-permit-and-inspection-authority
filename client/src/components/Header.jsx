@@ -187,6 +187,9 @@ export default function Header() {
           <Link to="/admin-page">
             <span className="hover:underline cursor-pointer">Admin</span>
           </Link>
+          <Link to="/admin-page">
+            <li className="hover:underline">Admin</li>
+          </Link>
           <ScrollLink
             className="hover:cursor-pointer"
             to="services"
