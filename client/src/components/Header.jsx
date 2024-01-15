@@ -10,7 +10,7 @@ export default function Header() {
   };
 
   return (
-    <header className="relative h-20 z-10 bg-slate-200 border p-5 shadow-md">
+    <header className="relative z-10 bg-slate-200 border p-5 shadow-md">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <span className="text-slate-700 text-lg">
           <Link to="/">
@@ -61,7 +61,7 @@ export default function Header() {
               </svg>
             </button>
           ) : (
-            <div className="flex flex-col gap-6 p-4 absolute top-0 right-0 bg-blue-700 text-white font-bold w-2/3 items-center shadow-2xl">
+            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 items-center shadow-2xl">
               <button
                 onClick={toggleMenu}
                 className="block focus:outline-none self-end"
