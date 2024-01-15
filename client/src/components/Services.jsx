@@ -11,7 +11,7 @@ Card.Bottom = styled.div``;
 const AnimatedCard = styled(Card)`
   opacity: 0;
   transform: translateY(500px);
-  transition: opacity 3s ease-out, transform 3s ease-out;
+  transition: opacity 2s ease-out, transform 2s ease-out;
 
   &.fade-in {
     opacity: 1;
