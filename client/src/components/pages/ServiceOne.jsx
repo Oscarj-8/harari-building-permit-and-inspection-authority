@@ -269,7 +269,7 @@ export default function ServiceOne() {
         </div>
       </ReusableModal>
       <ReusableModal open={infoOpen} onClose={handleClose}>
-        <div className="flex flex-col items-center max-w-[1200px]">
+        <div className="flex flex-col min-w-[335px] items-center lg:w-[1000px] xl:w-[1280px] 2xl:w-[1400px] ">
           <Typography
             id="modal-modal-title"
             className="mb-8  text-3xl"
@@ -277,7 +277,7 @@ export default function ServiceOne() {
           >
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎች
           </Typography>
-          <div className="flex bg-slate-500 flex-col  gap-4 overflow-y-auto h-[400px] lg:flex-row  ">
+          <div className="flex flex-col gap-4 overflow-y-auto h-[400px] lg:flex-row">
             <div>
               <h2 className="text-2xl font-semibold l text-slate-700">
                 ለኢንቨስትመንት
