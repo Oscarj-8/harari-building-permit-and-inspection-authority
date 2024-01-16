@@ -21,7 +21,7 @@ const router = express.Router();
 
 router.get("/admin-page", (req, res) => {
   // Send the AdminPage HTML file or handle rendering logic here
-  res.sendFile(path.join(__dirname, "../public/admin-page.html"));
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 export default router;
