@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
-import planFile from "../../../public/documents/ፕላን ስምምነት with Header with choosen item.docx";
+import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
 
 export default function ServiceOne() {
   const fileRef = useRef(null);
