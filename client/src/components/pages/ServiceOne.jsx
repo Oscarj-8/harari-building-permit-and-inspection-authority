@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
+import { planConsent } from "../../data/constants";
 import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
 
 export default function ServiceOne() {
@@ -55,18 +56,9 @@ export default function ServiceOne() {
       <main className="flex flex-col gap-8 max-w-7xl">
         <div className=" text-lg ">
           <h1 className="text-center font-bold text-2xl my-7">
-            Welcome to Plan Consent service page
+            {planConsent[0].header}
           </h1>
-          <p className="text-start">
-            Welcome to our Planning Consent Request Service! We understand that
-            obtaining planning consent is a crucial step in your project, and
-            we&apos;re here to make the process as seamless as possible. To
-            initiate your planning consent request, follow the step-by-step
-            guide below. Please ensure you have all necessary information and
-            documents ready before proceeding. If you encounter any difficulties
-            or have questions, feel free to reach out to our support team for
-            assistance.
-          </p>
+          <p className="text-start">{planConsent[0].intro}</p>
           <p>
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}
             <Button
