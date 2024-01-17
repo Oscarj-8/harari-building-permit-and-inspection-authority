@@ -1,27 +1,9 @@
-// import express from "express";
+import express from "express";
+import { verifyToken } from "../utils/verifyAdmin.js";
+import { updateAdmin } from "../controllers/admin.controller.js";
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.get("/admin-page");
+router.post("/update/:id", verifyToken, updateAdmin);
 
-// export default router;
-// Assuming this is your server-side route in admin.route.js
-// import express from "express";
-
-// const router = express.Router();
-
-// router.get("/admin-page");
-
-// export default router;
-
-// import express from "express";
-// import path from "path";
-
-// const router = express.Router();
-
-// router.get("/admin-page", (req, res) => {
-//   // Send the AdminPage HTML file or handle rendering logic here
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
-
-// export default router;
+export default router;

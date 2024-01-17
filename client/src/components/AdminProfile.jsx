@@ -3,14 +3,23 @@ import {
   signOutStart,
   signOutFailure,
   signOutSuccess,
+  updateAdminFailure,
+  updateAdminSuccess,
+  updateAdminStart,
 } from "../redux/admin/adminSlice.js";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-export default function Profile() {
+export default function AdminProfile() {
   const { currentAdmin, loading, error } = useSelector((state) => state.admin);
-
+  console.log(currentAdmin._id);
   const dispatch = useDispatch();
+  const [adminInfo, setAdminInfo] = useState({});
+  const [adminUpdated, setAdminUpdated] = useState(false);
+
+  const handleChange = (e) => {
+    setAdminInfo({ ...adminInfo, [e.target.id]: e.target.value });
+  };
 
   const handleSignOut = async () => {
     try {
@@ -28,17 +37,41 @@ export default function Profile() {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateAdminStart());
+      const res = await fetch(`/api/admin/update/${currentAdmin._id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(adminInfo),
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(updateAdminFailure(data.message));
+        return;
+      }
+
+      dispatch(updateAdminSuccess(data));
+      setAdminUpdated(true);
+    } catch (error) {
+      dispatch(updateAdminFailure(error.message));
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-center text-3xl font-semibold my-7">Profile</h1>
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <img
           className="rounded-full w-24 
           self-center
           mt-2
           hover:cursor-pointer
           "
-          src={currentAdmin.avatar}
+          src="https://cdn-icons-png.flaticon.com/512/560/560199.png"
         />
         <input
           type="text"
@@ -46,6 +79,7 @@ export default function Profile() {
           placeholder="username"
           className="border p-3 rounded-lg placeholder:text-slate-700"
           id="username"
+          onChange={handleChange}
         />
         <input
           type="email"
@@ -53,12 +87,14 @@ export default function Profile() {
           placeholder="email"
           className="border p-3 rounded-lg placeholder:text-slate-700"
           id="email"
+          onChange={handleChange}
         />
         <input
           type="password"
           placeholder="password"
           className="border p-3 rounded-lg placeholder:text-slate-700"
           id="password"
+          onChange={handleChange}
         />
         <button
           className="bg-slate-700 
@@ -73,13 +109,6 @@ export default function Profile() {
         >
           {loading ? "Loading..." : "Update"}
         </button>
-        <Link
-          to={"/create-listing"}
-          className="bg-green-700 text-white text-center p-3 rounded-lg uppercase hover:opacity-90
-        "
-        >
-          Create Listing
-        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span className="text-red-700 cursor-pointer">Delete account</span>
@@ -87,6 +116,10 @@ export default function Profile() {
           Sign out
         </span>
       </div>
+      <p className="text-red-700 text-center">{error ? error : ""}</p>
+      <p className="text-green-700 text-center">
+        {adminUpdated ? "User is updated successfully" : ""}
+      </p>
     </div>
   );
 }

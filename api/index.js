@@ -4,10 +4,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import adminAuthRouter from "./routes/adminAuth.route.js";
-// import adminRoutes from "./routes/admin.route.js";
+import adminRouter from "./routes/admin.route.js";
 import fileUploadRoutes from "./routes/fileUpload.route.js";
 import fileGetRoutes from "./routes/fileGet.route.js";
-// import downloadRoute from "./routes/download.route.js";
 import path from "path";
 
 dotenv.config();
@@ -31,20 +30,14 @@ app.use(cookieParser());
 
 app.use("/api", fileUploadRoutes);
 app.use("/api", fileGetRoutes);
+app.use("/api/admin", adminRouter);
 app.use("/api/auth", adminAuthRouter);
-// app.use("/admin", adminRoutes);
-
-// app.use("/api", downloadRoute);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/dist", "index.html"));
