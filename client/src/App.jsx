@@ -9,6 +9,7 @@ import SignIn from "./components/pages/SignIn";
 import AdminPage from "./components/pages/AdminPage";
 import PrivateRoute from "./components/PrivateRoute";
 import HeaderContainer from "./components/HeaderContainer";
+import AdminProfile from "./components/AdminProfile";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/service-three" element={<ServiceThree />} />
         <Route path="/service-four" element={<ServiceFour />} />
         <Route element={<PrivateRoute />}>
+          <Route path="/admin-profile" element={<AdminProfile />} />
           <Route path="/admin-page" element={<AdminPage />} />
         </Route>
       </Routes>
