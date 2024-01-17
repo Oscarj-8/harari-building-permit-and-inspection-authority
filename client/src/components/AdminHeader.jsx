@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 
 export default function AdminHeader() {
+  const { currentAdmin } = useSelector((state) => state.admin);
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -23,6 +25,19 @@ export default function AdminHeader() {
           </Link>
           <Link to="/admin-page">
             <span className="hover:underline cursor-pointer">Admin</span>
+          </Link>
+          <Link to="/admin-profile">
+            {currentAdmin ? (
+              <img
+                className="rounded-full w-8 object-cover"
+                src={currentAdmin.avatar}
+                alt="profile"
+              />
+            ) : (
+              <li className="sm:inline text-slate-700 hover:underline cursor-pointer">
+                Sign in
+              </li>
+            )}
           </Link>
         </div>
         <div className="flex items-center sm:hidden">
@@ -79,6 +94,19 @@ export default function AdminHeader() {
                 >
                   Admin
                 </span>
+              </Link>
+              <Link to="/admin-profile">
+                {currentAdmin ? (
+                  <img
+                    className="rounded-full w-8 object-cover"
+                    src={currentAdmin.avatar}
+                    alt="profile"
+                  />
+                ) : (
+                  <li className="sm:inline text-slate-700 hover:underline cursor-pointer">
+                    Sign in
+                  </li>
+                )}
               </Link>
             </div>
           )}

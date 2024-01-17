@@ -8,7 +8,10 @@ const HeaderContainer = () => {
   const [isAdminPage, setIsAdminPage] = useState(false);
 
   useEffect(() => {
-    setIsAdminPage(location.pathname === "/admin-page");
+    const isAdminPath =
+      location.pathname === "/admin-page" ||
+      location.pathname === "/admin-profile";
+    setIsAdminPage(isAdminPath);
   }, [location.pathname]);
 
   return isAdminPage ? <AdminHeader /> : <Header />;
