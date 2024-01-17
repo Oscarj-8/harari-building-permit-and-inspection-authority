@@ -24,8 +24,8 @@ export default function App() {
         <Route path="/service-three" element={<ServiceThree />} />
         <Route path="/service-four" element={<ServiceFour />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/admin-profile" element={<AdminProfile />} />
           <Route path="/admin-page" element={<AdminPage />} />
+          <Route path="/admin-profile" element={<AdminProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>

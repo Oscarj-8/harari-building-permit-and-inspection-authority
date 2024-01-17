@@ -19,7 +19,7 @@ export default function AdminHeader() {
           </Link>
           building permit and inspection authority
         </span>
-        <div className="hidden sm:flex gap-6">
+        <div className="hidden sm:flex gap-6 items-center">
           <Link to="/">
             <span className="hover:underline cursor-pointer">Home</span>
           </Link>
@@ -27,17 +27,11 @@ export default function AdminHeader() {
             <span className="hover:underline cursor-pointer">Admin</span>
           </Link>
           <Link to="/admin-profile">
-            {currentAdmin ? (
-              <img
-                className="rounded-full w-8 object-cover"
-                src={currentAdmin.avatar}
-                alt="profile"
-              />
-            ) : (
-              <li className="sm:inline text-slate-700 hover:underline cursor-pointer">
-                Sign in
-              </li>
-            )}
+            <img
+              className="rounded-full w-10 object-cover"
+              src="https://cdn-icons-png.flaticon.com/512/560/560199.png"
+              alt="profile"
+            />
           </Link>
         </div>
         <div className="flex items-center sm:hidden">
