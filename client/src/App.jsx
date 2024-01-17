@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
 import HomePage from "./components/pages/HomePage";
 import ServiceOne from "./components/pages/ServiceOne";
 import ServiceTwo from "./components/pages/ServiceTwo";
@@ -9,11 +8,12 @@ import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
 import AdminPage from "./components/pages/AdminPage";
 import PrivateRoute from "./components/PrivateRoute";
+import HeaderContainer from "./components/HeaderContainer";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
+      <HeaderContainer />
       <Routes>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
