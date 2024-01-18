@@ -15,9 +15,6 @@ export default function ServiceOne() {
   const handleClose = () => setOpen(false);
   const [submitLoader, setSubmitLoader] = useState(false);
 
-  console.log(scannedImages);
-  console.log(documentFile);
-
   const handleImport = async () => {
     setSubmitLoader(true);
     if (documentFile && scannedImages) {

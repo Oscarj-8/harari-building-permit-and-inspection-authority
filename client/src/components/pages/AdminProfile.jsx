@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import { Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {
   signOutStart,
   signOutFailure,
@@ -12,13 +14,15 @@ import {
 } from "../../redux/admin/adminSlice.js";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import ReusableModal from "../ReusableModal";
 
 export default function AdminProfile() {
   const { currentAdmin, loading, error } = useSelector((state) => state.admin);
-  console.log(currentAdmin._id);
   const dispatch = useDispatch();
   const [adminInfo, setAdminInfo] = useState({});
   const [adminUpdated, setAdminUpdated] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const handleDeleteClose = () => setDeleteOpen(false);
 
   const handleChange = (e) => {
     setAdminInfo({ ...adminInfo, [e.target.id]: e.target.value });
@@ -134,7 +138,7 @@ export default function AdminProfile() {
       <div className="flex justify-between mt-5">
         <span
           className="text-red-700 cursor-pointer"
-          onClick={handleDeleteUser}
+          onClick={() => setDeleteOpen(true)}
         >
           Delete account
         </span>
@@ -146,6 +150,31 @@ export default function AdminProfile() {
       <p className="text-green-700 text-center">
         {adminUpdated ? "Admin is updated successfully" : ""}
       </p>
+      <ReusableModal open={deleteOpen} onClose={handleDeleteClose}>
+        <Typography
+          className="text-slate-900 text-xl text-center"
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+        >
+          Are you sure you want to delete this admin account?
+        </Typography>
+        <div className="flex gap-8">
+          <Button
+            variant="contained"
+            className="w-full bg-red-700 mt-6"
+            onClick={handleDeleteUser}
+          >
+            DELETE
+          </Button>
+          <Button
+            variant="contained"
+            className="w-full bg-blue-700 mt-6"
+            onClick={() => setDeleteOpen(false)}
+          >
+            CANCEL
+          </Button>
+        </div>
+      </ReusableModal>
     </div>
   );
 }
