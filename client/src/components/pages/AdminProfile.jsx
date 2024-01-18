@@ -157,7 +157,7 @@ export default function AdminProfile() {
       <ReusableModal open={deleteOpen} onClose={handleDeleteClose}>
         <div className="min-w-[300px] max-w-[500px]">
           <Typography
-            className="text-slate-900 text-xl text-center flex flex-col"
+            className="text-slate-900 text-xl text-center flex flex-col m-0"
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
@@ -188,7 +188,7 @@ export default function AdminProfile() {
       <ReusableModal open={signOutOpen} onClose={handleSignOutClose}>
         <div className="w-[300px] md:w-auto">
           <Typography
-            className="text-slate-900 text-lg text-center w-full"
+            className="text-slate-900 text-lg text-center w-full m-0"
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
