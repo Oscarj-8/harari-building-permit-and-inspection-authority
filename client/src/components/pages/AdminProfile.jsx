@@ -156,32 +156,34 @@ export default function AdminProfile() {
         {adminUpdated ? "Admin is updated successfully" : ""}
       </p>
       <ReusableModal open={deleteOpen} onClose={handleDeleteClose}>
-        <Typography
-          className="text-slate-900 text-xl text-center flex flex-col"
-          id="modal-modal-description"
-          sx={{ mt: 2 }}
-        >
-          Are you sure you want to delete this admin account?
-          <span className="text-sm text-red-700">
-            * Please note that deleting your account is a permanent action and
-            cannot be undone.
-          </span>
-        </Typography>
-        <div className="flex flex-col md:flex-row md:gap-8">
-          <Button
-            variant="contained"
-            className="w-full bg-red-700 mt-6"
-            onClick={handleDeleteUser}
+        <div className="min-w-[300px] max-w-[500px]">
+          <Typography
+            className="text-slate-900 text-xl text-center flex flex-col"
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
           >
-            DELETE
-          </Button>
-          <Button
-            variant="contained"
-            className="w-full bg-blue-700 mt-6"
-            onClick={() => setDeleteOpen(false)}
-          >
-            CANCEL
-          </Button>
+            Are you sure you want to delete this admin account?
+            <span className="text-sm text-red-700">
+              * Please note that deleting your account is a permanent action and
+              cannot be undone.
+            </span>
+          </Typography>
+          <div className="flex flex-col md:flex-row md:gap-8">
+            <Button
+              variant="contained"
+              className="w-full bg-red-700 mt-6"
+              onClick={handleDeleteUser}
+            >
+              DELETE
+            </Button>
+            <Button
+              variant="contained"
+              className="w-full bg-blue-700 mt-6"
+              onClick={() => setDeleteOpen(false)}
+            >
+              CANCEL
+            </Button>
+          </div>
         </div>
       </ReusableModal>
       <ReusableModal
