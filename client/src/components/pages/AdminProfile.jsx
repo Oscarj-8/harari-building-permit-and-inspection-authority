@@ -58,7 +58,6 @@ export default function AdminProfile() {
         return;
       }
       dispatch(signOutSuccess(data));
-      // navigate("/sign-in");
     } catch (error) {
       dispatch(signOutFailure(error.message));
     }
@@ -186,11 +185,7 @@ export default function AdminProfile() {
           </div>
         </div>
       </ReusableModal>
-      <ReusableModal
-        className="bg-red-500 w-full"
-        open={signOutOpen}
-        onClose={handleSignOutClose}
-      >
+      <ReusableModal open={signOutOpen} onClose={handleSignOutClose}>
         <div className="w-[300px] md:w-auto">
           <Typography
             className="text-slate-900 text-lg text-center w-full"

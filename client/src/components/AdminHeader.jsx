@@ -28,7 +28,9 @@ export default function AdminHeader() {
           </Link>
           <Link to="/admin-profile">
             <img
-              className="rounded-full w-10 object-cover"
+              className="rounded-full w-10 object-cover
+              
+              "
               src="https://cdn-icons-png.flaticon.com/512/560/560199.png"
               alt="profile"
             />
@@ -95,6 +97,7 @@ export default function AdminHeader() {
                     className="rounded-full w-8 object-cover"
                     src={currentAdmin.avatar}
                     alt="profile"
+                    onClick={toggleMenu}
                   />
                 ) : (
                   <li className="sm:inline text-slate-700 hover:underline cursor-pointer">
