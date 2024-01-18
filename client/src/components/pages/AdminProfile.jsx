@@ -6,6 +6,9 @@ import {
   updateAdminFailure,
   updateAdminSuccess,
   updateAdminStart,
+  deleteAdminStart,
+  deleteAdminFailure,
+  deleteAdminSuccess,
 } from "../../redux/admin/adminSlice.js";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -19,6 +22,24 @@ export default function AdminProfile() {
 
   const handleChange = (e) => {
     setAdminInfo({ ...adminInfo, [e.target.id]: e.target.value });
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteAdminStart());
+      const res = await fetch(`/api/admin/delete/${currentAdmin._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(deleteAdminFailure(data.message));
+        return;
+      }
+      dispatch(deleteAdminSuccess(data));
+    } catch (error) {
+      dispatch(deleteAdminFailure(error.message));
+    }
   };
 
   const handleSignOut = async () => {
@@ -111,14 +132,19 @@ export default function AdminProfile() {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete account</span>
+        <span
+          className="text-red-700 cursor-pointer"
+          onClick={handleDeleteUser}
+        >
+          Delete account
+        </span>
         <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
           Sign out
         </span>
       </div>
       <p className="text-red-700 text-center">{error ? error : ""}</p>
       <p className="text-green-700 text-center">
-        {adminUpdated ? "User is updated successfully" : ""}
+        {adminUpdated ? "Admin is updated successfully" : ""}
       </p>
     </div>
   );

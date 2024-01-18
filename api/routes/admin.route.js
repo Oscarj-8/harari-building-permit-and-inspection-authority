@@ -1,9 +1,10 @@
 import express from "express";
 import { verifyToken } from "../utils/verifyAdmin.js";
-import { updateAdmin } from "../controllers/admin.controller.js";
+import { updateAdmin, deleteAdmin } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
 router.post("/update/:id", verifyToken, updateAdmin);
+router.delete("/delete/:id", verifyToken, deleteAdmin);
 
 export default router;
