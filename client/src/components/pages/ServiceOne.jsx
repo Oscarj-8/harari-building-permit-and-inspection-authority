@@ -240,7 +240,7 @@ export default function ServiceOne() {
         </div>
       </main>
       <ReusableModal open={open} onClose={handleClose}>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Confirmation
           </Typography>
@@ -254,7 +254,7 @@ export default function ServiceOne() {
           </Typography>
           <Button
             variant="contained"
-            className="w-full bg-blue-700 mt-6"
+            className="w-[100px] bg-blue-700 mt-6"
             onClick={handleClose}
           >
             Ok
