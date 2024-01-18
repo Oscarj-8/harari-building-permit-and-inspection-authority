@@ -22,6 +22,8 @@ export default function AdminProfile() {
   const [adminInfo, setAdminInfo] = useState({});
   const [adminUpdated, setAdminUpdated] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [signOutOpen, setSignOutOpen] = useState(false);
+  const handleSignOutClose = () => setSignOutOpen(false);
   const handleDeleteClose = () => setDeleteOpen(false);
 
   const handleChange = (e) => {
@@ -142,7 +144,10 @@ export default function AdminProfile() {
         >
           Delete account
         </span>
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+        <span
+          onClick={() => setSignOutOpen(true)}
+          className="text-red-700 cursor-pointer"
+        >
           Sign out
         </span>
       </div>
@@ -152,11 +157,15 @@ export default function AdminProfile() {
       </p>
       <ReusableModal open={deleteOpen} onClose={handleDeleteClose}>
         <Typography
-          className="text-slate-900 text-xl text-center"
+          className="text-slate-900 text-xl text-center flex flex-col"
           id="modal-modal-description"
           sx={{ mt: 2 }}
         >
           Are you sure you want to delete this admin account?
+          <span className="text-sm text-red-700">
+            * Please note that deleting your account is a permanent action and
+            cannot be undone.
+          </span>
         </Typography>
         <div className="flex flex-col md:flex-row md:gap-8">
           <Button
@@ -170,6 +179,31 @@ export default function AdminProfile() {
             variant="contained"
             className="w-full bg-blue-700 mt-6"
             onClick={() => setDeleteOpen(false)}
+          >
+            CANCEL
+          </Button>
+        </div>
+      </ReusableModal>
+      <ReusableModal open={signOutOpen} onClose={handleSignOutClose}>
+        <Typography
+          className="text-slate-900 text-xl text-center "
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+        >
+          Are you sure you want to sign out?
+        </Typography>
+        <div className="flex flex-col md:flex-row md:gap-8">
+          <Button
+            variant="contained"
+            className="w-full bg-red-700 mt-6"
+            onClick={handleSignOut}
+          >
+            SIGN OUT
+          </Button>
+          <Button
+            variant="contained"
+            className="w-full bg-blue-700 mt-6"
+            onClick={() => setSignOutOpen(false)}
           >
             CANCEL
           </Button>
