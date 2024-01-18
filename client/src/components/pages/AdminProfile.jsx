@@ -170,7 +170,7 @@ export default function AdminProfile() {
           <div className="flex flex-col md:flex-row md:gap-8">
             <Button
               variant="contained"
-              className="w-full bg-red-700 mt-6"
+              className="w-full bg-red-700 mt-6 hover:bg-red-900"
               onClick={handleDeleteUser}
             >
               DELETE
