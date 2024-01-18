@@ -9,7 +9,7 @@ import SignIn from "./components/pages/SignIn";
 import AdminPage from "./components/pages/AdminPage";
 import PrivateRoute from "./components/PrivateRoute";
 import HeaderContainer from "./components/HeaderContainer";
-import AdminProfile from "./components/AdminProfile";
+import AdminProfile from "./components/pages/AdminProfile";
 
 export default function App() {
   return (

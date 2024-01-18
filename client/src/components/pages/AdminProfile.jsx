@@ -6,7 +6,7 @@ import {
   updateAdminFailure,
   updateAdminSuccess,
   updateAdminStart,
-} from "../redux/admin/adminSlice.js";
+} from "../../redux/admin/adminSlice.js";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
