@@ -12,6 +12,7 @@ const style = {
   borderRadius: "0.5em",
   boxShadow: 24,
   p: 4,
+  outline: "none",
 };
 
 const ReusableModal = ({ open, onClose, children }) => {

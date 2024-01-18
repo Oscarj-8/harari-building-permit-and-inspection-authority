@@ -184,29 +184,35 @@ export default function AdminProfile() {
           </Button>
         </div>
       </ReusableModal>
-      <ReusableModal open={signOutOpen} onClose={handleSignOutClose}>
-        <Typography
-          className="text-slate-900 text-xl text-center "
-          id="modal-modal-description"
-          sx={{ mt: 2 }}
-        >
-          Are you sure you want to sign out?
-        </Typography>
-        <div className="flex flex-col md:flex-row md:gap-8">
-          <Button
-            variant="contained"
-            className="w-full bg-red-700 mt-6"
-            onClick={handleSignOut}
+      <ReusableModal
+        className="bg-red-500 w-full"
+        open={signOutOpen}
+        onClose={handleSignOutClose}
+      >
+        <div className="w-[300px] md:w-auto">
+          <Typography
+            className="text-slate-900 text-lg text-center w-full"
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
           >
-            SIGN OUT
-          </Button>
-          <Button
-            variant="contained"
-            className="w-full bg-blue-700 mt-6"
-            onClick={() => setSignOutOpen(false)}
-          >
-            CANCEL
-          </Button>
+            Are you sure you want to sign out?
+          </Typography>
+          <div className="flex flex-col justify-center md:flex-row md:gap-8 items-center">
+            <Button
+              variant="contained"
+              className="w-full bg-red-700 mt-6 hover:bg-red-900"
+              onClick={handleSignOut}
+            >
+              SIGN OUT
+            </Button>
+            <Button
+              variant="contained"
+              className="w-full bg-blue-700 mt-6"
+              onClick={() => setSignOutOpen(false)}
+            >
+              CANCEL
+            </Button>
+          </div>
         </div>
       </ReusableModal>
     </div>
