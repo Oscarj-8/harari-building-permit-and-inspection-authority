@@ -10,7 +10,10 @@ const HeaderContainer = () => {
   useEffect(() => {
     const isAdminPath =
       location.pathname === "/admin-page" ||
-      location.pathname === "/admin-profile";
+      location.pathname === "/admin-profile" ||
+      location.pathname === "/sign-in" ||
+      location.pathname === "/sign-up";
+
     setIsAdminPage(isAdminPath);
   }, [location.pathname]);
 
