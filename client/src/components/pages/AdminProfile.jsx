@@ -158,7 +158,7 @@ export default function AdminProfile() {
         >
           Are you sure you want to delete this admin account?
         </Typography>
-        <div className="flex gap-8">
+        <div className="flex flex-col md:flex-row md:gap-8">
           <Button
             variant="contained"
             className="w-full bg-red-700 mt-6"
