@@ -78,7 +78,7 @@ export default function ServiceOne() {
                 <li>
                   Click on the &quot;Download&quot; button to download the
                   document file that needs to be filled. The file is named
-                  &quot;AblazeLabsCV.docx.&quot;
+                  &quot;ፕላን ስምምነት.docx&quot;
                 </li>
               </div>
               <div>
