@@ -100,7 +100,7 @@ export default function AdminHeader() {
                     onClick={toggleMenu}
                   />
                 ) : (
-                  <li className="sm:inline text-slate-700 hover:underline cursor-pointer">
+                  <li className="sm:inline list-none hover:underline cursor-pointer text-white">
                     Sign in
                   </li>
                 )}
