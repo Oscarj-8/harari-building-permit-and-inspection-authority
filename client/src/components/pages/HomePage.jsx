@@ -34,7 +34,7 @@ export default function HomePage() {
         }}
       >
         <div className="absolute inset-0 bg-blue-950 opacity-40 filter blur-lg"></div>
-        <div className="z-10 flex flex-col items-center max-w-6xl mx-auto gap-5 mb-24">
+        <div className="z-0 flex flex-col items-center max-w-6xl mx-auto gap-5 mb-24">
           <span className="text-4xl text-center text-white " style={textStyle}>
             Build modern Harar keeping the values from the past
           </span>

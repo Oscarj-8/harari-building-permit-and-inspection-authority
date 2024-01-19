@@ -55,7 +55,7 @@ export default function AdminHeader() {
               </svg>
             </button>
           ) : (
-            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 items-center shadow-2xl pb-12">
+            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 h-screen items-center shadow-2xl pb-12">
               <button
                 onClick={toggleMenu}
                 className="block focus:outline-none self-end"
@@ -77,7 +77,7 @@ export default function AdminHeader() {
               </button>
               <Link to="/">
                 <span
-                  className="hover:underline cursor-pointer"
+                  className="hover:underline cursor-pointer text-xl font-normal"
                   onClick={toggleMenu}
                 >
                   Home
@@ -85,7 +85,7 @@ export default function AdminHeader() {
               </Link>
               <Link to="/admin-page">
                 <span
-                  className="hover:underline cursor-pointer"
+                  className="hover:underline cursor-pointer text-xl font-normal"
                   onClick={toggleMenu}
                 >
                   Admin
@@ -94,8 +94,8 @@ export default function AdminHeader() {
               <Link to="/admin-profile">
                 {currentAdmin ? (
                   <img
-                    className="rounded-full w-8 object-cover"
-                    src={currentAdmin.avatar}
+                    className="rounded-full w-10 object-cover"
+                    src="https://cdn-icons-png.flaticon.com/512/560/560199.png"
                     alt="profile"
                     onClick={toggleMenu}
                   />

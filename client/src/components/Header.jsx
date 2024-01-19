@@ -61,7 +61,7 @@ export default function Header() {
               </svg>
             </button>
           ) : (
-            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 items-center shadow-2xl pb-12">
+            <div className="flex flex-col gap-6 p-4 absolute top-[-1px] right-[-1px] bg-blue-700 text-white font-bold w-2/3 h-screen z-20 items-center shadow-2xl pb-12">
               <button
                 onClick={toggleMenu}
                 className="block focus:outline-none self-end"
@@ -83,7 +83,7 @@ export default function Header() {
               </button>
               <Link to="/">
                 <span
-                  className="hover:underline cursor-pointer"
+                  className="hover:underline cursor-pointer text-xl font-normal"
                   onClick={toggleMenu}
                 >
                   Home
@@ -91,7 +91,7 @@ export default function Header() {
               </Link>
               <Link to="/admin-page">
                 <span
-                  className="hover:underline cursor-pointer"
+                  className="hover:underline cursor-pointer text-xl font-normal"
                   onClick={toggleMenu}
                 >
                   Admin
@@ -104,7 +104,9 @@ export default function Header() {
                 duration={2000}
                 onClick={toggleMenu}
               >
-                <span className="hover:underline cursor-pointer">Services</span>
+                <span className="hover:underline cursor-pointer text-xl font-normal">
+                  Services
+                </span>
               </ScrollLink>
               <ScrollLink
                 className="hover:cursor-pointer"
@@ -113,7 +115,9 @@ export default function Header() {
                 duration={2000}
                 onClick={toggleMenu}
               >
-                <span className="hover:underline cursor-pointer">About us</span>
+                <span className="hover:underline cursor-pointer text-xl font-normal">
+                  About us
+                </span>
               </ScrollLink>
             </div>
           )}
