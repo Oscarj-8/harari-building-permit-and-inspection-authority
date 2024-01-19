@@ -35,23 +35,26 @@ const UserFoldersList = () => {
   };
 
   return (
-    <List className="flex flex-wrap gap-3 items-stretch">
-      {userFolders.map((folder, index) => (
-        <ListItem
-          key={index}
-          className="flex flex-col items-start border mx-4 max-w-md p-4 w-1/3 rounded-lg shadow-sm hover:shadow-lg "
-        >
-          <p>{folder}</p>
-          <Button
-            variant="contained"
-            className="bg-blue-700 mt-2"
-            onClick={() => handleDownloadFolder(folder)}
+    <div className="flex flex-col p-2">
+      <h1>Plan Consent Requests List</h1>
+      <List className="flex flex-wrap gap-3 items-stretch">
+        {userFolders.map((folder, index) => (
+          <ListItem
+            key={index}
+            className="flex flex-col items-start border mx-4 max-w-xs p-2 rounded-lg shadow-sm hover:shadow-lg "
           >
-            Download Folder
-          </Button>
-        </ListItem>
-      ))}
-    </List>
+            <p>{folder}</p>
+            <Button
+              variant="contained"
+              className="bg-blue-700 mt-2"
+              onClick={() => handleDownloadFolder(folder)}
+            >
+              Download Folder
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+    </div>
   );
 };
 
