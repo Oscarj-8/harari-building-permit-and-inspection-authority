@@ -36,7 +36,7 @@ export default function AdminPage() {
         </h1>
       </div>
       {navIsOpen && (
-        <div className="smd:inline-block bg-slate-200 p-2 shadow-xl">
+        <div className="bg-slate-200 p-2 shadow-xl max-w-[24em]">
           <ul className="flex flex-col gap-4 text-slate-700 ">
             <li>
               <a
@@ -74,7 +74,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      <div className="w-full bg-red-300 mt-[-em]">{selectedComponent}</div>
+      <div className="w-full mt-[-em]">{selectedComponent}</div>
     </div>
   );
 }
