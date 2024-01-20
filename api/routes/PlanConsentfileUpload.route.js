@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import fileUploadController from "../controllers/fileUpload.controller.js";
+import fileUploadController from "../controllers/PlanConsentfileUpload.controller.js";
 import ip from "ip";
 import fs from "fs";
 import path from "path";
@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post(
-  "/upload",
+  "/uploadplanconsent",
   upload.fields([{ name: "file", maxCount: 1 }, { name: "scannedImages" }]),
   fileUploadController
 );

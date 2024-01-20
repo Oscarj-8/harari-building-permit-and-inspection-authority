@@ -28,7 +28,7 @@ export default function ServiceOne() {
       }
       console.log(formData);
       try {
-        const response = await fetch("/api/upload", {
+        const response = await fetch("/api/uploadplanconsent", {
           method: "POST",
           body: formData,
         });
