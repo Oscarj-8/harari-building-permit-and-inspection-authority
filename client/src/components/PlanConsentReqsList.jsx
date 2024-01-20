@@ -36,21 +36,30 @@ const PlanConsentReqsList = () => {
 
   return (
     <div className="flex flex-col p-2">
-      <h1 className="text-lg underline">Plan Consent Requests List</h1>
+      <h1 className="text-lg underline p-1">Plan Consent Requests List</h1>
       <List className="flex flex-wrap gap-3 items-stretch">
         {userFolders.map((folder, index) => (
           <ListItem
             key={index}
-            className="flex flex-col items-start border mx-4 max-w-xs p-2 rounded-lg shadow-sm hover:shadow-lg "
+            className="flex flex-col items-start border max-w-md p-2 rounded-lg shadow-sm hover:shadow-lg "
           >
-            <p>{folder}</p>
-            <Button
-              variant="contained"
-              className="bg-blue-700 mt-2"
-              onClick={() => handleDownloadFolder(folder)}
-            >
-              Download Folder
-            </Button>
+            <>{folder}</>
+            <div className="flex items-center py-2 gap-4 w-full">
+              <Button
+                variant="contained"
+                className="bg-blue-700 hover:bg-blue-900"
+                onClick={() => handleDownloadFolder(folder)}
+              >
+                Download Folder
+              </Button>
+              <Button
+                variant="contained"
+                className="bg-red-700 hover:bg-red-900"
+                onClick={() => handleDownloadFolder(folder)}
+              >
+                Delete Folder
+              </Button>
+            </div>
           </ListItem>
         ))}
       </List>
