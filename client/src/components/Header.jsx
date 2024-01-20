@@ -20,7 +20,7 @@ export default function Header() {
           </Link>
           building permit and inspection authority
         </span>
-        <div className="hidden sm:flex gap-6">
+        <div className="hidden sm:flex gap-6 items-center">
           <Link to="/">
             <span className="hover:underline cursor-pointer">Home</span>
           </Link>
@@ -132,6 +132,17 @@ export default function Header() {
                   About us
                 </span>
               </ScrollLink>
+              {currentUser && (
+                <Link to="/user-profile">
+                  <img
+                    className="rounded-full w-10 object-cover
+              
+              "
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    alt="profile"
+                  />
+                </Link>
+              )}
             </div>
           )}
         </div>
