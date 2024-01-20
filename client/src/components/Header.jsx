@@ -1,9 +1,11 @@
 import { Link as ScrollLink } from "react-scroll";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -41,6 +43,17 @@ export default function Header() {
           >
             <span className="hover:underline cursor-pointer">About us</span>
           </ScrollLink>
+          {currentUser && (
+            <Link to="/user-profile">
+              <img
+                className="rounded-full w-10 object-cover
+              
+              "
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                alt="profile"
+              />
+            </Link>
+          )}
         </div>
         <div className="flex items-center sm:hidden">
           {!showMenu ? (

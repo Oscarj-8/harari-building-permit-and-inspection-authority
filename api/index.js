@@ -5,7 +5,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import adminAuthRouter from "./routes/adminAuth.route.js";
+import userAuthRouter from "./routes/userAuth.route.js";
 import adminRouter from "./routes/admin.route.js";
+import userRouter from "./routes/user.route.js";
 import planConsentfileUpload from "./routes/PlanConsentfileUpload.route.js";
 import planConsentFileGetRoutes from "./routes/PlanConsentfileGet.route.js";
 import path from "path";
@@ -42,7 +44,9 @@ app.use(cookieParser());
 app.use("/api", planConsentfileUpload);
 app.use("/api", planConsentFileGetRoutes);
 app.use("/api/admin", adminRouter);
+app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
+app.use("/api/user-auth", userAuthRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

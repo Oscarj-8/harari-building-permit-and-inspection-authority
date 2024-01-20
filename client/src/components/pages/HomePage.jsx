@@ -1,7 +1,8 @@
 import background from "../../assets/images/Background.jpg";
 import Modal from "../Modal";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Services from "../Services";
@@ -14,6 +15,9 @@ export default function HomePage() {
     fontFamily: "Montserrat, sans-serif",
   };
 
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -23,6 +27,17 @@ export default function HomePage() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleGetStarted = () => {
+    if (!currentUser) {
+      // If the user is not logged in, navigate to the /user-signin page
+      navigate("/user-sign-in");
+    } else {
+      // If the user is logged in, open the modal
+      openModal();
+    }
+  };
+
   return (
     <div className="flex flex-col gap-16 bg-gray-100">
       <main
@@ -40,7 +55,7 @@ export default function HomePage() {
           </span>
           <Button
             variant="contained"
-            onClick={openModal}
+            onClick={handleGetStarted}
             className="p-3 bg-blue-700 text-white rounded-lg shadow-lg border
           border-blue-700 hover:shadow-none hover:border hover:border-blue-700
           hover:bg-white hover:text-blue-700 font-medium px-5 "
