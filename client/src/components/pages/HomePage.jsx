@@ -30,10 +30,8 @@ export default function HomePage() {
 
   const handleGetStarted = () => {
     if (!currentUser) {
-      // If the user is not logged in, navigate to the /user-signin page
       navigate("/user-sign-in");
     } else {
-      // If the user is logged in, open the modal
       openModal();
     }
   };
@@ -60,7 +58,7 @@ export default function HomePage() {
           border-blue-700 hover:shadow-none hover:border hover:border-blue-700
           hover:bg-white hover:text-blue-700 font-medium px-5 "
           >
-            Lets get Started
+            {currentUser ? "Let's get Started" : "Sign in"}
           </Button>
 
           <Modal isOpen={isModalOpen}>

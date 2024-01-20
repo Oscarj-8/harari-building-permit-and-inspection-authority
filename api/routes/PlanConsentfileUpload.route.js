@@ -1,7 +1,6 @@
 import express from "express";
 import multer from "multer";
 import fileUploadController from "../controllers/PlanConsentfileUpload.controller.js";
-import ip from "ip";
 import fs from "fs";
 import path from "path";
 
@@ -9,11 +8,29 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const userIdentifier = ip.address();
+    //   const userIdentifier = ip.address();
+    //   const userFolder = path.join(
+    //     process.cwd(),
+    //     "api/planConsentFolder",
+    //     userIdentifier
+    //   );
+
+    //   if (!fs.existsSync(userFolder)) {
+    //     fs.mkdirSync(userFolder, { recursive: true });
+    //   }
+
+    //   cb(null, userFolder);
+    // },
+    const username = req.user.username;
+    const uniqueFolername = username + "-" + Math.round(Math.random() * 1e9);
+    if (!username) {
+      return cb(new Error("Username not provided in the request"));
+    }
+
     const userFolder = path.join(
       process.cwd(),
       "api/planConsentFolder",
-      userIdentifier
+      uniqueFolername
     );
 
     if (!fs.existsSync(userFolder)) {
