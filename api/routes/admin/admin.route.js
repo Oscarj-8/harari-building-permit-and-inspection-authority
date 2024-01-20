@@ -3,7 +3,7 @@ import { verifyToken } from "../../utils/verifyAdmin.js";
 import {
   updateAdmin,
   deleteAdmin,
-} from "../../controllers/admin.controller.js";
+} from "../../controllers/admin/admin.controller.js";
 
 const router = express.Router();
 

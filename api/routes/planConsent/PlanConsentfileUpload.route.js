@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import fileUploadController from "../controllers/PlanConsentfileUpload.controller.js";
+import fileUploadController from "../../controllers/planConsent/PlanConsentfileUpload.controller.js";
 import fs from "fs";
 import path from "path";
 

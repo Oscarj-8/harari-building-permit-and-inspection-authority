@@ -1,4 +1,4 @@
-import FileModel from "../models/file.model.js";
+import FileModel from "../../models/file.model.js";
 import path from "path";
 import fs from "fs";
 
