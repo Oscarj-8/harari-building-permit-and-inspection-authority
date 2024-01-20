@@ -1,4 +1,3 @@
-// import FileList from "../FileList";
 import { useState } from "react";
 import UserFoldersList from "../UserFoldersList";
 
@@ -45,7 +44,6 @@ export default function AdminPage() {
 
       <div className="w-full">
         <h1 className="text-center text-2xl text-slate-700 my-7">Files List</h1>
-        {/* <FileList /> */}
         <UserFoldersList />
       </div>
     </div>
