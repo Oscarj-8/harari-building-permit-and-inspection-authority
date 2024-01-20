@@ -3,7 +3,7 @@ import {
   signup,
   signin,
   signout,
-} from "../controllers/adminAuth.controller.js";
+} from "../../controllers/adminAuth.controller.js";
 
 const router = express.Router();
 

@@ -1,6 +1,9 @@
 import express from "express";
-import { verifyToken } from "../utils/verifyAdmin.js";
-import { updateAdmin, deleteAdmin } from "../controllers/admin.controller.js";
+import { verifyToken } from "../../utils/verifyAdmin.js";
+import {
+  updateAdmin,
+  deleteAdmin,
+} from "../../controllers/admin.controller.js";
 
 const router = express.Router();
 
