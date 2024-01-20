@@ -1,9 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import adminReducer from "./admin/adminSlice";
+import userReducer from "./admin/userSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const rootReducer = combineReducers({ admin: adminReducer });
+const rootReducer = combineReducers({ admin: adminReducer, user: userReducer });
 
 const persistConfig = {
   key: "root",
