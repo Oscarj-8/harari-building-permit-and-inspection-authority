@@ -5,8 +5,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import adminAuthRouter from "./routes/adminAuth.route.js";
 import adminRouter from "./routes/admin.route.js";
-import fileUploadRoutes from "./routes/fileUpload.route.js";
-import fileGetRoutes from "./routes/fileGet.route.js";
+import planConsentfileUpload from "./routes/PlanConsentfileUpload.route.js";
+import planConsentFileGetRoutes from "./routes/PlanConsentfileGet.route.js";
 import path from "path";
 
 dotenv.config();
@@ -28,8 +28,8 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api", fileUploadRoutes);
-app.use("/api", fileGetRoutes);
+app.use("/api", planConsentfileUpload);
+app.use("/api", planConsentFileGetRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/auth", adminAuthRouter);
 

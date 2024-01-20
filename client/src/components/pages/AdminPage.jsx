@@ -1,9 +1,17 @@
-// import FileList from "../FileList";
 import { useState } from "react";
-import UserFoldersList from "../UserFoldersList";
+import PlanConsentReqsList from "../PlanConsentReqsList";
+import DesignEvalBuildingPermit from "../DesignEvalBuildingPermit";
+import BuildingInsOccPermit from "../BuildingInsOccPermit";
+import ConstructionRegulatory from "../ConstructionRegulatory";
 
 export default function AdminPage() {
   const [navIsOpen, setNavIsOpen] = useState(false);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+
+  const handleNavClick = (component) => {
+    setNavIsOpen(false);
+    setSelectedComponent(component);
+  };
 
   return (
     <div className="flex flex-col">
@@ -28,16 +36,36 @@ export default function AdminPage() {
         <div className="smd:inline-block bg-slate-200 p-2 shadow-xl">
           <ul className="flex flex-col gap-4 text-slate-700 ">
             <li>
-              <a href=""> Plan Consent Request </a>
+              <a
+                href="#"
+                onClick={() => handleNavClick(<PlanConsentReqsList />)}
+              >
+                Plan Consent Request
+              </a>
             </li>
             <li>
-              <a href=""> Design evaluation and building permit Requests </a>
+              <a
+                href="#"
+                onClick={() => handleNavClick(<DesignEvalBuildingPermit />)}
+              >
+                Design evaluation and building permit Requests
+              </a>
             </li>
             <li>
-              <a href=""> Building inspection and occupancy permit </a>
+              <a
+                href="#"
+                onClick={() => handleNavClick(<BuildingInsOccPermit />)}
+              >
+                Building inspection and occupancy permit
+              </a>
             </li>
             <li>
-              <a href=""> Construction regulatory </a>
+              <a
+                href="#"
+                onClick={() => handleNavClick(<ConstructionRegulatory />)}
+              >
+                Construction regulatory
+              </a>
             </li>
           </ul>
         </div>
@@ -45,8 +73,7 @@ export default function AdminPage() {
 
       <div className="w-full">
         <h1 className="text-center text-2xl text-slate-700 my-7">Files List</h1>
-        {/* <FileList /> */}
-        <UserFoldersList />
+        {selectedComponent}
       </div>
     </div>
   );
