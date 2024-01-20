@@ -50,7 +50,9 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const userIdentifier = uuidv4(); // Generate a unique identifier for each user
+    const userIdentifier = req.session.userIdentifier || uuidv4(); // Get userIdentifier from session or create a new one
+    req.session.userIdentifier = userIdentifier; // Store in session for subsequent uploads
+
     const userFolder = path.join(
       process.cwd(),
       "api/planConsentFolder",
@@ -58,7 +60,7 @@ const storage = multer.diskStorage({
     );
 
     if (!fs.existsSync(userFolder)) {
-      fs.mkdirSync(userFolder, { recursive: true });
+      fs.mkdirSync(userFolder, { recursive: true }); // Create the folder only if it doesn't exist
     }
 
     cb(null, userFolder);
