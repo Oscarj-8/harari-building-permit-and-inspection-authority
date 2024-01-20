@@ -10,7 +10,11 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const userIdentifier = ip.address();
-    const userFolder = path.join(process.cwd(), "api/uploads", userIdentifier);
+    const userFolder = path.join(
+      process.cwd(),
+      "api/planConsentFolder",
+      userIdentifier
+    );
 
     if (!fs.existsSync(userFolder)) {
       fs.mkdirSync(userFolder, { recursive: true });

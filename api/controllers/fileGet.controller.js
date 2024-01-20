@@ -3,7 +3,7 @@ import fs from "fs";
 import archiver from "archiver";
 
 const getUserFolders = (req, res) => {
-  const uploadsPath = path.join(process.cwd(), "api/uploads");
+  const uploadsPath = path.join(process.cwd(), "api/planConsentFolder");
 
   fs.readdir(uploadsPath, (err, folders) => {
     if (err) {
@@ -16,7 +16,11 @@ const getUserFolders = (req, res) => {
 
 const downloadFolder = (req, res) => {
   const folderName = req.params.folderName;
-  const folderPath = path.join(process.cwd(), "api/uploads", folderName);
+  const folderPath = path.join(
+    process.cwd(),
+    "api/planConsentFolder",
+    folderName
+  );
 
   const archive = archiver("zip", {
     zlib: { level: 9 },

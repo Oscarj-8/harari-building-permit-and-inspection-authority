@@ -7,7 +7,11 @@ const uploadFile = async (req, res) => {
     const filePath = req.files["file"][0].path;
     const userFolderName = path.basename(path.dirname(filePath));
 
-    const userFolder = path.join(process.cwd(), "api/uploads", userFolderName);
+    const userFolder = path.join(
+      process.cwd(),
+      "api/planConsentFolder",
+      userFolderName
+    );
 
     if (!fs.existsSync(userFolder)) {
       fs.mkdirSync(userFolder, { recursive: true });
