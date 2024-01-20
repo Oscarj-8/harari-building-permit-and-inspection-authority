@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
     //   cb(null, userFolder);
     // },
-    const username = req.body.username + "-" + Math.round(Math.random() * 1e9);
+    const username = req.body.username;
     if (!username) {
       return cb(new Error("Username not provided in the request"));
     }
