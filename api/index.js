@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -23,6 +24,16 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+
+const sessionSecret = process.env.SESSION_SECRET;
+
+app.use(
+  session({
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use(cors());
 app.use(express.json());
