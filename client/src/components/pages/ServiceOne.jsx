@@ -7,7 +7,7 @@ import planFile from "../../documents/ፕላን ስምምነት with Header with
 import { useSelector } from "react-redux";
 
 export default function ServiceOne() {
-  const { username } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
   const [documentFile, setDocumentFile] = useState(undefined);
@@ -21,7 +21,7 @@ export default function ServiceOne() {
     setSubmitLoader(true);
     if (documentFile && scannedImages) {
       const formData = new FormData();
-      formData.append("username", username);
+      formData.append("username", currentUser.username);
       formData.append("file", documentFile);
 
       for (let i = 0; i < scannedImages.length; i++) {

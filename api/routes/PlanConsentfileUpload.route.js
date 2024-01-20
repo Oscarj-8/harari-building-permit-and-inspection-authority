@@ -21,8 +21,7 @@ const storage = multer.diskStorage({
 
     //   cb(null, userFolder);
     // },
-    const username = req.user.username;
-    const uniqueFolername = username + "-" + Math.round(Math.random() * 1e9);
+    const username = req.body.username + "-" + Math.round(Math.random() * 1e9);
     if (!username) {
       return cb(new Error("Username not provided in the request"));
     }
@@ -30,7 +29,7 @@ const storage = multer.diskStorage({
     const userFolder = path.join(
       process.cwd(),
       "api/planConsentFolder",
-      uniqueFolername
+      username
     );
 
     if (!fs.existsSync(userFolder)) {
