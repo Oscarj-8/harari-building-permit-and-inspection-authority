@@ -1,6 +1,6 @@
-import User from "../models/user.model.js";
+import User from "../../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { errorHandler } from "../utils/error.js";
+import { errorHandler } from "../../utils/error.js";
 
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)

@@ -1,5 +1,5 @@
-import Admin from "../models/admin.model.js";
-import { errorHandler } from "../utils/error.js";
+import Admin from "../../models/admin.model.js";
+import { errorHandler } from "../../utils/error.js";
 import bcryptjs from "bcryptjs";
 
 export const updateAdmin = async (req, res, next) => {

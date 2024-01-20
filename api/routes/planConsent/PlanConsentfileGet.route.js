@@ -2,7 +2,7 @@ import express from "express";
 import {
   getUserFolders,
   downloadFolder,
-} from "../controllers/PlanConsentfileGet.controller.js";
+} from "../../controllers/planConsent/PlanConsentfileGet.controller.js";
 
 const router = express.Router();
 

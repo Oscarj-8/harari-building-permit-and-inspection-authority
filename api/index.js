@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import adminAuthRouter from "./routes/adminAuth.route.js";
-import userAuthRouter from "./routes/userAuth.route.js";
-import adminRouter from "./routes/admin.route.js";
-import userRouter from "./routes/user.route.js";
-import planConsentfileUpload from "./routes/PlanConsentfileUpload.route.js";
-import planConsentFileGetRoutes from "./routes/PlanConsentfileGet.route.js";
+import adminAuthRouter from "./routes/admin/adminAuth.route.js";
+import userAuthRouter from "./routes/user/userAuth.route.js";
+import adminRouter from "./routes/admin/admin.route.js";
+import userRouter from "./routes/user/user.route.js";
+import planConsentfileUpload from "./routes/planConsent/PlanConsentfileUpload.route.js";
+import planConsentFileGetRoutes from "./routes/planConsent/PlanConsentfileGet.route.js";
 import path from "path";
 
 dotenv.config();
