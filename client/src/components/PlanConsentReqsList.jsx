@@ -4,6 +4,26 @@ import { List, ListItem, Button } from "@mui/material";
 const PlanConsentReqsList = () => {
   const [userFolders, setUserFolders] = useState([]);
 
+  // useEffect(() => {
+  //   // Fetch user folders from the server
+  //   const fetchUserFolders = async () => {
+  //     try {
+  //       const response = await fetch("/api/user-folders");
+
+  //       if (response.ok) {
+  //         const { userFolders } = await response.json();
+  //         setUserFolders(userFolders);
+  //       } else {
+  //         console.error("Error fetching user folders");
+  //       }
+  //     } catch (error) {
+  //       console.error("An error occurred", error);
+  //     }
+  //   };
+
+  //   fetchUserFolders();
+  // }, []);
+
   useEffect(() => {
     // Fetch user folders from the server
     const fetchUserFolders = async () => {
@@ -11,8 +31,12 @@ const PlanConsentReqsList = () => {
         const response = await fetch("/api/user-folders");
 
         if (response.ok) {
-          const { userFolders } = await response.json();
-          setUserFolders(userFolders);
+          const data = await response.json();
+          if (data.message) {
+            console.log(data.message); // Handle the message as needed
+          } else {
+            setUserFolders(data.userFolders);
+          }
         } else {
           console.error("Error fetching user folders");
         }
