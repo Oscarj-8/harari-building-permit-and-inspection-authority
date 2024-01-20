@@ -15,14 +15,14 @@ export default function AdminPage() {
 
   return (
     <div className="flex flex-col">
-      <div>
+      <div className="flex text-slate-700 p-2">
         <button onClick={() => setNavIsOpen(!navIsOpen)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className="w-12 h-12"
+            className="w-8 h-8"
           >
             <path
               strokeLinecap="round"
@@ -31,6 +31,9 @@ export default function AdminPage() {
             />
           </svg>
         </button>
+        <h1 className="text-center text-2xl text-slate-700 self-center w-full">
+          Files List
+        </h1>
       </div>
       {navIsOpen && (
         <div className="smd:inline-block bg-slate-200 p-2 shadow-xl">
@@ -71,10 +74,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      <div className="w-full">
-        <h1 className="text-center text-2xl text-slate-700 my-7">Files List</h1>
-        {selectedComponent}
-      </div>
+      <div className="w-full bg-red-300 mt-[-em]">{selectedComponent}</div>
     </div>
   );
 }
