@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { List, ListItem, Button } from "@mui/material";
 
-const UserFoldersList = () => {
+const DesignEvalBuildingPermit = () => {
   const [userFolders, setUserFolders] = useState([]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const UserFoldersList = () => {
 
   return (
     <div className="flex flex-col p-2">
-      <h1>Plan Consent Requests List</h1>
+      <h1>Design Evaluation and Building Permit Requests List</h1>
       <List className="flex flex-wrap gap-3 items-stretch">
         {userFolders.map((folder, index) => (
           <ListItem
@@ -58,4 +58,4 @@ const UserFoldersList = () => {
   );
 };
 
-export default UserFoldersList;
+export default DesignEvalBuildingPermit;
