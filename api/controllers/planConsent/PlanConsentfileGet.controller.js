@@ -10,6 +10,10 @@ const getUserFolders = (req, res) => {
       return res.status(500).json({ message: "Error fetching user folders" });
     }
 
+    if (folders.length === 0) {
+      return res.status(200).json({ message: "No new folders" });
+    }
+
     res.status(200).json({ userFolders: folders });
   });
 };
