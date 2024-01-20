@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
     //   cb(null, userFolder);
     // },
     const username = req.body.username;
+
     if (!username) {
       return cb(new Error("Username not provided in the request"));
     }
