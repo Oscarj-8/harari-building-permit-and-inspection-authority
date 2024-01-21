@@ -2,10 +2,11 @@ import { Link as ScrollLink } from "react-scroll";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
+import { useMediaQuery } from "@mui/material";
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const isScreenSmall = useMediaQuery("(min-width: 500px");
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -13,14 +14,16 @@ export default function Header() {
 
   return (
     <header className="relative z-10 bg-slate-200 border p-4 shadow-md">
-      <div className="flex justify-between items-center max-w-7xl gap-16 mx-auto">
+      <div className="flex justify-between items-center max-w-7xl gap-8 mx-auto">
         <span className="text-slate-700 text-lg">
           <Link to="/">
             <span className="text-3xl font-black">Harari </span>
           </Link>
-          building permit and inspection authority
+          {isScreenSmall && (
+            <span>building permit and inspection authority</span>
+          )}
         </span>
-        <div className="hidden sm:flex gap-6 items-center">
+        <div className="hidden sm:flex gap-6 items-center min-w-[310px]">
           <Link to="/">
             <span className="hover:underline cursor-pointer">Home</span>
           </Link>
