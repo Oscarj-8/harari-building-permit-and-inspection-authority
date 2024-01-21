@@ -11,7 +11,7 @@ const getUserFolders = (req, res) => {
     }
 
     if (folders.length === 0) {
-      return res.status(200).json({ message: "No new folders" });
+      return res.status(200).json({ message: "No new folders or requests" });
     }
 
     res.status(200).json({ userFolders: folders });

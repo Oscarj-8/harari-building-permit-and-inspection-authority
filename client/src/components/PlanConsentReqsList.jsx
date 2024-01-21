@@ -3,7 +3,8 @@ import { List, ListItem, Button } from "@mui/material";
 
 const PlanConsentReqsList = () => {
   const [userFolders, setUserFolders] = useState([]);
-
+  const [noFolder, setNoFolder] = useState(false);
+  const [message, setMessage] = useState("");
   // useEffect(() => {
   //   // Fetch user folders from the server
   //   const fetchUserFolders = async () => {
@@ -33,7 +34,8 @@ const PlanConsentReqsList = () => {
         if (response.ok) {
           const data = await response.json();
           if (data.message) {
-            console.log(data.message); // Handle the message as needed
+            setMessage(data.message);
+            setNoFolder(true);
           } else {
             setUserFolders(data.userFolders);
           }
@@ -59,9 +61,9 @@ const PlanConsentReqsList = () => {
   };
 
   return (
-    <div className="flex flex-col p-2">
-      <h1 className="text-lg underline p-1">Plan Consent Requests List</h1>
-      <List className="flex flex-wrap gap-3 items-stretch">
+    <div className="flex flex-col p-1">
+      <h1 className="text-lg underline">Plan Consent Requests List</h1>
+      <List className="flex flex-wrap gap-3 items-stretch ">
         {userFolders.map((folder, index) => (
           <ListItem
             key={index}
@@ -86,6 +88,7 @@ const PlanConsentReqsList = () => {
             </div>
           </ListItem>
         ))}
+        {noFolder && <p>{message}</p>}
       </List>
     </div>
   );

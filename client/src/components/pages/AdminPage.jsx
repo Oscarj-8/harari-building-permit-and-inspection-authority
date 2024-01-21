@@ -14,8 +14,8 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex text-slate-700 p-2">
+    <div className="flex flex-col p-2 gap-4">
+      <div className="flex text-slate-700 ">
         <button onClick={() => setNavIsOpen(!navIsOpen)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      <div className="w-full mt-[-em]">{selectedComponent}</div>
+      <div className="w-full">{selectedComponent}</div>
     </div>
   );
 }
