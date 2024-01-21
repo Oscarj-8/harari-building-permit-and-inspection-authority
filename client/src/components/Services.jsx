@@ -42,9 +42,9 @@ export default function Services() {
     <main className={` flex flex-col gap-12 items-center `}>
       <h1 className="text-5xl font-medium text-customBlue">Services</h1>
       <div className="flex flex-wrap items-stretch justify-center p-4 gap-8">
-        {services.map((service) => (
+        {services.map((service, id) => (
           <AnimatedCard
-            key={service.id}
+            key={id}
             className={`${
               isAnimated ? "fade-in" : ""
             } bg-white flex flex-col max-w-[350px] cursor-pointer justify-center items-center text-center rounded-lg p-4 gap-6 shadow-sm hover:shadow-xl hover:translate-y-[-20px]`}

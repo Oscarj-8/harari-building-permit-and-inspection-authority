@@ -61,7 +61,7 @@ export default function HomePage() {
             {currentUser ? "Let's get Started" : "Sign in"}
           </Button>
 
-          <Modal isOpen={isModalOpen}>
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
             <div
               className="flex items-end justify-between gap-4"
               style={{ fontFamily: "Roboto, sans-serif" }}
