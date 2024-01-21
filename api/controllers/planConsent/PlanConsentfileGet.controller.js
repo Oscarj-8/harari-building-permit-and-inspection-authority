@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import archiver from "archiver";
+import { errorHandler } from "../../utils/error.js";
 
 const getUserFolders = (req, res) => {
   const uploadsPath = path.join(process.cwd(), "api/planConsentFolder");
@@ -37,4 +38,18 @@ const downloadFolder = (req, res) => {
   archive.finalize();
 };
 
-export { getUserFolders, downloadFolder };
+const deleteFolder = (req, res) => {
+  const folderName = req.params.folderName;
+  const folderPath = path.join(
+    process.cwd(),
+    "api/planConsentFolder",
+    folderName
+  );
+
+  // Remove the folder
+  fs.rmdirSync(folderPath, { recursive: true });
+
+  res.status(200).json({ message: "Folder deleted successfully" });
+};
+
+export { getUserFolders, downloadFolder, deleteFolder };
