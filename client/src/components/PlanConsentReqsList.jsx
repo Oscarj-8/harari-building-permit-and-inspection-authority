@@ -60,6 +60,26 @@ const PlanConsentReqsList = () => {
     document.body.removeChild(downloadLink);
   };
 
+  const handleDeleteFolder = async (folderName) => {
+    try {
+      const response = await fetch(`/api/delete/${folderName}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        // Update the userFolders state after successful deletion
+        setUserFolders((prevFolders) =>
+          prevFolders.filter((folder) => folder !== folderName)
+        );
+        console.log("Folder deleted successfully");
+      } else {
+        console.error("Error deleting folder");
+      }
+    } catch (error) {
+      console.error("An error occurred", error);
+    }
+  };
+
   return (
     <div className="flex flex-col p-1">
       <h1 className="text-lg underline">Plan Consent Requests List</h1>
@@ -81,8 +101,9 @@ const PlanConsentReqsList = () => {
               <Button
                 variant="contained"
                 className="bg-red-700 hover:bg-red-900"
-                onClick={() => handleDownloadFolder(folder)}
+                onClick={() => handleDeleteFolder(folder)}
               >
+                {" "}
                 Delete Folder
               </Button>
             </div>
