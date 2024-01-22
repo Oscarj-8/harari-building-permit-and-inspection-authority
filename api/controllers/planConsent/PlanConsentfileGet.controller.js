@@ -13,7 +13,7 @@ const getUserFolders = (req, res) => {
         .json({ message: "Error fetching user folders", error: err });
     }
 
-    if (folders.length === 0) {
+    if (!folders || folders.length === 0) {
       return res.status(200).json({ message: "No new folders or requests" });
     }
 
