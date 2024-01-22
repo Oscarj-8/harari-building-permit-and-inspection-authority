@@ -20,7 +20,7 @@ const getUserFolders = (req, res) => {
   try {
     const folders = fs.readdirSync(uploadsPath);
 
-    if (!folders || folders.length === 0) {
+    if (!folders || (folders && folders.length === 0)) {
       res.status(200).json({ message: "No new folders or requests" });
     } else {
       res.status(200).json({ userFolders: folders });
