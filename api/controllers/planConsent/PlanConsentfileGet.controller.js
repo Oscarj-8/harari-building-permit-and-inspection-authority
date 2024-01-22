@@ -7,12 +7,12 @@ const getUserFolders = (req, res) => {
   const uploadsPath = path.join(process.cwd(), "api/planConsentFolder");
 
   fs.readdir(uploadsPath, (err, folders) => {
-    if (err) {
+    if (folders || folders.length === 0) {
+      return res.status(200).json({ message: "No new folders or requests" });
+    } else if (err) {
       return res
         .status(500)
         .json({ message: "Error fetching user folders", error: err });
-    } else if (!folders || folders.length === 0) {
-      return res.status(200).json({ message: "No new folders or requests" });
     } else {
       res.status(200).json({ userFolders: folders });
     }
