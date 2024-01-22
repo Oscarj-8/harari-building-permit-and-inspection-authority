@@ -8,9 +8,7 @@ const getUserFolders = (req, res) => {
 
   fs.readdir(uploadsPath, (err, folders) => {
     if (err) {
-      return res
-        .status(500)
-        .json({ message: "Error fetching user folders", error: err });
+      return res.status(500).json({ message: "No new folders or requests" });
     }
 
     if (!folders || folders.length === 0) {
