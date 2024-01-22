@@ -46,7 +46,7 @@ const deleteFolder = (req, res) => {
   );
 
   // Remove the folder
-  fs.rmdirSync(folderPath, { recursive: true });
+  fs.rmSync(folderPath, { recursive: true });
 
   res.status(200).json({ message: "Folder deleted successfully" });
 };
