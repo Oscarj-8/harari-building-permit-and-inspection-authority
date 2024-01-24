@@ -28,7 +28,7 @@ export default function OAuth() {
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      console.log("Couldn't not sign in with gogle");
+      console.log("Couldn't not sign in with gogle", error);
     }
   };
   return (
