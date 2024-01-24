@@ -50,3 +50,22 @@ export const signout = async (req, res, next) => {
     next(error);
   }
 };
+
+export const google = async (req, res, next) => {
+  try {
+    const admin = await Admin.findOne({ email: req.body.email });
+
+    if (admin) {
+      const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET);
+
+      const { password: pass, ...rest } = admin._doc;
+
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .json(rest);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
