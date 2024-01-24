@@ -6,7 +6,9 @@ import ConstructionRegulatory from "../ConstructionRegulatory";
 
 export default function AdminPage() {
   const [navIsOpen, setNavIsOpen] = useState(false);
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(
+    <PlanConsentReqsList />
+  );
 
   const handleNavClick = (component) => {
     setNavIsOpen(false);
