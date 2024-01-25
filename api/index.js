@@ -37,14 +37,14 @@ app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
 app.use("/api/user-auth", userAuthRouter);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
-
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });
 
 app.use((err, req, res, next) => {
