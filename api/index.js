@@ -12,6 +12,7 @@ import planConsentFileGetRoutes from "./routes/planConsent/PlanConsentfileGet.ro
 import path from "path";
 
 dotenv.config();
+console.log("MongoDB URI:", process.env.MONGO);
 
 mongoose
   .connect(process.env.MONGO)
