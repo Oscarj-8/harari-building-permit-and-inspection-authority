@@ -37,21 +37,10 @@ app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
 app.use("/api/user-auth", userAuthRouter);
 
-// app.use(express.static(path.join(__dirname, "/client/dist")));
-app.use(
-  express.static(
-    "/root/harari-building-permit-and-inspection-authority/client/dist"
-  )
-);
-
-// app.get("*", (req, res) => {
-//   res.sendFile("/root/harari/client/dist/index.html");
-// });
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(
-    "/root/harari-building-permit-and-inspection-authority/client/dist/index.html"
-  );
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
 });
 
 app.listen(3000, () => {
