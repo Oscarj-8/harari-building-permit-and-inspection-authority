@@ -48,11 +48,11 @@ app.use(
 //   res.sendFile("/root/harari/client/dist/index.html");
 // });
 
-app.get("*", (req, res) => {
-  res.sendFile(
-    "/root/harari-building-permit-and-inspection-authority/client/dist/index.html"
-  );
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(
+//     "/root/harari-building-permit-and-inspection-authority/client/dist/index.html"
+//   );
+// });
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
