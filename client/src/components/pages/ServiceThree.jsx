@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
+import { buildingInsOccPermit } from "../../data/constants";
 import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
 import { useSelector } from "react-redux";
 
@@ -51,22 +52,13 @@ export default function ServiceOne() {
   const handleInfoOpenClose = () => setInfoOpen(false);
 
   return (
-    <div className="flex items-center justify-center text-black pb-16">
+    <div className="flex items-center justify-center text-black p-4">
       <main className="flex flex-col gap-8 max-w-7xl">
         <div className=" text-lg ">
           <h1 className="text-center font-bold text-2xl my-7">
-            Welcome to Building Inspection and Occupancy Permit service page
+            {buildingInsOccPermit[0].header}
           </h1>
-          <p className="text-start">
-            Welcome to our Building Inspection and Occupancy Permit service! We
-            understand that obtaining planning consent is a crucial step in your
-            project, and we&apos;re here to make the process as seamless as
-            possible. To initiate your planning consent request, follow the
-            step-by-step guide below. Please ensure you have all necessary
-            information and documents ready before proceeding. If you encounter
-            any difficulties or have questions, feel free to reach out to our
-            support team for assistance.
-          </p>
+          <p className="text-start">{buildingInsOccPermit[0].intro}</p>
           <p>
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}
             <Button
@@ -89,7 +81,7 @@ export default function ServiceOne() {
                 <li>
                   Click on the &quot;Download&quot; button to download the
                   document file that needs to be filled. The file is named
-                  &quot;AblazeLabsCV.docx.&quot;
+                  &quot;ፕላን ስምምነት.docx&quot;
                 </li>
               </div>
               <div>
@@ -194,15 +186,17 @@ export default function ServiceOne() {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap w-full items-center justify-center gap-8">
-          <Button variant="contained" className="bg-blue-700 ">
-            <a
-              download="ፕላን ስምምነት with Header with choosen item.docx"
-              href={planFile}
-            >
-              Click here to Download the file
-            </a>
-          </Button>
+        <div className="flex flex-col md:flex-row flex-wrap w-full items-center justify-center gap-8 pb-12">
+          <div>
+            <Button variant="contained" className="w-[300px] bg-blue-700">
+              <a
+                download="ፕላን ስምምነት with Header with choosen item.docx"
+                href={planFile}
+              >
+                Download file
+              </a>
+            </Button>
+          </div>
           <div id="scannedImages" className="">
             <input
               type="file"
@@ -215,9 +209,9 @@ export default function ServiceOne() {
             <Button
               variant="contained"
               onClick={() => scannedImagesRef.current.click()}
-              className="bg-blue-700"
+              className="bg-blue-700 w-[300px]"
             >
-              Click here to import Scanned images
+              import Scanned images
             </Button>
           </div>
           <div id="docFile" className="">
@@ -231,23 +225,25 @@ export default function ServiceOne() {
             <Button
               variant="contained"
               onClick={() => fileRef.current.click()}
-              className="bg-blue-700"
+              className="bg-blue-700 w-[300px]"
             >
-              Click here to import the file
+              import the file
             </Button>
           </div>
-          <Button
-            variant="contained"
-            onClick={handleImport}
-            className="bg-blue-700"
-            disabled={!documentFile || !scannedImages}
-          >
-            {submitLoader ? "Submitting..." : "Submit"}
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              onClick={handleImport}
+              className="bg-blue-700 w-[300px]"
+              disabled={!documentFile || !scannedImages}
+            >
+              {submitLoader ? "Submitting..." : "Submit"}
+            </Button>
+          </div>
         </div>
       </main>
       <ReusableModal open={open} onClose={handleClose}>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Confirmation
           </Typography>
@@ -256,12 +252,12 @@ export default function ServiceOne() {
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
-            You have successfully Uploaded and sent the request, we will get in
+            You have successfully uploaded and sent the request, we will get in
             touch with in a few days
           </Typography>
           <Button
             variant="contained"
-            className="w-full bg-blue-700 mt-6"
+            className="w-[100px] bg-blue-700 mt-6"
             onClick={handleClose}
           >
             Ok
@@ -269,7 +265,7 @@ export default function ServiceOne() {
         </div>
       </ReusableModal>
       <ReusableModal open={infoOpen} onClose={handleClose}>
-        <div className="flex flex-col  items-center w-[1200px]">
+        <div className="flex flex-col min-w-[335px] items-center lg:w-[1000px] xl:w-[1280px] 2xl:w-[1400px] ">
           <Typography
             id="modal-modal-title"
             className="mb-8  text-3xl"
@@ -277,7 +273,7 @@ export default function ServiceOne() {
           >
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎች
           </Typography>
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 overflow-y-auto h-[400px] lg:flex-row">
             <div>
               <h2 className="text-2xl font-semibold l text-slate-700">
                 ለኢንቨስትመንት

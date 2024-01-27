@@ -42,3 +42,11 @@ export const planConsent = [
       "Welcome to our Planning Consent Request Service! We understand that obtaining planning consent is a crucial step in your project, and we're here to make the process as seamless as possible. To initiate your planning consent request, follow the step-by-step guide below. Please ensure you have all necessary information and documents ready before proceeding. If you encounter any difficulties or have questions, feel free to reach out to our support team for assistance.",
   },
 ];
+
+export const buildingInsOccPermit = [
+  {
+    header: "Welcome to Building Inspection and Occupancy Permit service page",
+    intro:
+      "Welcome to our Building Inspection and Occupancy Permit Request Service! We understand that obtaining planning consent is a crucial step in your project, and we're here to make the process as seamless as possible. To initiate your planning consent request, follow the step-by-step guide below. Please ensure you have all necessary information and documents ready before proceeding. If you encounter any difficulties or have questions, feel free to reach out to our support team for assistance.",
+  },
+];
