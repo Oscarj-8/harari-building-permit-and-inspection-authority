@@ -10,6 +10,7 @@ import userRouter from "./routes/user/user.route.js";
 import planConsentfileUpload from "./routes/planConsent/PlanConsentfileUpload.route.js";
 import planConsentFileGetRoutes from "./routes/planConsent/PlanConsentfileGet.route.js";
 import buildingInsOccPermitfileUpload from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileUpload.route.js";
+import buildingInsOccPermitfileGetRoutes from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileGet.route.js";
 import path from "path";
 
 dotenv.config();
@@ -36,6 +37,7 @@ app.use(cookieParser());
 app.use("/api", planConsentfileUpload);
 app.use("/api", planConsentFileGetRoutes);
 app.use("/api", buildingInsOccPermitfileUpload);
+app.use("/api", buildingInsOccPermitfileGetRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
