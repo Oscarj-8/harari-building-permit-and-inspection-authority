@@ -24,7 +24,7 @@ export default function AdminHeader() {
             <span className="hover:underline cursor-pointer">Home</span>
           </Link>
           <Link to="/admin-page">
-            <span className="hover:underline cursor-pointer">Admin</span>
+            <span className="hover:underline cursor-pointer">Dashboard</span>
           </Link>
           <Link to="/admin-profile">
             <img
@@ -88,7 +88,7 @@ export default function AdminHeader() {
                   className="hover:underline cursor-pointer text-xl font-normal"
                   onClick={toggleMenu}
                 >
-                  Admin
+                  Dashboard
                 </span>
               </Link>
               <Link to="/admin-profile">
