@@ -3,8 +3,10 @@ import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
 import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
+import { useSelector } from "react-redux";
 
 export default function ServiceOne() {
+  const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
   const [documentFile, setDocumentFile] = useState(undefined);
@@ -14,13 +16,11 @@ export default function ServiceOne() {
   const handleClose = () => setOpen(false);
   const [submitLoader, setSubmitLoader] = useState(false);
 
-  console.log(scannedImages);
-  console.log(documentFile);
-
   const handleImport = async () => {
     setSubmitLoader(true);
     if (documentFile && scannedImages) {
       const formData = new FormData();
+      formData.append("username", currentUser.username);
       formData.append("file", documentFile);
 
       for (let i = 0; i < scannedImages.length; i++) {
@@ -28,7 +28,7 @@ export default function ServiceOne() {
       }
       console.log(formData);
       try {
-        const response = await fetch("/api/uploadplanconsent", {
+        const response = await fetch("/api/uploadbuildingInsOccPermit", {
           method: "POST",
           body: formData,
         });
@@ -58,14 +58,14 @@ export default function ServiceOne() {
             Welcome to Building Inspection and Occupancy Permit service page
           </h1>
           <p className="text-start">
-            Welcome to our Planning Consent Request Service! We understand that
-            obtaining planning consent is a crucial step in your project, and
-            we&apos;re here to make the process as seamless as possible. To
-            initiate your planning consent request, follow the step-by-step
-            guide below. Please ensure you have all necessary information and
-            documents ready before proceeding. If you encounter any difficulties
-            or have questions, feel free to reach out to our support team for
-            assistance.
+            Welcome to our Building Inspection and Occupancy Permit service! We
+            understand that obtaining planning consent is a crucial step in your
+            project, and we&apos;re here to make the process as seamless as
+            possible. To initiate your planning consent request, follow the
+            step-by-step guide below. Please ensure you have all necessary
+            information and documents ready before proceeding. If you encounter
+            any difficulties or have questions, feel free to reach out to our
+            support team for assistance.
           </p>
           <p>
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}

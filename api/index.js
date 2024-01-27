@@ -9,10 +9,10 @@ import adminRouter from "./routes/admin/admin.route.js";
 import userRouter from "./routes/user/user.route.js";
 import planConsentfileUpload from "./routes/planConsent/PlanConsentfileUpload.route.js";
 import planConsentFileGetRoutes from "./routes/planConsent/PlanConsentfileGet.route.js";
+import buildingInsOccPermitfileUpload from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileUpload.route.js";
 import path from "path";
 
 dotenv.config();
-console.log("MongoDB URI:", process.env.MONGO);
 
 const mongoURI = process.env.MONGO;
 
@@ -35,6 +35,7 @@ app.use(cookieParser());
 
 app.use("/api", planConsentfileUpload);
 app.use("/api", planConsentFileGetRoutes);
+app.use("/api", buildingInsOccPermitfileUpload);
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
