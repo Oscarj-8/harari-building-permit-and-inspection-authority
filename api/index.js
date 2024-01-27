@@ -14,8 +14,10 @@ import path from "path";
 dotenv.config();
 console.log("MongoDB URI:", process.env.MONGO);
 
+const mongoURI = process.env.MONGO;
+
 mongoose
-  .connect(process.env.MONGO)
+  .connect(mongoURI)
   .then(() => {
     console.log("connected to MongoDB");
   })
