@@ -18,7 +18,7 @@ const BuildingInsOccPermit = () => {
   useEffect(() => {
     const fetchUserFolders = async () => {
       try {
-        const response = await fetch("/api/user-folders");
+        const response = await fetch("/api/user-buildingIns-folders");
 
         if (response.ok) {
           const data = await response.json();
@@ -41,7 +41,7 @@ const BuildingInsOccPermit = () => {
 
   const handleDownloadFolder = (folderName) => {
     const downloadLink = document.createElement("a");
-    downloadLink.href = `/api/download/${folderName}`;
+    downloadLink.href = `/api/download-buildingIns/${folderName}`;
     downloadLink.download = `${folderName}.zip`;
     document.body.appendChild(downloadLink);
     downloadLink.click();
@@ -50,9 +50,12 @@ const BuildingInsOccPermit = () => {
 
   const handleDeleteFolder = async () => {
     try {
-      const response = await fetch(`/api/delete/${selectedFolder}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `/api/delete-buildingIns/${selectedFolder}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
         // Update the userFolders state after successful deletion

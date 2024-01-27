@@ -3,29 +3,6 @@ import fs from "fs";
 import archiver from "archiver";
 import { errorHandler } from "../../utils/error.js";
 
-// const getUserFolders = (req, res) => {
-//   const uploadsPath = path.join(process.cwd(), "api/planConsentFolder");
-
-//   try {
-//     const folders = fs.readdirSync(uploadsPath);
-
-//     if (!folders || (folders && folders.length === 0)) {
-//       res.status(200).json({ message: "No new folders or requests" });
-//     } else {
-//       res.status(200).json({ userFolders: folders });
-//     }
-//   } catch (error) {
-//     if (error.code === "ENOENT") {
-//       res.status(404).json({ message: "User folder directory not found" });
-//     } else {
-//       // Handle other errors
-//       res
-//         .status(500)
-//         .json({ message: "Error fetching user folders", error: error });
-//     }
-//   }
-// };
-
 const getUserFolders = (req, res) => {
   const uploadsPath = path.join(process.cwd(), "api/planConsentFolder");
 
