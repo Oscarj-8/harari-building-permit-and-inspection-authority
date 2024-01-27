@@ -27,9 +27,6 @@ export default function Header() {
           <Link to="/">
             <span className="hover:underline cursor-pointer">Home</span>
           </Link>
-          <Link to="/admin-page">
-            <span className="hover:underline cursor-pointer">Admin</span>
-          </Link>
           <ScrollLink
             className="hover:cursor-pointer"
             to="services"
@@ -103,14 +100,6 @@ export default function Header() {
                   onClick={toggleMenu}
                 >
                   Home
-                </span>
-              </Link>
-              <Link to="/admin-page">
-                <span
-                  className="hover:underline cursor-pointer text-xl font-normal"
-                  onClick={toggleMenu}
-                >
-                  Admin
                 </span>
               </Link>
               <ScrollLink
