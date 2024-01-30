@@ -212,8 +212,8 @@ export default function DesignEvaBuildingPer() {
               variant="contained"
               className="w-[300px] bg-blue-700"
               onClick={() => {
-                downloadFile(የአማካሪ_ግዴታ); // Call the download function with the file name
-                downloadFile(የዲዛይን_ግምገማ); // Call the download function with the file name
+                downloadFile(የአማካሪ_ግዴታ);
+                downloadFile(የዲዛይን_ግምገማ);
               }}
             >
               Download files
@@ -250,7 +250,7 @@ export default function DesignEvaBuildingPer() {
               onClick={() => fileRef.current.click()}
               className="bg-blue-700 w-[300px]"
             >
-              import the file
+              import the files
             </Button>
           </div>
           <div>
