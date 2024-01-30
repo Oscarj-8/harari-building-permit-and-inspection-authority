@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PlanConsentReqsList from "../PlanConsentReqsList";
-import DesignEvalBuildingPermit from "../DesignEvalBuildingPermit";
+import DesignEvalBuildingPermitReqsList from "../DesignEvalBuildingPermitReqsList";
 import BuildingInsOccPermit from "../BuildingInsOccPermit";
 import ConstructionRegulatory from "../ConstructionRegulatory";
 
@@ -51,7 +51,9 @@ export default function AdminPage() {
             <li>
               <a
                 href="#"
-                onClick={() => handleNavClick(<DesignEvalBuildingPermit />)}
+                onClick={() =>
+                  handleNavClick(<DesignEvalBuildingPermitReqsList />)
+                }
               >
                 Design evaluation and building permit Requests
               </a>

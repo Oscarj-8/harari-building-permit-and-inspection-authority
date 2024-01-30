@@ -12,6 +12,7 @@ import planConsentFileGetRoutes from "./routes/planConsent/PlanConsentfileGet.ro
 import buildingInsOccPermitfileUpload from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileUpload.route.js";
 import buildingInsOccPermitfileGetRoutes from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileGet.route.js";
 import designEvaBuildingPerFileUpload from "./routes/designEvaBuildingPer/DesignEvaBuildingPerUpload.route.js";
+import designEvaBuildingPerFileGetRoutes from "./routes/designEvaBuildingPer/DesignEvaBuildingPerFileGet.route.js";
 import path from "path";
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use("/api", planConsentFileGetRoutes);
 app.use("/api", buildingInsOccPermitfileUpload);
 app.use("/api", buildingInsOccPermitfileGetRoutes);
 app.use("/api", designEvaBuildingPerFileUpload);
+app.use("/api", designEvaBuildingPerFileGetRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
