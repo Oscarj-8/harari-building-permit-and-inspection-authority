@@ -3,7 +3,8 @@ import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
 import { buildingInsOccPermit } from "../../data/constants";
-import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
+import የአማካሪ_ግዴታ from "../../documents/የአማካሪ ግዴታ with Header WITH hoosen item.docx";
+import የዲዛይን_ግምገማ from "../../documents/የዲዛይን ግምገማ  with Header with choosen file.docx";
 import { useSelector } from "react-redux";
 
 export default function ServiceOne() {
@@ -47,6 +48,23 @@ export default function ServiceOne() {
         console.error("An error occurred", error);
       }
     }
+  };
+
+  const downloadFile = (fileName) => {
+    fetch(fileName)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName.split("/").pop();
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error downloading the file", error);
+      });
   };
 
   const handleInfoOpenClose = () => setInfoOpen(false);
@@ -188,13 +206,15 @@ export default function ServiceOne() {
         </div>
         <div className="flex flex-col md:flex-row flex-wrap w-full items-center justify-center gap-8 pb-12">
           <div>
-            <Button variant="contained" className="w-[300px] bg-blue-700">
-              <a
-                download="ፕላን ስምምነት with Header with choosen item.docx"
-                href={planFile}
-              >
-                Download file
-              </a>
+            <Button
+              variant="contained"
+              className="w-[300px] bg-blue-700"
+              onClick={() => {
+                downloadFile(የአማካሪ_ግዴታ); // Call the download function with the file name
+                downloadFile(የዲዛይን_ግምገማ); // Call the download function with the file name
+              }}
+            >
+              Download files
             </Button>
           </div>
           <div id="scannedImages" className="">
