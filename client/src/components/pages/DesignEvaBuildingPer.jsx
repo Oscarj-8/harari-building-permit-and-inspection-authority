@@ -2,33 +2,37 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
-import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
+import { buildingInsOccPermit } from "../../data/constants";
+import የአማካሪ_ግዴታ from "../../documents/የአማካሪ ግዴታ with Header WITH hoosen item.docx";
+import የዲዛይን_ግምገማ from "../../documents/የዲዛይን ግምገማ  with Header with choosen file.docx";
+import { useSelector } from "react-redux";
 
-export default function ServiceOne() {
+export default function DesignEvaBuildingPer() {
+  const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
-  const [documentFile, setDocumentFile] = useState(undefined);
+  const [documentFiles, setDocumentFiles] = useState(undefined);
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [submitLoader, setSubmitLoader] = useState(false);
 
-  console.log(scannedImages);
-  console.log(documentFile);
-
   const handleImport = async () => {
     setSubmitLoader(true);
-    if (documentFile && scannedImages) {
+    if (documentFiles && scannedImages) {
       const formData = new FormData();
-      formData.append("file", documentFile);
+      formData.append("username", currentUser.username);
+      for (let i = 0; i < documentFiles.length; i++) {
+        formData.append("files", documentFiles[i]);
+      }
 
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
       console.log(formData);
       try {
-        const response = await fetch("/api/uploadplanconsent", {
+        const response = await fetch("/api/uploadDesignEvaBuildingPer", {
           method: "POST",
           body: formData,
         });
@@ -36,7 +40,7 @@ export default function ServiceOne() {
         if (response.ok) {
           console.log("File uploaded successfully");
           setOpen(true);
-          setDocumentFile(null);
+          setDocumentFiles(null);
           setScannedImages(null);
           setSubmitLoader(false);
         } else {
@@ -48,27 +52,35 @@ export default function ServiceOne() {
     }
   };
 
+  const downloadFile = (fileName) => {
+    fetch(fileName)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName.split("/").pop();
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error downloading the file", error);
+      });
+  };
+
   const handleInfoOpenClose = () => setInfoOpen(false);
 
   return (
-    <div className="flex items-center justify-center text-black pb-16">
+    <div className="flex items-center justify-center text-black p-4">
       <main className="flex flex-col gap-8 max-w-7xl">
         <div className=" text-lg ">
           <h1 className="text-center font-bold text-2xl my-7">
-            Welcome to Design Evaluation and Building Permit service page
+            {buildingInsOccPermit[0].header}
           </h1>
-          <p className="text-start">
-            Welcome to our Planning Consent Request Service! We understand that
-            obtaining planning consent is a crucial step in your project, and
-            we&apos;re here to make the process as seamless as possible. To
-            initiate your planning consent request, follow the step-by-step
-            guide below. Please ensure you have all necessary information and
-            documents ready before proceeding. If you encounter any difficulties
-            or have questions, feel free to reach out to our support team for
-            assistance.
-          </p>
+          <p className="text-start">{buildingInsOccPermit[0].intro}</p>
           <p>
-            ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}
+            ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎችን ለማየት{" "}
             <Button
               variant="contained"
               className="bg-blue-700"
@@ -89,7 +101,7 @@ export default function ServiceOne() {
                 <li>
                   Click on the &quot;Download&quot; button to download the
                   document file that needs to be filled. The file is named
-                  &quot;AblazeLabsCV.docx.&quot;
+                  &quot;ፕላን ስምምነት.docx&quot;
                 </li>
               </div>
               <div>
@@ -194,15 +206,19 @@ export default function ServiceOne() {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap w-full items-center justify-center gap-8">
-          <Button variant="contained" className="bg-blue-700 ">
-            <a
-              download="ፕላን ስምምነት with Header with choosen item.docx"
-              href={planFile}
+        <div className="flex flex-col md:flex-row flex-wrap w-full items-center justify-center gap-8 pb-12">
+          <div>
+            <Button
+              variant="contained"
+              className="w-[300px] bg-blue-700"
+              onClick={() => {
+                downloadFile(የአማካሪ_ግዴታ); // Call the download function with the file name
+                downloadFile(የዲዛይን_ግምገማ); // Call the download function with the file name
+              }}
             >
-              Click here to Download the file
-            </a>
-          </Button>
+              Download files
+            </Button>
+          </div>
           <div id="scannedImages" className="">
             <input
               type="file"
@@ -215,39 +231,42 @@ export default function ServiceOne() {
             <Button
               variant="contained"
               onClick={() => scannedImagesRef.current.click()}
-              className="bg-blue-700"
+              className="bg-blue-700 w-[300px]"
             >
-              Click here to import Scanned images
+              import Scanned images
             </Button>
           </div>
           <div id="docFile" className="">
             <input
+              multiple
               type="file"
               ref={fileRef}
               id="file"
               className="hidden"
-              onChange={(e) => setDocumentFile(e.target.files[0])}
+              onChange={(e) => setDocumentFiles(e.target.files)}
             />
             <Button
               variant="contained"
               onClick={() => fileRef.current.click()}
-              className="bg-blue-700"
+              className="bg-blue-700 w-[300px]"
             >
-              Click here to import the file
+              import the file
             </Button>
           </div>
-          <Button
-            variant="contained"
-            onClick={handleImport}
-            className="bg-blue-700"
-            disabled={!documentFile || !scannedImages}
-          >
-            {submitLoader ? "Submitting..." : "Submit"}
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              onClick={handleImport}
+              className="bg-blue-700 w-[300px]"
+              disabled={!documentFiles || !scannedImages}
+            >
+              {submitLoader ? "Submitting..." : "Submit"}
+            </Button>
+          </div>
         </div>
       </main>
       <ReusableModal open={open} onClose={handleClose}>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Confirmation
           </Typography>
@@ -256,12 +275,12 @@ export default function ServiceOne() {
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
-            You have successfully Uploaded and sent the request, we will get in
+            You have successfully uploaded and sent the request, we will get in
             touch with in a few days
           </Typography>
           <Button
             variant="contained"
-            className="w-full bg-blue-700 mt-6"
+            className="w-[100px] bg-blue-700 mt-6"
             onClick={handleClose}
           >
             Ok
@@ -269,67 +288,41 @@ export default function ServiceOne() {
         </div>
       </ReusableModal>
       <ReusableModal open={infoOpen} onClose={handleClose}>
-        <div className="flex flex-col  items-center w-[1200px]">
+        <div className="flex flex-col min-w-[335px] items-center lg:w-[1000px] xl:w-[1280px] 2xl:w-[1400px] ">
           <Typography
             id="modal-modal-title"
             className="mb-8  text-3xl"
             variant="h5"
           >
-            ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎች
+            ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎች
           </Typography>
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 overflow-y-auto h-[400px] lg:flex-row">
             <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ለኢንቨስትመንት
-              </h2>
               <ul className="list-disc px-4 text-lg">
-                <li>ከመሬት ልማት ማኔጅመንት ባለስልጣን ከእዳና እገዳ ነፃ (ክሊራንስ)</li>
-                <li>የኢንቨስትመነት ፍቃድና ፕሮፖዛል</li>
-                <li>ከክልሉ ካቢኔ የፀደቀበት ቃለ-ጉባዬ (አዲስ መሬት ሲሆን)</li>
-                <li>ካርታ እና የመሬት ልማት ቃለ-ጉባዬ (በራሱ ይዞታ ላይ ለሚያለማ)</li>
-                <li>የሊዝ ክፍያ ሪሲት ኮፒ</li>
-                <li>ግብር ሪሲት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ውክልና ኮፒ(ባለቤቱ ካልሆነ)</li>
-                <li>-አካባቢ ተፅኖ ጥናት (E.IA)</li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ለግል ቤት
-              </h2>
-              <ul className="list-disc px-4 text-lg">
-                <li>ከመሬት ልማት ማኔጅመንት ባለሥልጣን ከእዳና እገዳ ነፃ (ኪሊራንስ)</li>
-                <li>ካርታ ፎቶ ኮፒ</li>
-                <li>ግብር ሪሲት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ውክልና ኮፒ( ባለቤቱ ካልሆነ)</li>
-                <li>ግብር ሪሲት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ጀጎል ከሆነ(የቅርስ ጥበቃ ደብዳቤ )</li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ለቀበሌ ቤት
-              </h2>
-              <ul className="list-disc px-4 text-lg">
-                <li>ከሚኖሩበት ወረዳ ደብዳቤ</li>
-                <li>ቤት ኪራይ ከደብዳቤው ስም ጋር አንድ አይነት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ውክልና ኮፒ(ባለቤቱ ካልሆነ)</li>
-                <li>ጀጎል ከሆነ(የቅርስ ጥበቃ ደብዳቤ )</li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ኪራይ ቤቶች
-              </h2>
-              <ul className="list-disc px-4 text-lg">
-                <li>ከኪራይ ቤቶች ደብዳቤ</li>
-                <li>የቤት ኪራይ ሪሲት ኮፒ</li>
-                <li>ውል ኮፒ</li>
-                <li>የማንነት የሚገልፅ መታወቂያ</li>
+                <li>የፕላን ሰምምነት ማቅረብ</li>
+                <li>የግንባታ ፍቃድ መጠየቂያ ማመልከቻ ቅጽ 001 በአባሪ 1 የተመለከተውን መሙላት</li>
+                <li>ተመላሽ የሚሆን ዋናው /original /የይዞታ ማረጋገጫ ማቅረብ</li>
+                <li>4 ቅጂ የይዞታ ማረጋገጫ ማቅረብ</li>
+                <li>
+                  4 ቅጂ ከመሬት አስተዳደር ጋር የሊዝ ውል የተፈፀመበት ሠነድ ማቅረብ (በአዲስ ይዞታ ላይ
+                  ለሚካሄደው ግንባታ ብቻ )
+                </li>
+                <li>4 ቅጂ አርክቴክቸራል ፕላን (ከA3-A0) መጠን ማቅረብ</li>
+                <li>4 ቅጂ የታደሰ የአርክቴክት ምህንድስና ሙያ ፍቃድ</li>
+                <li>
+                  4 ቅጂ ስትራክቸራል ፕላን (ከA3-A0) መጠን ማቅረብ፣(ህንፃው የኮንክሪት ጣሪያ የሚኖረው ከሆነ
+                  ብቻ)
+                </li>
+                <li>
+                  4 ቅጂ የታደሰ የስትራክቸራል ምህንድስና ሙያ ፍቃድ ማቅረብ ሙያ ፍቃድ ፣(ህንፃው የኮንክሪት ጣሪያ
+                  የሚኖረው ከሆነ ብቻ)
+                </li>
+                <li>4 ቅጂ ኤልክትሪካል ፕላን (ከA3-A0)መጠን ማቅረብ</li>
+                <li>4 ቅጂ የታደሰ የኤሌክትሪክ ምህንድስና ሙያ ፍቃድ ማቅረብ</li>
+                <li>4 ቅጂ ሳኒቴሪ ፕላን (ከA3-A0) መጠን ማቅረብ፣/እንደአስፈላጊነቱ/</li>
+                <li>4 ቅጂ የታደሰ የሳኒቴሪ ምህንድስና ሙያ ፍቃድ ማቅረብ</li>
+                <li>ግንባታው የሚካሄድበት ቦታ የበጀቱ ዘመኑ ግብር የተከፈለበት ደረሰኝ ማቅረብ</li>
+                <li>4 ቅጂ አማካሪ ግዴታ የገባበት ውል በቅጽ 010 መሠረት ማቅረብ</li>
               </ul>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import ServiceOne from "./components/pages/ServiceOne";
-import ServiceTwo from "./components/pages/ServiceTwo";
+import DesignEvaBuildingPer from "./components/pages/DesignEvaBuildingPer";
 import ServiceThree from "./components/pages/ServiceThree";
 import ServiceFour from "./components/pages/ServiceFour";
 import SignUp from "./components/pages/SignUp";
@@ -29,7 +29,7 @@ export default function App() {
         </Route>
         <Route path="/" element={<HomePage />} />
         <Route path="/service-one" element={<ServiceOne />} />
-        <Route path="/service-two" element={<ServiceTwo />} />
+        <Route path="/service-two" element={<DesignEvaBuildingPer />} />
         <Route path="/service-three" element={<ServiceThree />} />
         <Route path="/service-four" element={<ServiceFour />} />
         <Route element={<PrivateRoute />}>
