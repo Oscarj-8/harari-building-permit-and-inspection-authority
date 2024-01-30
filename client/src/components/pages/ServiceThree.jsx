@@ -78,7 +78,7 @@ export default function ServiceOne() {
           </h1>
           <p className="text-start">{buildingInsOccPermit[0].intro}</p>
           <p>
-            ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}
+            ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎችን ለማየት{" "}
             <Button
               variant="contained"
               className="bg-blue-700"
@@ -291,61 +291,35 @@ export default function ServiceOne() {
             className="mb-8  text-3xl"
             variant="h5"
           >
-            ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎች
+            ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎች
           </Typography>
           <div className="flex flex-col gap-4 overflow-y-auto h-[400px] lg:flex-row">
             <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ለኢንቨስትመንት
-              </h2>
               <ul className="list-disc px-4 text-lg">
-                <li>ከመሬት ልማት ማኔጅመንት ባለስልጣን ከእዳና እገዳ ነፃ (ክሊራንስ)</li>
-                <li>የኢንቨስትመነት ፍቃድና ፕሮፖዛል</li>
-                <li>ከክልሉ ካቢኔ የፀደቀበት ቃለ-ጉባዬ (አዲስ መሬት ሲሆን)</li>
-                <li>ካርታ እና የመሬት ልማት ቃለ-ጉባዬ (በራሱ ይዞታ ላይ ለሚያለማ)</li>
-                <li>የሊዝ ክፍያ ሪሲት ኮፒ</li>
-                <li>ግብር ሪሲት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ውክልና ኮፒ(ባለቤቱ ካልሆነ)</li>
-                <li>-አካባቢ ተፅኖ ጥናት (E.IA)</li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ለግል ቤት
-              </h2>
-              <ul className="list-disc px-4 text-lg">
-                <li>ከመሬት ልማት ማኔጅመንት ባለሥልጣን ከእዳና እገዳ ነፃ (ኪሊራንስ)</li>
-                <li>ካርታ ፎቶ ኮፒ</li>
-                <li>ግብር ሪሲት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ውክልና ኮፒ( ባለቤቱ ካልሆነ)</li>
-                <li>ግብር ሪሲት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ጀጎል ከሆነ(የቅርስ ጥበቃ ደብዳቤ )</li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ለቀበሌ ቤት
-              </h2>
-              <ul className="list-disc px-4 text-lg">
-                <li>ከሚኖሩበት ወረዳ ደብዳቤ</li>
-                <li>ቤት ኪራይ ከደብዳቤው ስም ጋር አንድ አይነት ኮፒ</li>
-                <li>የማንነት መታወቂያ ኮፒ</li>
-                <li>ውክልና ኮፒ(ባለቤቱ ካልሆነ)</li>
-                <li>ጀጎል ከሆነ(የቅርስ ጥበቃ ደብዳቤ )</li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold l text-slate-700">
-                ኪራይ ቤቶች
-              </h2>
-              <ul className="list-disc px-4 text-lg">
-                <li>ከኪራይ ቤቶች ደብዳቤ</li>
-                <li>የቤት ኪራይ ሪሲት ኮፒ</li>
-                <li>ውል ኮፒ</li>
-                <li>የማንነት የሚገልፅ መታወቂያ</li>
+                <li>የፕላን ሰምምነት ማቅረብ</li>
+                <li>የግንባታ ፍቃድ መጠየቂያ ማመልከቻ ቅጽ 001 በአባሪ 1 የተመለከተውን መሙላት</li>
+                <li>ተመላሽ የሚሆን ዋናው /original /የይዞታ ማረጋገጫ ማቅረብ</li>
+                <li>4 ቅጂ የይዞታ ማረጋገጫ ማቅረብ</li>
+                <li>
+                  4 ቅጂ ከመሬት አስተዳደር ጋር የሊዝ ውል የተፈፀመበት ሠነድ ማቅረብ (በአዲስ ይዞታ ላይ
+                  ለሚካሄደው ግንባታ ብቻ )
+                </li>
+                <li>4 ቅጂ አርክቴክቸራል ፕላን (ከA3-A0) መጠን ማቅረብ</li>
+                <li>4 ቅጂ የታደሰ የአርክቴክት ምህንድስና ሙያ ፍቃድ</li>
+                <li>
+                  4 ቅጂ ስትራክቸራል ፕላን (ከA3-A0) መጠን ማቅረብ፣(ህንፃው የኮንክሪት ጣሪያ የሚኖረው ከሆነ
+                  ብቻ)
+                </li>
+                <li>
+                  4 ቅጂ የታደሰ የስትራክቸራል ምህንድስና ሙያ ፍቃድ ማቅረብ ሙያ ፍቃድ ፣(ህንፃው የኮንክሪት ጣሪያ
+                  የሚኖረው ከሆነ ብቻ)
+                </li>
+                <li>4 ቅጂ ኤልክትሪካል ፕላን (ከA3-A0)መጠን ማቅረብ</li>
+                <li>4 ቅጂ የታደሰ የኤሌክትሪክ ምህንድስና ሙያ ፍቃድ ማቅረብ</li>
+                <li>4 ቅጂ ሳኒቴሪ ፕላን (ከA3-A0) መጠን ማቅረብ፣/እንደአስፈላጊነቱ/</li>
+                <li>4 ቅጂ የታደሰ የሳኒቴሪ ምህንድስና ሙያ ፍቃድ ማቅረብ</li>
+                <li>ግንባታው የሚካሄድበት ቦታ የበጀቱ ዘመኑ ግብር የተከፈለበት ደረሰኝ ማቅረብ</li>
+                <li>4 ቅጂ አማካሪ ግዴታ የገባበት ውል በቅጽ 010 መሠረት ማቅረብ</li>
               </ul>
             </div>
           </div>
