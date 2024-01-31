@@ -121,7 +121,7 @@ const PlanConsentReqsList = () => {
         ))}
         {noFolder && <p className="text-slate-900 text-lg">{message}</p>}
       </List>
-      {userFolders.length > 0 && (
+      {totalPages > 1 && (
         <div>
           <button
             className="text-slate-900 text-lg"
