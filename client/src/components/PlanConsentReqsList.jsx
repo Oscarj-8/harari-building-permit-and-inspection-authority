@@ -122,7 +122,7 @@ const PlanConsentReqsList = () => {
         {noFolder && <p className="text-slate-900 text-lg">{message}</p>}
       </List>
       {totalPages > 1 && (
-        <div>
+        <div className="self-center">
           <button
             className="text-slate-900 text-lg"
             onClick={prevPage}
