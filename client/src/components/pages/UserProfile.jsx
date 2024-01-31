@@ -134,7 +134,7 @@ export default function UserProfile() {
         "
           disabled={loading}
         >
-          {loading ? "Loading..." : "Update"}
+          {loading ? "Updating..." : "Update"}
         </button>
       </form>
       <div className="flex justify-between mt-5">
