@@ -81,11 +81,11 @@ const PlanConsentReqsList = () => {
   };
 
   const prevPage = () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const nextPage = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -121,7 +121,7 @@ const PlanConsentReqsList = () => {
         ))}
         {noFolder && <p className="text-slate-900 text-lg">{message}</p>}
       </List>
-      {userFolders.length > 10 && (
+      {userFolders.length > 1 && (
         <div>
           <button
             className="text-slate-900 text-lg"
