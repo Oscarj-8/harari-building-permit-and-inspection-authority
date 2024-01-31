@@ -9,6 +9,10 @@ const PlanConsentReqsList = () => {
   const [message, setMessage] = useState("");
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 10;
+
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const handleDeleteClose = () => {
     setDeleteOpen(false);
@@ -18,7 +22,9 @@ const PlanConsentReqsList = () => {
   useEffect(() => {
     const fetchUserFolders = async () => {
       try {
-        const response = await fetch("/api/user-folders");
+        const response = await fetch(
+          `/api/user-folders?page=${currentPage}&pageSize=${pageSize}`
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -27,6 +33,7 @@ const PlanConsentReqsList = () => {
             setNoFolder(true);
           } else {
             setUserFolders(data.userFolders);
+            setTotalPages(data.totalPages);
           }
         } else {
           console.error("Error fetching user folders");
@@ -37,7 +44,7 @@ const PlanConsentReqsList = () => {
     };
 
     fetchUserFolders();
-  }, []);
+  }, [currentPage]);
 
   const handleDownloadFolder = (folderName) => {
     const downloadLink = document.createElement("a");
@@ -73,6 +80,14 @@ const PlanConsentReqsList = () => {
     }
   };
 
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <div className="flex flex-col p-1">
       <h1 className="text-lg underline">Plan Consent Requests List</h1>
@@ -106,6 +121,27 @@ const PlanConsentReqsList = () => {
         ))}
         {noFolder && <p className="text-slate-900 text-lg">{message}</p>}
       </List>
+      {userFolders.length > 10 && (
+        <div>
+          <button
+            className="text-slate-900 text-lg"
+            onClick={prevPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>{" "}
+          <span>
+            {currentPage} of {totalPages}
+          </span>{" "}
+          <button
+            className="text-slate-900 text-lg"
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
       <ReusableModal open={deleteOpen} onClose={handleDeleteClose}>
         <div className="min-w-[300px] max-w-[500px]">
           <Typography
