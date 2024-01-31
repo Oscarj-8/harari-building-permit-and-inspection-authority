@@ -5,7 +5,11 @@ import { errorHandler } from "../../utils/error.js";
 
 const getUserFolders = (req, res) => {
   const uploadsPath = path.join(process.cwd(), "api/planConsentFolder");
-
+  const { page, pageSize } = req.query;
+  const currentPage = parseInt(page) || 1;
+  const size = parseInt(pageSize) || 10;
+  const startIndex = (currentPage - 1) * size;
+  const endIndex = currentPage * size;
   try {
     // Check if the directory exists
     if (!fs.existsSync(uploadsPath)) {
@@ -18,7 +22,11 @@ const getUserFolders = (req, res) => {
     if (!folders || (folders && folders.length === 0)) {
       res.status(200).json({ message: "No new folders or requests" });
     } else {
-      res.status(200).json({ userFolders: folders });
+      const paginatedFolders = folders.slice(startIndex, endIndex);
+      res.status(200).json({
+        userFolders: paginatedFolders,
+        totalPages: Math.ceil(folders.length / size),
+      });
     }
   } catch (error) {
     if (error.code === "ENOENT") {
