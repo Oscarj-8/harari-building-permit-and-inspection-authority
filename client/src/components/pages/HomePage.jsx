@@ -1,6 +1,6 @@
 import background from "../../assets/images/Background.jpg";
 import Modal from "../Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
@@ -16,18 +16,43 @@ export default function HomePage() {
   const textStyle = {
     fontFamily: "Montserrat, sans-serif",
   };
-
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    number: "",
+    message: "",
+  });
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const commentDiv = document.getElementById("commentDiv");
+      if (
+        commentDiv &&
+        !commentDiv.contains(event.target) &&
+        !event.target.classList.contains("fa-comment")
+      ) {
+        setIsCommentOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
 
   const handleComment = () => {
     setIsCommentOpen(!isCommentOpen);
+    console.log(isCommentOpen);
   };
 
   const closeModal = () => {
@@ -41,6 +66,15 @@ export default function HomePage() {
       openModal();
     }
   };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSend = () => {};
 
   return (
     <div className="flex flex-col gap-16 bg-gray-100">
@@ -119,38 +153,44 @@ export default function HomePage() {
             </ul>
           </Modal>
         </div>
-        <div>
+        <div id="commentDiv">
           <FontAwesomeIcon
             onClick={handleComment}
             icon={faComment}
-            className="text-3xl p-4 bg-blue-700 text-white absolute right-2 rounded-full bottom-2 md:bottom-8 md:right-8 hover:shadow-2xl"
+            className="text-3xl p-4 bg-blue-700 text-white absolute right-2 rounded-full bottom-2 md:bottom-8 md:right-8 hover:shadow-2xl cursor-pointer"
           />
           <div
-            className={`absolute right-8 bottom-24 w-[400px] ${
-              isCommentOpen ? "opacity-1" : "opacity-0"
-            }`}
+            className={`absolute bottom-24 w-[400px] z-40 ${
+              isCommentOpen ? "visible right-8" : "hidden right-[50em]"
+            } `}
           >
             <form className="flex flex-col gap-2 p-2 mb-2 justify-center items-center bg-white z-auto rounded-md">
               <span className="self-start p-1 text-xl">
-                Send us your thoughts
+                Have a Tip or Idea to Share?
               </span>
               <input
+                id="name"
+                onChange={handleChange}
                 className="p-2 w-full border rounded-sm border-slate-500"
                 placeholder="Enter your name here"
                 type="text"
               />
               <input
+                id="number"
+                onChange={handleChange}
                 className=" p-2 border w-full border-slate-500"
                 placeholder="Enter your number here"
                 type="number"
               />
               <textarea
-                name=""
-                id=""
+                name="message"
+                id="message"
+                onChange={handleChange}
                 className="w-full p-2 border border-slate-500"
-                placeholder="Write your comment here"
+                placeholder="Write your message here"
               ></textarea>
               <Button
+                onClick={handleSend}
                 type="button"
                 variant="contained"
                 className="bg-blue-700 w-full shadow-none hover:shadow-lg"
