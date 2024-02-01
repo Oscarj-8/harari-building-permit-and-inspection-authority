@@ -9,6 +9,8 @@ import Services from "../Services";
 import About from "../About";
 import Footer from "../Footer";
 import { Element } from "react-scroll";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomePage() {
   const textStyle = {
@@ -19,9 +21,13 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
+  };
+
+  const handleComment = () => {
+    setIsCommentOpen(!isCommentOpen);
   };
 
   const closeModal = () => {
@@ -112,6 +118,47 @@ export default function HomePage() {
               </Link>
             </ul>
           </Modal>
+        </div>
+        <div>
+          <FontAwesomeIcon
+            onClick={handleComment}
+            icon={faComment}
+            className="text-3xl p-4 bg-blue-700 text-white absolute right-2 rounded-full bottom-2 md:bottom-8 md:right-8 hover:shadow-2xl"
+          />
+          <div
+            className={`absolute right-8 bottom-24 w-[400px] ${
+              isCommentOpen ? "opacity-1" : "opacity-0"
+            }`}
+          >
+            <form className="flex flex-col gap-2 p-2 mb-2 justify-center items-center bg-white z-auto rounded-md">
+              <span className="self-start p-1 text-xl">
+                Send us your thoughts
+              </span>
+              <input
+                className="p-2 w-full border rounded-sm border-slate-500"
+                placeholder="Enter your name here"
+                type="text"
+              />
+              <input
+                className=" p-2 border w-full border-slate-500"
+                placeholder="Enter your number here"
+                type="number"
+              />
+              <textarea
+                name=""
+                id=""
+                className="w-full p-2 border border-slate-500"
+                placeholder="Write your comment here"
+              ></textarea>
+              <Button
+                type="button"
+                variant="contained"
+                className="bg-blue-700 w-full shadow-none hover:shadow-lg"
+              >
+                Send
+              </Button>
+            </form>
+          </div>
         </div>
       </main>
       <Element name="services" className="element">
