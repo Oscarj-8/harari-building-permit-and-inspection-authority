@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
-import CommentMessages from "../CommentMessages";
+import CommentMessagesForm from "../CommentMessagesForm";
 import CloseIcon from "@mui/icons-material/Close";
 import Services from "../Services";
 import About from "../About";
@@ -184,7 +184,7 @@ export default function HomePage() {
             </ul>
           </Modal>
         </div>
-        <CommentMessages
+        <CommentMessagesForm
           handleComment={handleComment}
           isCommentOpen={isCommentOpen}
           handleChange={handleChange}

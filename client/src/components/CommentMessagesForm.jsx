@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
 
-function CommentMessages({
+function CommentMessagesForm({
   handleComment,
   isCommentOpen,
   handleChange,
@@ -15,7 +15,7 @@ function CommentMessages({
       <FontAwesomeIcon
         onClick={handleComment}
         icon={faComment}
-        className="text-3xl p-4 bg-blue-700 text-white absolute right-2 rounded-full bottom-2 md:bottom-8 md:right-8 hover:shadow-2xl cursor-pointer"
+        className="text-3xl p-4 bg-blue-700 text-white absolute right-4 rounded-full bottom-2 md:bottom-8 md:right-9 hover:shadow-2xl cursor-pointer"
       />
       <div
         className={`absolute bottom-24  min-w-[340px] z-40 ${
@@ -76,9 +76,9 @@ function CommentMessages({
     </div>
   );
 }
-export default CommentMessages;
+export default CommentMessagesForm;
 
-CommentMessages.propTypes = {
+CommentMessagesForm.propTypes = {
   handleComment: PropTypes.func.isRequired,
   isCommentOpen: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
