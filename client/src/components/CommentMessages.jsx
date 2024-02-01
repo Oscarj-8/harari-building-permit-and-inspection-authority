@@ -18,11 +18,24 @@ function CommentMessages({
         className="text-3xl p-4 bg-blue-700 text-white absolute right-2 rounded-full bottom-2 md:bottom-8 md:right-8 hover:shadow-2xl cursor-pointer"
       />
       <div
-        className={`absolute bottom-24 w-[400px] z-40 ${
+        className={`absolute bottom-24  min-w-[340px] z-40 ${
           isCommentOpen ? "visible right-8" : "hidden right-[50em]"
         } `}
+        style={{
+          right: isCommentOpen
+            ? window.innerWidth > 768
+              ? "right-8"
+              : "calc(50% - 340px)"
+            : "",
+          transform: isCommentOpen
+            ? window.innerWidth > 768
+              ? "none"
+              : "translateX(-50%)"
+            : "none",
+          minWidth: "340px",
+        }}
       >
-        <form className="flex flex-col gap-2 p-2 mb-2 justify-center items-center bg-white z-auto rounded-md">
+        <form className="flex flex-col gap-2 p-2 mb-2 justify-center  items-center bg-white z-auto rounded-md">
           <span className="self-start p-1 text-xl">
             Have a Tip or Idea to Share?
           </span>
@@ -47,7 +60,7 @@ function CommentMessages({
             id="message"
             onChange={handleChange}
             value={formData.message}
-            className="w-full p-2 border border-slate-500"
+            className="w-full p-2 border h-[150px]  border-slate-500"
             placeholder="Write your message here"
           ></textarea>
           <Button

@@ -55,7 +55,6 @@ export default function HomePage() {
 
   const handleComment = () => {
     setIsCommentOpen(!isCommentOpen);
-    console.log(isCommentOpen);
   };
 
   const closeModal = () => {
@@ -78,6 +77,11 @@ export default function HomePage() {
   };
 
   const handleSend = async () => {
+    if (!formData.message) {
+      alert("Please fill in at least the message field");
+      return;
+    }
+
     try {
       const res = await fetch("/api/messages", {
         method: "POST",
