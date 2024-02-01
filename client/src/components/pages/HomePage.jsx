@@ -1,5 +1,6 @@
 import background from "../../assets/images/Background.jpg";
 import Modal from "../Modal";
+import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -10,6 +11,7 @@ import Services from "../Services";
 import About from "../About";
 import Footer from "../Footer";
 import { Element } from "react-scroll";
+import ReusableModal from "../ReusableModal";
 
 export default function HomePage() {
   const textStyle = {
@@ -25,6 +27,8 @@ export default function HomePage() {
     number: "",
     message: "",
   });
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -84,7 +88,7 @@ export default function HomePage() {
       });
 
       if (res.ok) {
-        console.log("Message sent successfully");
+        setOpen(true);
         setFormData({
           name: "",
           number: "",
@@ -191,6 +195,31 @@ export default function HomePage() {
         <About />
       </Element>
       <Footer />
+      {open && (
+        <ReusableModal open={open} onClose={handleClose}>
+          <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Confirmation
+            </Typography>
+            <Typography
+              className="text-green-700 text-center"
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            >
+              Your message has been successfully sent. Thank you for reaching
+              out. We will get in touch with you{" "}
+              <span className="text-2xl">😊</span> .
+            </Typography>
+            <Button
+              variant="contained"
+              className="w-[100px] bg-blue-700 mt-6"
+              onClick={handleClose}
+            >
+              Ok
+            </Button>
+          </div>
+        </ReusableModal>
+      )}
     </div>
   );
 }
