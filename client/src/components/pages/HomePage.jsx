@@ -212,7 +212,7 @@ export default function HomePage() {
             >
               Your message has been successfully sent. Thank you for reaching
               out. We will get in touch with you{" "}
-              <span className="text-2xl">😊</span> .
+              <span className="text-md">😊</span> .
             </Typography>
             <Button
               variant="contained"
