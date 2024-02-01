@@ -14,6 +14,7 @@ import buildingInsOccPermitfileGetRoutes from "./routes/buildingInsOccPermit/Bui
 import designEvaBuildingPerFileUpload from "./routes/designEvaBuildingPer/DesignEvaBuildingPerUpload.route.js";
 import designEvaBuildingPerFileGetRoutes from "./routes/designEvaBuildingPer/DesignEvaBuildingPerFileGet.route.js";
 import path from "path";
+import messageRoute from "./routes/message/messages.route.js";
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
 app.use("/api/user-auth", userAuthRouter);
+app.use("/api", messageRoute);
 
 // app.use(express.static(path.join(__dirname, "/client/dist")));
 app.use(

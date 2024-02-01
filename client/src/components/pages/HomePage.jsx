@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
+import CommentMessages from "../CommentMessages";
 import CloseIcon from "@mui/icons-material/Close";
 import Services from "../Services";
 import About from "../About";
 import Footer from "../Footer";
 import { Element } from "react-scroll";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomePage() {
   const textStyle = {
@@ -74,7 +73,31 @@ export default function HomePage() {
     });
   };
 
-  const handleSend = () => {};
+  const handleSend = async () => {
+    try {
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        console.log("Message sent successfully");
+        setFormData({
+          name: "",
+          number: "",
+          message: "",
+        });
+        handleComment();
+      } else {
+        console.error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("An error occurred while sending", error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-16 bg-gray-100">
@@ -153,53 +176,13 @@ export default function HomePage() {
             </ul>
           </Modal>
         </div>
-        <div id="commentDiv">
-          <FontAwesomeIcon
-            onClick={handleComment}
-            icon={faComment}
-            className="text-3xl p-4 bg-blue-700 text-white absolute right-2 rounded-full bottom-2 md:bottom-8 md:right-8 hover:shadow-2xl cursor-pointer"
-          />
-          <div
-            className={`absolute bottom-24 w-[400px] z-40 ${
-              isCommentOpen ? "visible right-8" : "hidden right-[50em]"
-            } `}
-          >
-            <form className="flex flex-col gap-2 p-2 mb-2 justify-center items-center bg-white z-auto rounded-md">
-              <span className="self-start p-1 text-xl">
-                Have a Tip or Idea to Share?
-              </span>
-              <input
-                id="name"
-                onChange={handleChange}
-                className="p-2 w-full border rounded-sm border-slate-500"
-                placeholder="Enter your name here"
-                type="text"
-              />
-              <input
-                id="number"
-                onChange={handleChange}
-                className=" p-2 border w-full border-slate-500"
-                placeholder="Enter your number here"
-                type="number"
-              />
-              <textarea
-                name="message"
-                id="message"
-                onChange={handleChange}
-                className="w-full p-2 border border-slate-500"
-                placeholder="Write your message here"
-              ></textarea>
-              <Button
-                onClick={handleSend}
-                type="button"
-                variant="contained"
-                className="bg-blue-700 w-full shadow-none hover:shadow-lg"
-              >
-                Send
-              </Button>
-            </form>
-          </div>
-        </div>
+        <CommentMessages
+          handleComment={handleComment}
+          isCommentOpen={isCommentOpen}
+          handleChange={handleChange}
+          handleSend={handleSend}
+          formData={formData}
+        />
       </main>
       <Element name="services" className="element">
         <Services />
