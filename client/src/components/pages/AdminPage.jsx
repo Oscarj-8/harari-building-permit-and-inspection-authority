@@ -3,7 +3,7 @@ import PlanConsentReqsList from "../PlanConsentReqsList";
 import DesignEvalBuildingPermitReqsList from "../DesignEvalBuildingPermitReqsList";
 import BuildingInsOccPermit from "../BuildingInsOccPermit";
 import ConstructionRegulatory from "../ConstructionRegulatory";
-
+import CommentMessagesList from "./CommentMessagesList";
 export default function AdminPage() {
   const [navIsOpen, setNavIsOpen] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState(
@@ -72,6 +72,14 @@ export default function AdminPage() {
                 onClick={() => handleNavClick(<ConstructionRegulatory />)}
               >
                 Construction regulatory
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onClick={() => handleNavClick(<CommentMessagesList />)}
+              >
+                Comments and messages
               </a>
             </li>
           </ul>

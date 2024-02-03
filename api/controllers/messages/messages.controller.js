@@ -8,12 +8,11 @@ const handleMessages = (req, res) => {
   try {
     const { name, number, message } = req.body;
 
-    const timestamp = Date.now();
+    const messageFilePath = path.join(
+      MESSAGES_FOLDER,
+      `message_${Date.now()}.txt`
+    );
 
-    const messageFolder = path.join(MESSAGES_FOLDER, String(timestamp));
-    fs.mkdirSync(messageFolder, { recursive: true });
-
-    const messageFilePath = path.join(messageFolder, "message.txt");
     fs.writeFileSync(
       messageFilePath,
       `Name: ${name}\nNumber: ${number}\nMessage: ${message}`
