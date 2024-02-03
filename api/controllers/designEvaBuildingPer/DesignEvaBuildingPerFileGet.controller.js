@@ -10,7 +10,6 @@ const getUserFolders = (req, res) => {
   );
 
   try {
-    // Check if the directory exists
     if (!fs.existsSync(uploadsPath)) {
       res.status(200).json({ message: "No new folders or requests" });
       return;
@@ -27,7 +26,6 @@ const getUserFolders = (req, res) => {
     if (error.code === "ENOENT") {
       res.status(404).json({ message: "User folder directory not found" });
     } else {
-      // Handle other errors
       res
         .status(500)
         .json({ message: "Error fetching user folders", error: error });
@@ -62,7 +60,6 @@ const deleteFolder = (req, res) => {
     folderName
   );
 
-  // Remove the folder
   fs.rmSync(folderPath, { recursive: true });
 
   res.status(200).json({ message: "Folder deleted successfully" });
