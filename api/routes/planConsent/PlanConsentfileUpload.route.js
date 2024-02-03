@@ -8,19 +8,6 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    //   const userIdentifier = ip.address();
-    //   const userFolder = path.join(
-    //     process.cwd(),
-    //     "api/planConsentFolder",
-    //     userIdentifier
-    //   );
-
-    //   if (!fs.existsSync(userFolder)) {
-    //     fs.mkdirSync(userFolder, { recursive: true });
-    //   }
-
-    //   cb(null, userFolder);
-    // },
     const username = req.body.username;
 
     if (!username) {
