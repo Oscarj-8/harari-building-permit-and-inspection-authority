@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs";
 import archiver from "archiver";
-import { errorHandler } from "../../utils/error.js";
 
 const getUserFolders = (req, res) => {
   const uploadsPath = path.join(
