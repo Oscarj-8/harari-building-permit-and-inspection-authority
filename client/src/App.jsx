@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
-import ServiceOne from "./components/pages/ServiceOne";
+import PlanConsent from "./components/pages/PlanConsent";
 import DesignEvaBuildingPermit from "./components/pages/DesignEvaBuildingPermit";
 import BuildingInsOccPermit from "./components/pages/BuildingInsOccPermit";
 import ServiceFour from "./components/pages/ServiceFour";
@@ -28,9 +28,9 @@ export default function App() {
           <Route path="/user-profile" element={<UserProfile />} />
         </Route>
         <Route path="/" element={<HomePage />} />
-        <Route path="/service-one" element={<ServiceOne />} />
-        <Route path="/service-two" element={<DesignEvaBuildingPermit />} />
-        <Route path="/service-three" element={<BuildingInsOccPermit />} />
+        <Route path="/plan-consent" element={<PlanConsent />} />
+        <Route path="/design-eval" element={<DesignEvaBuildingPermit />} />
+        <Route path="/building-ins" element={<BuildingInsOccPermit />} />
         <Route path="/service-four" element={<ServiceFour />} />
         <Route element={<PrivateRoute />}>
           <Route path="/admin-page" element={<AdminPage />} />

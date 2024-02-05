@@ -77,7 +77,7 @@ export default function BuildingInsOccPermit() {
             {buildingInsOccPermit[0].header}
           </h1>
           <p className="text-start">{buildingInsOccPermit[0].intro}</p>
-          <p>
+          {/* <p className="my-4">
             ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎችን ለማየት{" "}
             <Button
               variant="contained"
@@ -86,7 +86,7 @@ export default function BuildingInsOccPermit() {
             >
               Click here
             </Button>
-          </p>
+          </p> */}
           <div className="flex flex-col items-center justify-center gap-4">
             <h2 className="text-2xl text-start w-full font-semibold underline">
               Steps:
@@ -99,7 +99,7 @@ export default function BuildingInsOccPermit() {
                 <li>
                   Click on the &quot;Download&quot; button to download the
                   document file that needs to be filled. The file is named
-                  &quot;ፕላን ስምምነት.docx&quot;
+                  &quot;Construction inspection Department.docx&quot;
                 </li>
               </div>
               <div>
@@ -112,7 +112,8 @@ export default function BuildingInsOccPermit() {
                 </li>
                 <li>
                   Fill in the required fields with accurate and complete
-                  information related to your planning consent request.
+                  information related to your building inspection and occupancy
+                  permit request.
                 </li>
                 <li>
                   Make sure to follow any specific instructions or guidelines
@@ -176,7 +177,8 @@ export default function BuildingInsOccPermit() {
                 </li>
                 <li>
                   We will assess the submitted information and document file to
-                  determine planning consent eligibility.
+                  determine building inspection and occupancy permit
+                  eligibility.
                 </li>
               </div>
               <div>
@@ -190,7 +192,8 @@ export default function BuildingInsOccPermit() {
                 </li>
                 <li>
                   Expect to be contacted by us within a few days regarding the
-                  status of your planning consent request.
+                  status of your building inspection and occupancy permit
+                  request.
                 </li>
               </div>
             </div>
@@ -213,7 +216,7 @@ export default function BuildingInsOccPermit() {
                 downloadFile(Construction_inspection_Department);
               }}
             >
-              Download files
+              Download file
             </Button>
           </div>
           <div id="scannedImages" className="">

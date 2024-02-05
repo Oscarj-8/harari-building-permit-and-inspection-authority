@@ -74,12 +74,12 @@ export default function DesignEvaBuildingPermit() {
   return (
     <div className="flex items-center justify-center text-black p-4">
       <main className="flex flex-col gap-8 max-w-7xl">
-        <div className=" text-lg ">
-          <h1 className="text-center font-bold text-2xl my-7">
+        <div className="text-lg">
+          <h1 className="text-center font-bold text-2xl my-7 ">
             {designEvalBuildingPermit[0].header}
           </h1>
           <p className="text-start">{designEvalBuildingPermit[0].intro}</p>
-          <p>
+          <p className="my-4">
             ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎችን ለማየት{" "}
             <Button
               variant="contained"
@@ -100,25 +100,26 @@ export default function DesignEvaBuildingPermit() {
                 </h3>
                 <li>
                   Click on the &quot;Download&quot; button to download the
-                  document file that needs to be filled. The file is named
-                  &quot;ፕላን ስምምነት.docx&quot;
+                  document files that need to be filled. The files are named
+                  &quot; የዲዛይን_ግምገማ &quot; and &quot; የአማካሪ_ግዴታ &quot;
                 </li>
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  2. Fill the Document File:
+                  2. Fill the Document Files:
                 </h3>
                 <li>
-                  Open the downloaded document file using a compatible word
+                  Open the downloaded document files using a compatible word
                   processing software (such as Microsoft Word or Google Docs).
                 </li>
                 <li>
                   Fill in the required fields with accurate and complete
-                  information related to your planning consent request.
+                  information related to your design evaluation and building
+                  permit request.
                 </li>
                 <li>
                   Make sure to follow any specific instructions or guidelines
-                  provided within the document to ensure accurate submission.
+                  provided within the documents to ensure accurate submission.
                 </li>
               </div>
               <div>
@@ -128,7 +129,7 @@ export default function DesignEvaBuildingPermit() {
                 <li>
                   If required, attach scanned images of your national ID and any
                   other related pieces of information as specified in the
-                  document.
+                  documents.
                 </li>
                 <li>
                   Ensure that the scanned images are clear, legible, and meet
@@ -137,33 +138,34 @@ export default function DesignEvaBuildingPermit() {
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  4. Save the Document File:
+                  4. Save the Document Files:
                 </h3>
                 <li>
-                  Save the filled document file with a new name to preserve your
-                  original downloaded file.
+                  Save the filled document files with a new name to preserve
+                  your original downloaded files.
                 </li>
                 <li>
-                  It&apos;s recommended to save the file in a location on your
-                  computer where you can easily locate it for the next steps.
+                  It&apos;s recommended to save the files in a location on your
+                  computer or phone where you can easily locate it for the next
+                  steps.
                 </li>
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  5. Import the Filled Document File:
+                  5. Import the Filled Document Files:
                 </h3>
                 <li>
-                  Click on the &quot;Import&quot; button on the service page.
+                  Click on the &quot;Import Files&quot; button on this page.
                 </li>
                 <li>
                   Locate and select the filled and saved document file from your
-                  computer when prompted. This action will associate the file
-                  with the upload functionality.
+                  computer or phone when prompted. This action will associate
+                  the files with the upload functionality.
                 </li>
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  6. Upload the Document File:
+                  6. Upload the Document Files:
                 </h3>
                 <li>
                   Click on the &quot;Submit&quot; button to initiate the file
@@ -173,12 +175,12 @@ export default function DesignEvaBuildingPermit() {
               <div>
                 <h3 className="font-medium text-black">7. Wait for Review:</h3>
                 <li>
-                  After successfully uploading the document file, wait for the
+                  After successfully uploading the document files, wait for the
                   review process to be completed.
                 </li>
                 <li>
-                  We will assess the submitted information and document file to
-                  determine planning consent eligibility.
+                  We will assess the submitted information and document files to
+                  determine design evaluation and building permit eligibility.
                 </li>
               </div>
               <div>
@@ -187,12 +189,12 @@ export default function DesignEvaBuildingPermit() {
                 </h3>
                 <li>
                   If the submission is successful, you will see a confirmation
-                  message on the screen indicating that the file has been
+                  message on the screen indicating that the files have been
                   uploaded successfully.
                 </li>
                 <li>
                   Expect to be contacted by us within a few days regarding the
-                  status of your planning consent request.
+                  status of your design evaluation and building permit request.
                 </li>
               </div>
             </div>
@@ -200,8 +202,8 @@ export default function DesignEvaBuildingPermit() {
               <span className="font-bold">Note:</span> Ensure that you have a
               stable internet connection during the download, filling, and
               upload processes. Additionally, carefully review all instructions
-              within the document file to avoid any errors in the submission. If
-              you encounter any issues, refer to the provided contact
+              within the document files to avoid any errors in the submission.
+              If you encounter any issues, refer to the provided contact
               information for assistance.
             </p>
           </div>
@@ -250,7 +252,7 @@ export default function DesignEvaBuildingPermit() {
               onClick={() => fileRef.current.click()}
               className="bg-blue-700 w-[300px]"
             >
-              import the files
+              import files
             </Button>
           </div>
           <div>

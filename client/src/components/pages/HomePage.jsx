@@ -149,7 +149,7 @@ export default function HomePage() {
             </div>
             <hr className="border-1 border-black" />
             <ul className="flex flex-col gap-2 ">
-              <Link to="/service-one">
+              <Link to="/plan-consent">
                 <Button
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"
@@ -157,7 +157,7 @@ export default function HomePage() {
                   Plan consent
                 </Button>
               </Link>
-              <Link to="/service-two">
+              <Link to="/design-eval">
                 <Button
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"
@@ -165,7 +165,7 @@ export default function HomePage() {
                   Design evaluation and building permit
                 </Button>
               </Link>
-              <Link to="/service-three">
+              <Link to="/building-ins">
                 <Button
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"

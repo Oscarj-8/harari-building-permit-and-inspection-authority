@@ -6,7 +6,7 @@ import { planConsent } from "../../data/constants";
 import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
 import { useSelector } from "react-redux";
 
-export default function ServiceOne() {
+export default function PlanConsent() {
   const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
@@ -59,7 +59,7 @@ export default function ServiceOne() {
             {planConsent[0].header}
           </h1>
           <p className="text-start">{planConsent[0].intro}</p>
-          <p>
+          <p className="my-4">
             ለይዞታ ማጣት እና ፕላን ስምም ነት ማሟላት የሚባቸው ማስረጃዎችን ለማየት{" "}
             <Button
               variant="contained"

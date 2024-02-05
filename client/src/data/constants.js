@@ -45,9 +45,9 @@ export const planConsent = [
 
 export const designEvalBuildingPermit = [
   {
-    header: "Welcome to Design Inspection and Occupancy Permit service page",
+    header: "Welcome to Design Evaluation and Building Permit service page",
     intro:
-      "Welcome to our Design Inspection and Occupancy Permit Request Service! We understand that obtaining planning consent is a crucial step in your project, and we're here to make the process as seamless as possible. To initiate your planning consent request, follow the step-by-step guide below. Please ensure you have all necessary information and documents ready before proceeding. If you encounter any difficulties or have questions, feel free to reach out to our support team for assistance.",
+      "Welcome to our Design Evaluation and Building Permit Service! We recognize the critical importance of meticulous design evaluation and obtaining proper building permits for the success of your construction endeavors. To embark on this journey, simply follow the outlined steps below. Prioritize gathering all requisite documents and information before proceeding further. Should you encounter any uncertainties or require guidance throughout the process, our dedicated support team stands ready to assist you promptly.",
   },
 ];
 
@@ -55,6 +55,6 @@ export const buildingInsOccPermit = [
   {
     header: "Welcome to Building Inspection and Occupancy Permit service page",
     intro:
-      "Welcome to our Building Inspection and Occupancy Permit Request Service! We understand that obtaining planning consent is a crucial step in your project, and we're here to make the process as seamless as possible. To initiate your planning consent request, follow the step-by-step guide below. Please ensure you have all necessary information and documents ready before proceeding. If you encounter any difficulties or have questions, feel free to reach out to our support team for assistance.",
+      "Welcome to our Building Inspection and Occupancy Permit Service! We recognize the significance of securing proper inspections and permits for your construction projects, and we're dedicated to simplifying this crucial process. To kickstart your journey, follow the straightforward instructions outlined below. Make sure you have all essential documents and information readily available before proceeding. Should you encounter any challenges or require guidance, don't hesitate to reach out to our support team for expert assistance. Your commitment to compliance ensures the safety and integrity of our community's built environment, and we're here to support you every step of the way.",
   },
 ];

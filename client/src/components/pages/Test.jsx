@@ -37,15 +37,15 @@ export default function BasicModal() {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <ul className="flex flex-col items-center gap-4">
-              <Link to="/service-one">
+              <Link to="/plan-consent">
                 <li className="hover:underline">Plan consent</li>
               </Link>
-              <Link to="/service-two">
+              <Link to="/design-eval">
                 <li className="hover:underline">
                   Design evaluation and building permit
                 </li>
               </Link>
-              <Link to="/service-three">
+              <Link to="/building-ins">
                 <li className="hover:underline">
                   Building inspection and occupancy permit
                 </li>
