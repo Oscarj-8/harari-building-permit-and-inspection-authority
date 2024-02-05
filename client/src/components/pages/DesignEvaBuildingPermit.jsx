@@ -2,16 +2,16 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
-import { buildingInsOccPermit } from "../../data/constants";
+import { designEvalBuildingPermit } from "../../data/constants";
 import የአማካሪ_ግዴታ from "../../documents/የአማካሪ ግዴታ with Header WITH hoosen item.docx";
 import የዲዛይን_ግምገማ from "../../documents/የዲዛይን ግምገማ  with Header with choosen file.docx";
 import { useSelector } from "react-redux";
 
-export default function ServiceOne() {
+export default function DesignEvaBuildingPermit() {
   const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
-  const [documentFile, setDocumentFile] = useState(undefined);
+  const [documentFiles, setDocumentFiles] = useState(undefined);
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
@@ -20,17 +20,19 @@ export default function ServiceOne() {
 
   const handleImport = async () => {
     setSubmitLoader(true);
-    if (documentFile && scannedImages) {
+    if (documentFiles && scannedImages) {
       const formData = new FormData();
       formData.append("username", currentUser.username);
-      formData.append("file", documentFile);
+      for (let i = 0; i < documentFiles.length; i++) {
+        formData.append("files", documentFiles[i]);
+      }
 
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
       console.log(formData);
       try {
-        const response = await fetch("/api/uploadbuildingInsOccPermit", {
+        const response = await fetch("/api/uploadDesignEvaBuildingPer", {
           method: "POST",
           body: formData,
         });
@@ -38,7 +40,7 @@ export default function ServiceOne() {
         if (response.ok) {
           console.log("File uploaded successfully");
           setOpen(true);
-          setDocumentFile(null);
+          setDocumentFiles(null);
           setScannedImages(null);
           setSubmitLoader(false);
         } else {
@@ -74,9 +76,9 @@ export default function ServiceOne() {
       <main className="flex flex-col gap-8 max-w-7xl">
         <div className=" text-lg ">
           <h1 className="text-center font-bold text-2xl my-7">
-            {buildingInsOccPermit[0].header}
+            {designEvalBuildingPermit[0].header}
           </h1>
-          <p className="text-start">{buildingInsOccPermit[0].intro}</p>
+          <p className="text-start">{designEvalBuildingPermit[0].intro}</p>
           <p>
             ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎችን ለማየት{" "}
             <Button
@@ -210,8 +212,8 @@ export default function ServiceOne() {
               variant="contained"
               className="w-[300px] bg-blue-700"
               onClick={() => {
-                downloadFile(የአማካሪ_ግዴታ); // Call the download function with the file name
-                downloadFile(የዲዛይን_ግምገማ); // Call the download function with the file name
+                downloadFile(የአማካሪ_ግዴታ);
+                downloadFile(የዲዛይን_ግምገማ);
               }}
             >
               Download files
@@ -236,18 +238,19 @@ export default function ServiceOne() {
           </div>
           <div id="docFile" className="">
             <input
+              multiple
               type="file"
               ref={fileRef}
               id="file"
               className="hidden"
-              onChange={(e) => setDocumentFile(e.target.files[0])}
+              onChange={(e) => setDocumentFiles(e.target.files)}
             />
             <Button
               variant="contained"
               onClick={() => fileRef.current.click()}
               className="bg-blue-700 w-[300px]"
             >
-              import the file
+              import the files
             </Button>
           </div>
           <div>
@@ -255,7 +258,7 @@ export default function ServiceOne() {
               variant="contained"
               onClick={handleImport}
               className="bg-blue-700 w-[300px]"
-              disabled={!documentFile || !scannedImages}
+              disabled={!documentFiles || !scannedImages}
             >
               {submitLoader ? "Submitting..." : "Submit"}
             </Button>

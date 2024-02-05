@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import ServiceOne from "./components/pages/ServiceOne";
-import DesignEvaBuildingPer from "./components/pages/DesignEvaBuildingPer";
-import ServiceThree from "./components/pages/ServiceThree";
+import DesignEvaBuildingPermit from "./components/pages/DesignEvaBuildingPermit";
+import BuildingInsOccPermit from "./components/pages/BuildingInsOccPermit";
 import ServiceFour from "./components/pages/ServiceFour";
 import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
@@ -29,8 +29,8 @@ export default function App() {
         </Route>
         <Route path="/" element={<HomePage />} />
         <Route path="/service-one" element={<ServiceOne />} />
-        <Route path="/service-two" element={<DesignEvaBuildingPer />} />
-        <Route path="/service-three" element={<ServiceThree />} />
+        <Route path="/service-two" element={<DesignEvaBuildingPermit />} />
+        <Route path="/service-three" element={<BuildingInsOccPermit />} />
         <Route path="/service-four" element={<ServiceFour />} />
         <Route element={<PrivateRoute />}>
           <Route path="/admin-page" element={<AdminPage />} />
