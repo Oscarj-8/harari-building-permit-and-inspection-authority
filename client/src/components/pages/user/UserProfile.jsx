@@ -11,10 +11,10 @@ import {
   deleteUserStart,
   deleteUserFailure,
   deleteUserSuccess,
-} from "../../redux/user/userSlice.js";
+} from "../../../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import ReusableModal from "../ReusableModal";
+import ReusableModal from "../../ReusableModal.jsx";
 
 export default function UserProfile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);

@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import { List, ListItem, Button } from "@mui/material";
-import ReusableModal from "./ReusableModal";
+import ReusableModal from "../../ReusableModal";
 import Typography from "@mui/material/Typography";
 
-const BuildingInsOccPermit = () => {
+const PlanConsentReqsList = () => {
   const [userFolders, setUserFolders] = useState([]);
   const [noFolder, setNoFolder] = useState(false);
   const [message, setMessage] = useState("");
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 10;
+
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const handleDeleteClose = () => {
     setDeleteOpen(false);
@@ -18,7 +22,9 @@ const BuildingInsOccPermit = () => {
   useEffect(() => {
     const fetchUserFolders = async () => {
       try {
-        const response = await fetch("/api/user-buildingIns-folders");
+        const response = await fetch(
+          `/api/user-folders?page=${currentPage}&pageSize=${pageSize}`
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -27,6 +33,7 @@ const BuildingInsOccPermit = () => {
             setNoFolder(true);
           } else {
             setUserFolders(data.userFolders);
+            setTotalPages(data.totalPages);
           }
         } else {
           console.error("Error fetching user folders");
@@ -37,11 +44,11 @@ const BuildingInsOccPermit = () => {
     };
 
     fetchUserFolders();
-  }, []);
+  }, [currentPage]);
 
   const handleDownloadFolder = (folderName) => {
     const downloadLink = document.createElement("a");
-    downloadLink.href = `/api/download-buildingIns/${folderName}`;
+    downloadLink.href = `/api/download/${folderName}`;
     downloadLink.download = `${folderName}.zip`;
     document.body.appendChild(downloadLink);
     downloadLink.click();
@@ -50,12 +57,9 @@ const BuildingInsOccPermit = () => {
 
   const handleDeleteFolder = async () => {
     try {
-      const response = await fetch(
-        `/api/delete-buildingIns/${selectedFolder}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/delete/${selectedFolder}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         // Update the userFolders state after successful deletion
@@ -76,11 +80,17 @@ const BuildingInsOccPermit = () => {
     }
   };
 
+  const prevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const nextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
   return (
     <div className="flex flex-col p-1">
-      <h1 className="text-lg underline">
-        Building Inspection and Occupancy Permit Requests List
-      </h1>
+      <h1 className="text-lg underline">Plan Consent Requests List</h1>
       <List className="flex flex-wrap gap-3 items-stretch ">
         {userFolders.map((folder, index) => (
           <ListItem
@@ -111,6 +121,27 @@ const BuildingInsOccPermit = () => {
         ))}
         {noFolder && <p className="text-slate-900 text-lg">{message}</p>}
       </List>
+      {totalPages > 1 && (
+        <div className="self-center">
+          <button
+            className="text-slate-900 text-lg"
+            onClick={prevPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>{" "}
+          <span>
+            {currentPage} of {totalPages}
+          </span>{" "}
+          <button
+            className="text-slate-900 text-lg"
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
       <ReusableModal open={deleteOpen} onClose={handleDeleteClose}>
         <div className="min-w-[300px] max-w-[500px]">
           <Typography
@@ -151,4 +182,4 @@ const BuildingInsOccPermit = () => {
   );
 };
 
-export default BuildingInsOccPermit;
+export default PlanConsentReqsList;

@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
-import PlanConsent from "./components/pages/PlanConsent";
-import DesignEvaBuildingPermit from "./components/pages/DesignEvaBuildingPermit";
-import BuildingInsOccPermit from "./components/pages/BuildingInsOccPermit";
-import ServiceFour from "./components/pages/ServiceFour";
-import SignUp from "./components/pages/SignUp";
-import SignIn from "./components/pages/SignIn";
-import UserSignIn from "./components/pages/UserSignIn";
-import UserSignUp from "./components/pages/UserSignUp";
-import AdminPage from "./components/pages/AdminPage";
+import PlanConsent from "./components/pages/user/PlanConsent";
+import DesignEvaBuildingPermit from "./components/pages/user/DesignEvaBuildingPermit";
+import BuildingInsOccPermit from "./components/pages/user/BuildingInsOccPermit";
+import ServiceFour from "./components/pages/user/ServiceFour";
+import SignUp from "./components/pages/admin/SignUp";
+import SignIn from "./components/pages/admin/SignIn";
+import UserSignIn from "./components/pages/user/UserSignIn";
+import UserSignUp from "./components/pages/user/UserSignUp";
+import AdminPage from "./components/pages/admin/AdminPage";
 import UserPrivateRoute from "./components/UserPrivateRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import HeaderContainer from "./components/HeaderContainer";
-import AdminProfile from "./components/pages/AdminProfile";
-import UserProfile from "./components/pages/UserProfile";
+import AdminProfile from "./components/pages/admin/AdminProfile";
+import UserProfile from "./components/pages/user/UserProfile";
 
 export default function App() {
   return (

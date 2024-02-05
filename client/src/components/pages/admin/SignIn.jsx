@@ -5,8 +5,8 @@ import {
   signInStart,
   signInSuccess,
   signInFailure,
-} from "../../redux/admin/adminSlice";
-import AdminOAuth from "../AdminOAuth";
+} from "../../../redux/admin/adminSlice";
+import AdminOAuth from "../../AdminOAuth";
 
 export default function SignIn() {
   const navigate = useNavigate();

@@ -11,10 +11,10 @@ import {
   deleteAdminStart,
   deleteAdminFailure,
   deleteAdminSuccess,
-} from "../../redux/admin/adminSlice.js";
+} from "../../../redux/admin/adminSlice.js";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import ReusableModal from "../ReusableModal";
+import ReusableModal from "../../ReusableModal.jsx";
 
 export default function AdminProfile() {
   const { currentAdmin, loading, error } = useSelector((state) => state.admin);

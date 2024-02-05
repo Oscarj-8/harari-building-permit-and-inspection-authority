@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
-import ReusableModal from "../ReusableModal";
-import { planConsent } from "../../data/constants";
-import planFile from "../../documents/ፕላን ስምምነት with Header with choosen item.docx";
+import ReusableModal from "../../ReusableModal";
+import { planConsent } from "../../../data/constants";
+import planFile from "../../../documents/ፕላን ስምምነት with Header with choosen item.docx";
 import { useSelector } from "react-redux";
 
 export default function PlanConsent() {

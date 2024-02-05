@@ -1,17 +1,17 @@
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
-import ReusableModal from "../ReusableModal";
-import { designEvalBuildingPermit } from "../../data/constants";
-import የአማካሪ_ግዴታ from "../../documents/የአማካሪ ግዴታ with Header WITH hoosen item.docx";
-import የዲዛይን_ግምገማ from "../../documents/የዲዛይን ግምገማ  with Header with choosen file.docx";
+import ReusableModal from "../../ReusableModal";
+import { buildingInsOccPermit } from "../../../data/constants";
+import Construction_inspection_Department from "../../../documents/Construction inspection Department.docx";
+
 import { useSelector } from "react-redux";
 
-export default function DesignEvaBuildingPermit() {
+export default function BuildingInsOccPermit() {
   const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
-  const [documentFiles, setDocumentFiles] = useState(undefined);
+  const [documentFile, setDocumentFile] = useState(undefined);
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
@@ -20,19 +20,17 @@ export default function DesignEvaBuildingPermit() {
 
   const handleImport = async () => {
     setSubmitLoader(true);
-    if (documentFiles && scannedImages) {
+    if (documentFile && scannedImages) {
       const formData = new FormData();
       formData.append("username", currentUser.username);
-      for (let i = 0; i < documentFiles.length; i++) {
-        formData.append("files", documentFiles[i]);
-      }
+      formData.append("file", documentFile);
 
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
       console.log(formData);
       try {
-        const response = await fetch("/api/uploadDesignEvaBuildingPer", {
+        const response = await fetch("/api/uploadbuildingInsOccPermit", {
           method: "POST",
           body: formData,
         });
@@ -40,7 +38,7 @@ export default function DesignEvaBuildingPermit() {
         if (response.ok) {
           console.log("File uploaded successfully");
           setOpen(true);
-          setDocumentFiles(null);
+          setDocumentFile(null);
           setScannedImages(null);
           setSubmitLoader(false);
         } else {
@@ -74,12 +72,12 @@ export default function DesignEvaBuildingPermit() {
   return (
     <div className="flex items-center justify-center text-black p-4">
       <main className="flex flex-col gap-8 max-w-7xl">
-        <div className="text-lg">
-          <h1 className="text-center font-bold text-2xl my-7 ">
-            {designEvalBuildingPermit[0].header}
+        <div className=" text-lg ">
+          <h1 className="text-center font-bold text-2xl my-7">
+            {buildingInsOccPermit[0].header}
           </h1>
-          <p className="text-start">{designEvalBuildingPermit[0].intro}</p>
-          <p className="my-4">
+          <p className="text-start">{buildingInsOccPermit[0].intro}</p>
+          {/* <p className="my-4">
             ለግንባታ ፍቃድ መሟላት ያለባቸው ቅደም ሁኔታዎችን ለማየት{" "}
             <Button
               variant="contained"
@@ -88,7 +86,7 @@ export default function DesignEvaBuildingPermit() {
             >
               Click here
             </Button>
-          </p>
+          </p> */}
           <div className="flex flex-col items-center justify-center gap-4">
             <h2 className="text-2xl text-start w-full font-semibold underline">
               Steps:
@@ -100,26 +98,26 @@ export default function DesignEvaBuildingPermit() {
                 </h3>
                 <li>
                   Click on the &quot;Download&quot; button to download the
-                  document files that need to be filled. The files are named
-                  &quot; የዲዛይን_ግምገማ &quot; and &quot; የአማካሪ_ግዴታ &quot;
+                  document file that needs to be filled. The file is named
+                  &quot;Construction inspection Department.docx&quot;
                 </li>
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  2. Fill the Document Files:
+                  2. Fill the Document File:
                 </h3>
                 <li>
-                  Open the downloaded document files using a compatible word
+                  Open the downloaded document file using a compatible word
                   processing software (such as Microsoft Word or Google Docs).
                 </li>
                 <li>
                   Fill in the required fields with accurate and complete
-                  information related to your design evaluation and building
+                  information related to your building inspection and occupancy
                   permit request.
                 </li>
                 <li>
                   Make sure to follow any specific instructions or guidelines
-                  provided within the documents to ensure accurate submission.
+                  provided within the document to ensure accurate submission.
                 </li>
               </div>
               <div>
@@ -129,7 +127,7 @@ export default function DesignEvaBuildingPermit() {
                 <li>
                   If required, attach scanned images of your national ID and any
                   other related pieces of information as specified in the
-                  documents.
+                  document.
                 </li>
                 <li>
                   Ensure that the scanned images are clear, legible, and meet
@@ -138,34 +136,33 @@ export default function DesignEvaBuildingPermit() {
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  4. Save the Document Files:
+                  4. Save the Document File:
                 </h3>
                 <li>
-                  Save the filled document files with a new name to preserve
-                  your original downloaded files.
+                  Save the filled document file with a new name to preserve your
+                  original downloaded file.
                 </li>
                 <li>
-                  It&apos;s recommended to save the files in a location on your
-                  computer or phone where you can easily locate it for the next
-                  steps.
+                  It&apos;s recommended to save the file in a location on your
+                  computer where you can easily locate it for the next steps.
                 </li>
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  5. Import the Filled Document Files:
+                  5. Import the Filled Document File:
                 </h3>
                 <li>
-                  Click on the &quot;Import Files&quot; button on this page.
+                  Click on the &quot;Import&quot; button on the service page.
                 </li>
                 <li>
                   Locate and select the filled and saved document file from your
-                  computer or phone when prompted. This action will associate
-                  the files with the upload functionality.
+                  computer when prompted. This action will associate the file
+                  with the upload functionality.
                 </li>
               </div>
               <div>
                 <h3 className="font-medium text-black">
-                  6. Upload the Document Files:
+                  6. Upload the Document File:
                 </h3>
                 <li>
                   Click on the &quot;Submit&quot; button to initiate the file
@@ -175,12 +172,13 @@ export default function DesignEvaBuildingPermit() {
               <div>
                 <h3 className="font-medium text-black">7. Wait for Review:</h3>
                 <li>
-                  After successfully uploading the document files, wait for the
+                  After successfully uploading the document file, wait for the
                   review process to be completed.
                 </li>
                 <li>
-                  We will assess the submitted information and document files to
-                  determine design evaluation and building permit eligibility.
+                  We will assess the submitted information and document file to
+                  determine building inspection and occupancy permit
+                  eligibility.
                 </li>
               </div>
               <div>
@@ -189,12 +187,13 @@ export default function DesignEvaBuildingPermit() {
                 </h3>
                 <li>
                   If the submission is successful, you will see a confirmation
-                  message on the screen indicating that the files have been
+                  message on the screen indicating that the file has been
                   uploaded successfully.
                 </li>
                 <li>
                   Expect to be contacted by us within a few days regarding the
-                  status of your design evaluation and building permit request.
+                  status of your building inspection and occupancy permit
+                  request.
                 </li>
               </div>
             </div>
@@ -202,8 +201,8 @@ export default function DesignEvaBuildingPermit() {
               <span className="font-bold">Note:</span> Ensure that you have a
               stable internet connection during the download, filling, and
               upload processes. Additionally, carefully review all instructions
-              within the document files to avoid any errors in the submission.
-              If you encounter any issues, refer to the provided contact
+              within the document file to avoid any errors in the submission. If
+              you encounter any issues, refer to the provided contact
               information for assistance.
             </p>
           </div>
@@ -214,11 +213,10 @@ export default function DesignEvaBuildingPermit() {
               variant="contained"
               className="w-[300px] bg-blue-700"
               onClick={() => {
-                downloadFile(የአማካሪ_ግዴታ);
-                downloadFile(የዲዛይን_ግምገማ);
+                downloadFile(Construction_inspection_Department);
               }}
             >
-              Download files
+              Download file
             </Button>
           </div>
           <div id="scannedImages" className="">
@@ -240,19 +238,18 @@ export default function DesignEvaBuildingPermit() {
           </div>
           <div id="docFile" className="">
             <input
-              multiple
               type="file"
               ref={fileRef}
               id="file"
               className="hidden"
-              onChange={(e) => setDocumentFiles(e.target.files)}
+              onChange={(e) => setDocumentFile(e.target.files[0])}
             />
             <Button
               variant="contained"
               onClick={() => fileRef.current.click()}
               className="bg-blue-700 w-[300px]"
             >
-              import files
+              import the file
             </Button>
           </div>
           <div>
@@ -260,7 +257,7 @@ export default function DesignEvaBuildingPermit() {
               variant="contained"
               onClick={handleImport}
               className="bg-blue-700 w-[300px]"
-              disabled={!documentFiles || !scannedImages}
+              disabled={!documentFile || !scannedImages}
             >
               {submitLoader ? "Submitting..." : "Submit"}
             </Button>

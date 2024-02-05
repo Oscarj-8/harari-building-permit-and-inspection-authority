@@ -1,9 +1,9 @@
 import { useState } from "react";
-import PlanConsentReqsList from "../PlanConsentReqsList";
-import DesignEvalBuildingPermitReqsList from "../DesignEvalBuildingPermitReqsList";
-import BuildingInsOccPermit from "../BuildingInsOccPermit";
-import ConstructionRegulatory from "../ConstructionRegulatory";
-import CommentMessagesList from "./CommentMessagesList";
+import PlanConsentReqsList from "../admin/PlanConsentReqsList";
+import DesignEvalBuildingPermitReqsList from "../admin/DesignEvalBuildingPermitReqsList";
+import BuildingInsOccPermit from "../admin/BuildingInsOccPermit";
+import ConstructionRegulatory from "../admin/ConstructionRegulatory";
+import CommentMessagesList from "../admin/CommentMessagesList";
 export default function AdminPage() {
   const [navIsOpen, setNavIsOpen] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState(

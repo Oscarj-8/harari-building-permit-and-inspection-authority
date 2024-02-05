@@ -155,7 +155,7 @@
 
 import { useState, useEffect } from "react";
 import { List, ListItem, Button } from "@mui/material";
-import ReusableModal from "./ReusableModal";
+import ReusableModal from "../../ReusableModal";
 import Typography from "@mui/material/Typography";
 
 const ConstructionRegulatory = () => {

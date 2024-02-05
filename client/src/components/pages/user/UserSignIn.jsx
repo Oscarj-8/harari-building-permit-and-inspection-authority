@@ -5,8 +5,8 @@ import {
   signInStart,
   signInSuccess,
   signInFailure,
-} from "../../redux/user/userSlice";
-import OAuth from "../OAuth";
+} from "../../../redux/user/userSlice";
+import OAuth from "../../OAuth";
 
 export default function SignIn() {
   const navigate = useNavigate();
