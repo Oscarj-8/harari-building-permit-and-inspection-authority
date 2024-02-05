@@ -7,11 +7,11 @@ import የአማካሪ_ግዴታ from "../../documents/የአማካሪ ግዴታ
 import የዲዛይን_ግምገማ from "../../documents/የዲዛይን ግምገማ  with Header with choosen file.docx";
 import { useSelector } from "react-redux";
 
-export default function DesignEvaBuildingPer() {
+export default function BuildingInsOccPermit() {
   const { currentUser } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const scannedImagesRef = useRef(null);
-  const [documentFiles, setDocumentFiles] = useState(undefined);
+  const [documentFile, setDocumentFile] = useState(undefined);
   const [scannedImages, setScannedImages] = useState(undefined);
   const [open, setOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
@@ -20,19 +20,17 @@ export default function DesignEvaBuildingPer() {
 
   const handleImport = async () => {
     setSubmitLoader(true);
-    if (documentFiles && scannedImages) {
+    if (documentFile && scannedImages) {
       const formData = new FormData();
       formData.append("username", currentUser.username);
-      for (let i = 0; i < documentFiles.length; i++) {
-        formData.append("files", documentFiles[i]);
-      }
+      formData.append("file", documentFile);
 
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
       console.log(formData);
       try {
-        const response = await fetch("/api/uploadDesignEvaBuildingPer", {
+        const response = await fetch("/api/uploadbuildingInsOccPermit", {
           method: "POST",
           body: formData,
         });
@@ -40,7 +38,7 @@ export default function DesignEvaBuildingPer() {
         if (response.ok) {
           console.log("File uploaded successfully");
           setOpen(true);
-          setDocumentFiles(null);
+          setDocumentFile(null);
           setScannedImages(null);
           setSubmitLoader(false);
         } else {
@@ -212,8 +210,8 @@ export default function DesignEvaBuildingPer() {
               variant="contained"
               className="w-[300px] bg-blue-700"
               onClick={() => {
-                downloadFile(የአማካሪ_ግዴታ);
-                downloadFile(የዲዛይን_ግምገማ);
+                downloadFile(የአማካሪ_ግዴታ); // Call the download function with the file name
+                downloadFile(የዲዛይን_ግምገማ); // Call the download function with the file name
               }}
             >
               Download files
@@ -238,19 +236,18 @@ export default function DesignEvaBuildingPer() {
           </div>
           <div id="docFile" className="">
             <input
-              multiple
               type="file"
               ref={fileRef}
               id="file"
               className="hidden"
-              onChange={(e) => setDocumentFiles(e.target.files)}
+              onChange={(e) => setDocumentFile(e.target.files[0])}
             />
             <Button
               variant="contained"
               onClick={() => fileRef.current.click()}
               className="bg-blue-700 w-[300px]"
             >
-              import the files
+              import the file
             </Button>
           </div>
           <div>
@@ -258,7 +255,7 @@ export default function DesignEvaBuildingPer() {
               variant="contained"
               onClick={handleImport}
               className="bg-blue-700 w-[300px]"
-              disabled={!documentFiles || !scannedImages}
+              disabled={!documentFile || !scannedImages}
             >
               {submitLoader ? "Submitting..." : "Submit"}
             </Button>
