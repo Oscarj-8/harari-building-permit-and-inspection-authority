@@ -3,8 +3,8 @@ import Typography from "@mui/material/Typography";
 import { useRef, useState } from "react";
 import ReusableModal from "../ReusableModal";
 import { buildingInsOccPermit } from "../../data/constants";
-import የአማካሪ_ግዴታ from "../../documents/የአማካሪ ግዴታ with Header WITH hoosen item.docx";
-import የዲዛይን_ግምገማ from "../../documents/የዲዛይን ግምገማ  with Header with choosen file.docx";
+import Construction_inspection_Department from "../../documents/Construction inspection Department.docx";
+
 import { useSelector } from "react-redux";
 
 export default function BuildingInsOccPermit() {
@@ -210,8 +210,7 @@ export default function BuildingInsOccPermit() {
               variant="contained"
               className="w-[300px] bg-blue-700"
               onClick={() => {
-                downloadFile(የአማካሪ_ግዴታ); // Call the download function with the file name
-                downloadFile(የዲዛይን_ግምገማ); // Call the download function with the file name
+                downloadFile(Construction_inspection_Department);
               }}
             >
               Download files
