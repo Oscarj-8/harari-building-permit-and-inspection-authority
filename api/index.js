@@ -13,6 +13,7 @@ import buildingInsOccPermitfileUpload from "./routes/buildingInsOccPermit/Buildi
 import buildingInsOccPermitfileGetRoutes from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileGet.route.js";
 import designEvaBuildingPerFileUpload from "./routes/designEvaBuildingPer/DesignEvaBuildingPerUpload.route.js";
 import designEvaBuildingPerFileGetRoutes from "./routes/designEvaBuildingPer/DesignEvaBuildingPerFileGet.route.js";
+import constructionRegUploadRoute from "./routes/constructionRegulatory/ConstructionRegUpload.route.js";
 import path from "path";
 import messageRoute from "./routes/message/messages.route.js";
 
@@ -50,6 +51,7 @@ app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
 app.use("/api/user-auth", userAuthRouter);
 app.use("/api", messageRoute);
+app.use("/api", constructionRegUploadRoute);
 
 // app.use(express.static(path.join(__dirname, "/client/dist")));
 app.use(
