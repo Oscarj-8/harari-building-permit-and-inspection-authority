@@ -1,37 +1,42 @@
 import { Formik } from "formik";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
+import ReusableModal from "../../Modal";
+import { Button } from "@mui/material";
 
 const ContactUs = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [step, setStep] = useState(1);
-
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
   const nextStep = () => setStep((step) => step + 1);
   const prevStep = () => setStep((step) => step - 1);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const valuesWithUsername = {
       ...values,
       username: currentUser.username,
     };
-    fetch("/api/submit-construction-reg-form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(valuesWithUsername),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.error("Error submitting form data:", error);
-        alert("Error submitting form data. Please try again later.");
+
+    try {
+      const response = await fetch("/api/submit-construction-reg-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(valuesWithUsername),
       });
+
+      if (response.ok) {
+        setOpen(true);
+        resetForm();
+      }
+    } catch (error) {
+      console.error("Error submitting form data:", error);
+      alert("Error submitting form data. Please try again later.");
+    }
   };
 
   const StepOne = ({
@@ -203,7 +208,13 @@ const ContactUs = () => {
         Welcome to Construction Regulatory
       </h1>
       <Formik
-        initialValues={{ email: "", password: "", firstName: "", lastName: "" }}
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+        }}
         validate={(values) => {
           const errors = {};
           if (!values.email) {
@@ -265,6 +276,28 @@ const ContactUs = () => {
           </form>
         )}
       </Formik>
+      <ReusableModal isOpen={open} onClose={handleClose}>
+        <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirmation
+          </Typography>
+          <Typography
+            className="text-green-700 text-center"
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            You have successfully uploaded and sent the request, we will get in
+            touch with in a few days
+          </Typography>
+          <Button
+            variant="contained"
+            className="w-[100px] bg-blue-700 mt-6"
+            onClick={handleClose}
+          >
+            Ok
+          </Button>
+        </div>
+      </ReusableModal>
     </div>
   );
 };

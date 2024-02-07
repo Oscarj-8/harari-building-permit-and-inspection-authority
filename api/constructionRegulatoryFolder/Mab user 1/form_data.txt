@@ -1,0 +1,16 @@
+{
+  "name": "Oscar junior",
+  "email": "binizele18@gmail.com",
+  "password": "123",
+  "firstName": "Abdulahi",
+  "lastName": "muhammed",
+  "username": "Mab user 1"
+}
+{
+  "name": "Oscar junior",
+  "email": "binizele18@gmail.com",
+  "password": "1233",
+  "firstName": "Oscar",
+  "lastName": "muhammed",
+  "username": "Mab user 1"
+}
