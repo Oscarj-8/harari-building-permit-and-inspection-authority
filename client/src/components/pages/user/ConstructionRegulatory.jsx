@@ -1,3 +1,167 @@
+// import { useState } from "react";
+// import PropTypes from "prop-types";
+
+// const StepOne = ({ formData, handleChange, nextStep }) => {
+//   const [emailError, setEmailError] = useState("");
+
+//   const validateEmail = (email) => {
+//     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     return regex.test(email);
+//   };
+
+//   const handleEmailChange = (e) => {
+//     handleChange(e);
+//     const email = e.target.value;
+//     if (validateEmail(email)) {
+//       setEmailError("");
+//     } else {
+//       setEmailError("Invalid email format");
+//     }
+//   };
+
+//   return (
+//     <div className="w-full flex items-start flex-col">
+//       <h2 className="text-xl font-semibold mb-4">
+//         Step 1: Personal Information
+//       </h2>
+//       <input
+//         type="text"
+//         name="fullName"
+//         placeholder="Full Name"
+//         value={formData.fullName}
+//         onChange={handleChange}
+//         className="border border-gray-300 rounded-md p-2 mb-4 w-full"
+//       />
+//       <input
+//         type="email"
+//         name="email"
+//         placeholder="Email"
+//         value={formData.email}
+//         onChange={handleEmailChange}
+//         className={`border border-gray-300 rounded-md p-2 mb-4 w-full ${
+//           emailError && "border-red-500"
+//         }`}
+//       />
+//       {emailError && <p className="text-red-500 mb-2 text-sm">{emailError}</p>}
+//       <div className="flex justify-between">
+//         <button
+//           disabled={!formData.fullName || !formData.email || emailError}
+//           onClick={nextStep}
+//           className={`bg-slate-700 text-white p-2 rounded-md w-full ${
+//             (!formData.fullName || !formData.email || emailError) &&
+//             "opacity-50 cursor-not-allowed"
+//           }`}
+//         >
+//           Next
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// StepOne.propTypes = {
+//   formData: PropTypes.object.isRequired,
+//   handleChange: PropTypes.func.isRequired,
+//   nextStep: PropTypes.func.isRequired,
+// };
+
+// const StepTwo = ({ formData, handleChange, prevStep, handleSubmit }) => {
+//   return (
+//     <div>
+//       <h2 className="text-xl font-semibold mb-4">Step 2: Password</h2>
+//       <input
+//         type="password"
+//         name="password"
+//         placeholder="Password"
+//         value={formData.password}
+//         onChange={handleChange}
+//         className="border border-gray-300 rounded-md p-2 mb-4 w-full"
+//       />
+//       <div className="flex justify-between">
+//         <button
+//           onClick={prevStep}
+//           className="bg-gray-500 text-white py-2 px-4 rounded-md mr-4"
+//         >
+//           Previous
+//         </button>
+//         <button
+//           type="submit"
+//           disabled={!formData.password}
+//           onClick={handleSubmit}
+//           className={`bg-blue-500 text-white py-2 px-4 rounded-md ${
+//             !formData.password && "opacity-50 cursor-not-allowed"
+//           }`}
+//         >
+//           Submit
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// StepTwo.propTypes = {
+//   formData: PropTypes.object.isRequired,
+//   handleChange: PropTypes.func.isRequired,
+//   handleSubmit: PropTypes.func.isRequired,
+//   prevStep: PropTypes.func.isRequired,
+// };
+
+// const MultiStepForm = () => {
+//   const [formData, setFormData] = useState({
+//     fullName: "",
+//     email: "",
+//     password: "",
+//   });
+//   const [step, setStep] = useState(1);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prevData) => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//   };
+
+//   const nextStep = () => {
+//     setStep((prevStep) => prevStep + 1);
+//   };
+
+//   const prevStep = () => {
+//     setStep((prevStep) => prevStep - 1);
+//   };
+
+//   return (
+//     <div className="flex justify-center items-center">
+//       <form
+//         onSubmit={handleSubmit}
+//         className="bg-gray-100 p-6 rounded-lg shadow-lg mt-12"
+//       >
+//         {step === 1 && (
+//           <StepOne
+//             formData={formData}
+//             handleChange={handleChange}
+//             nextStep={nextStep}
+//           />
+//         )}
+//         {step === 2 && (
+//           <StepTwo
+//             formData={formData}
+//             handleChange={handleChange}
+//             prevStep={prevStep}
+//             handleSubmit={handleSubmit}
+//           />
+//         )}
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default MultiStepForm;
+
 import { Formik } from "formik";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -50,8 +214,9 @@ const ContactUs = () => {
     return (
       <div className="flex flex-col gap-4">
         <input
-          className="border-2 rounded-md p-3
-          "
+          className={`border-2 rounded-md p-3  ${
+            errors.name && "border-rose-500"
+          } `}
           placeholder="Enter full name here"
           type="name"
           name="name"
@@ -60,8 +225,9 @@ const ContactUs = () => {
           value={values.name}
         />
         <input
-          className="border-2 rounded-md p-3
-          "
+          className={`border-2 rounded-md p-3 ${
+            errors.email && "border-rose-500"
+          }`}
           placeholder="Enter email here"
           type="email"
           name="email"
@@ -69,10 +235,16 @@ const ContactUs = () => {
           onBlur={handleBlur}
           value={values.email}
         />
-        {errors.email && touched.email && errors.email}
+        <p className="text-red-500">
+          {errors.email && touched.email && errors.email}
+        </p>
         <button
-          className="bg-slate-700 text-white p-3 rounded-md hover:bg-slate-600"
+          className={`bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600 ${
+            (!values.name || !values.email || errors.email) &&
+            "opacity-50 cursor-not-allowed"
+          } `}
           onClick={next}
+          disabled={!values.name || !values.email}
         >
           Next
         </button>
@@ -80,7 +252,14 @@ const ContactUs = () => {
     );
   };
 
-  const StepTwo = ({ next, prevStep, values, handleChange, handleBlur }) => {
+  const StepTwo = ({
+    next,
+    prevStep,
+    values,
+    handleChange,
+    errors,
+    handleBlur,
+  }) => {
     return (
       <div className="flex flex-col gap-4">
         <input
@@ -105,13 +284,16 @@ const ContactUs = () => {
         />
         <div className="flex flex-col gap-2">
           <button
-            className="bg-slate-700 text-white p-3 rounded-md hover:bg-slate-600"
+            className="bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600"
             onClick={prevStep}
           >
             Previous
           </button>
           <button
-            className="bg-slate-700 text-white p-3 rounded-md hover:bg-slate-600"
+            className={`bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600 ${
+              (!values.lastName || !values.firstName) &&
+              "opacity-50 cursor-not-allowed"
+            } `}
             onClick={next}
           >
             Next
