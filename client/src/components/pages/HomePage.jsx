@@ -173,7 +173,7 @@ export default function HomePage() {
                   Building inspection and occupancy permit
                 </Button>
               </Link>
-              <Link to="/service-four">
+              <Link to="/construction-reg">
                 <Button
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"

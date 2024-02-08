@@ -50,7 +50,7 @@ export default function BasicModal() {
                   Building inspection and occupancy permit
                 </li>
               </Link>
-              <Link to="/service-four">
+              <Link to="/construction-reg">
                 <li className="hover:underline">Construction regulatory</li>
               </Link>
             </ul>

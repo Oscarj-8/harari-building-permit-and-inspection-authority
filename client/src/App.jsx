@@ -3,7 +3,6 @@ import HomePage from "./components/pages/HomePage";
 import PlanConsent from "./components/pages/user/PlanConsent";
 import DesignEvaBuildingPermit from "./components/pages/user/DesignEvaBuildingPermit";
 import BuildingInsOccPermit from "./components/pages/user/BuildingInsOccPermit";
-import ServiceFour from "./components/pages/user/ServiceFour";
 import SignUp from "./components/pages/admin/SignUp";
 import SignIn from "./components/pages/admin/SignIn";
 import UserSignIn from "./components/pages/user/UserSignIn";
@@ -14,6 +13,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import HeaderContainer from "./components/HeaderContainer";
 import AdminProfile from "./components/pages/admin/AdminProfile";
 import UserProfile from "./components/pages/user/UserProfile";
+import ConstructionRegulatory from "./components/pages/user/ConstructionRegulatory";
 
 export default function App() {
   return (
@@ -31,7 +31,7 @@ export default function App() {
         <Route path="/plan-consent" element={<PlanConsent />} />
         <Route path="/design-eval" element={<DesignEvaBuildingPermit />} />
         <Route path="/building-ins" element={<BuildingInsOccPermit />} />
-        <Route path="/service-four" element={<ServiceFour />} />
+        <Route path="/construction-reg" element={<ConstructionRegulatory />} />
         <Route element={<PrivateRoute />}>
           <Route path="/admin-page" element={<AdminPage />} />
           <Route path="/admin-profile" element={<AdminProfile />} />

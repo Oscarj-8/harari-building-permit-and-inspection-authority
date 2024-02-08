@@ -2,7 +2,7 @@ import { useState } from "react";
 import PlanConsentReqsList from "../admin/PlanConsentReqsList";
 import DesignEvalBuildingPermitReqsList from "../admin/DesignEvalBuildingPermitReqsList";
 import BuildingInsOccPermit from "../admin/BuildingInsOccPermit";
-import ConstructionRegulatory from "../admin/ConstructionRegulatory";
+import ConstructionRegulatory from "./ConstructionRegulatoryList";
 import CommentMessagesList from "../admin/CommentMessagesList";
 export default function AdminPage() {
   const [navIsOpen, setNavIsOpen] = useState(false);
