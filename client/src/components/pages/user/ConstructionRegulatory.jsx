@@ -50,8 +50,9 @@ const ContactUs = () => {
     return (
       <div className="flex flex-col gap-4">
         <input
-          className="border-2 rounded-md p-3
-          "
+          className={`border-2 rounded-md p-3  ${
+            errors.name && "border-rose-500"
+          } `}
           placeholder="Enter full name here"
           type="name"
           name="name"
@@ -60,8 +61,9 @@ const ContactUs = () => {
           value={values.name}
         />
         <input
-          className="border-2 rounded-md p-3
-          "
+          className={`border-2 rounded-md p-3 ${
+            errors.email && "border-rose-500"
+          }`}
           placeholder="Enter email here"
           type="email"
           name="email"
@@ -69,10 +71,16 @@ const ContactUs = () => {
           onBlur={handleBlur}
           value={values.email}
         />
-        {errors.email && touched.email && errors.email}
+        <p className="text-red-500">
+          {errors.email && touched.email && errors.email}
+        </p>
         <button
-          className="bg-slate-700 text-white p-3 rounded-md hover:bg-slate-600"
+          className={`bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600 ${
+            (!values.name || !values.email || errors.email) &&
+            "opacity-50 cursor-not-allowed"
+          } `}
           onClick={next}
+          disabled={!values.name || !values.email}
         >
           Next
         </button>
@@ -105,13 +113,16 @@ const ContactUs = () => {
         />
         <div className="flex flex-col gap-2">
           <button
-            className="bg-slate-700 text-white p-3 rounded-md hover:bg-slate-600"
+            className="bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600"
             onClick={prevStep}
           >
             Previous
           </button>
           <button
-            className="bg-slate-700 text-white p-3 rounded-md hover:bg-slate-600"
+            className={`bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600 ${
+              (!values.lastName || !values.firstName) &&
+              "opacity-50 cursor-not-allowed"
+            } `}
             onClick={next}
           >
             Next
@@ -155,7 +166,7 @@ const ContactUs = () => {
         {errors.password && touched.password && errors.password}
         <div className="flex flex-col gap-2">
           <button
-            className="bg-slate-700 text-white p-3 rounded-md hover:"
+            className="bg-blue-700 text-white p-3 rounded-md hover:"
             onClick={prevStep}
           >
             Previous
