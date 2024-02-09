@@ -148,7 +148,9 @@ app.use(
 );
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+  res.sendFile(
+    "/root/harari-building-permit-and-inspection-authority/client/dist/index.html"
+  );
 });
 
 app.listen(3000, () => {
