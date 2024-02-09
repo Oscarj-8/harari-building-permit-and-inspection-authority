@@ -75,10 +75,10 @@ const ContactUs = () => {
           {errors.email && touched.email && errors.email}
         </p>
         <button
-          className={`bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600 ${
+          className={`bg-blue-700 text-white p-2 rounded-md hover:bg-blue-600 ${
             (!values.name || !values.email || errors.email) &&
             "opacity-50 cursor-not-allowed"
-          } `}
+          }`}
           onClick={next}
           disabled={!values.name || !values.email}
         >
@@ -111,18 +111,18 @@ const ContactUs = () => {
           onBlur={handleBlur}
           value={values.lastName}
         />
-        <div className="flex flex-col gap-2">
+        <div className="flex gap-2 justify-between">
           <button
-            className="bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600"
+            className="bg-blue-700 text-white p-2 rounded-md hover:bg-blue-600 w-[100px]"
             onClick={prevStep}
           >
             Previous
           </button>
           <button
-            className={`bg-blue-700 text-white p-3 rounded-md hover:bg-blue-600 ${
+            className={`bg-blue-700 text-white p-2 rounded-md hover:bg-blue-600 ${
               (!values.lastName || !values.firstName) &&
               "opacity-50 cursor-not-allowed"
-            } `}
+            } w-[100px]`}
             onClick={next}
           >
             Next
@@ -164,15 +164,15 @@ const ContactUs = () => {
           value={values.password}
         />
         {errors.password && touched.password && errors.password}
-        <div className="flex flex-col gap-2">
+        <div className="flex gap-2 justify-between">
           <button
-            className="bg-blue-700 text-white p-3 rounded-md hover:"
+            className="bg-blue-700 text-white p-2 rounded-md hover:bg-blue-600 w-[100px]"
             onClick={prevStep}
           >
             Previous
           </button>
           <button
-            className="bg-green-700 text-white p-3 rounded-md hover:bg-green-600"
+            className="bg-green-700 text-white p-2 rounded-md hover:bg-green-600 w-[100px]"
             onClick={handleSubmit}
             type="submit"
           >
@@ -248,7 +248,7 @@ const ContactUs = () => {
           handleSubmit,
         }) => (
           <form
-            className="flex flex-col max-w-[20em] mx-auto"
+            className="flex flex-col max-w-[24em] mx-auto p-4 bg-gray-100 rounded-md shadow-md"
             onSubmit={handleSubmit}
           >
             {step === 1 && (
