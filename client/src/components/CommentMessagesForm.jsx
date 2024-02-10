@@ -15,11 +15,11 @@ function CommentMessagesForm({
       <FontAwesomeIcon
         onClick={handleComment}
         icon={faComment}
-        className="text-3xl p-4 bg-blue-700 text-white fixed right-4 rounded-full bottom-2 md:bottom-8 md:right-9 shadow-xl hover:shadow-2xl hover:p-[0.55em] hover:text-[2em] cursor-pointer transition-all duration-500 ease-in-out"
+        className="text-3xl p-4 bg-blue-700 text-white absolute right-4 rounded-full bottom-2 md:bottom-8 md:right-9 shadow-xl hover:shadow-2xl hover:p-[0.55em] hover:text-[2em] cursor-pointer transition-all duration-500 ease-in-out z-50"
       />
       <div
-        className={`absolute bottom-24  min-w-[340px] z-40 ${
-          isCommentOpen ? "visible right-8" : "hidden right-[50em]"
+        className={`fixed bottom-24  min-w-[340px] z-40 transition-all duration-500 ease-in-out ${
+          isCommentOpen ? "opacity-100 right-8" : "-right-[50em] opacity-0"
         } `}
         style={{
           right: isCommentOpen
