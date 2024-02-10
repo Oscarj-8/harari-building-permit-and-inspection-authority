@@ -15,7 +15,7 @@ function CommentMessagesForm({
       <FontAwesomeIcon
         onClick={handleComment}
         icon={faComment}
-        className="text-3xl p-4 bg-blue-700 text-white absolute right-4 rounded-full bottom-2 md:bottom-8 md:right-9 hover:shadow-2xl cursor-pointer"
+        className="text-3xl p-4 bg-blue-700 text-white fixed right-4 rounded-full bottom-2 md:bottom-8 md:right-9 shadow-xl hover:shadow-2xl hover:p-[0.55em] hover:text-[2em] cursor-pointer transition-all duration-500 ease-in-out"
       />
       <div
         className={`absolute bottom-24  min-w-[340px] z-40 ${
