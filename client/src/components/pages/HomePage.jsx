@@ -15,7 +15,7 @@ import ReusableModal from "../ReusableModal";
 
 export default function HomePage() {
   const textStyle = {
-    fontFamily: "Montserrat, sans-serif",
+    fontFamily: "Bebas Neue, sans-serif",
   };
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -119,8 +119,11 @@ export default function HomePage() {
       >
         <div className="absolute inset-0 bg-blue-950 opacity-40 filter blur-lg"></div>
         <div className="z-0 flex flex-col items-center max-w-6xl mx-auto gap-5 mb-24">
-          <span className="text-4xl text-center text-white " style={textStyle}>
-            Build modern Harar keeping the values from the past
+          <span
+            className="text-4xl text-center text-white font-serif font-semibold md:text-5xl tracking-wide"
+            style={textStyle}
+          >
+            Build modern harar keeping the values from the past
           </span>
           <Button
             variant="contained"
