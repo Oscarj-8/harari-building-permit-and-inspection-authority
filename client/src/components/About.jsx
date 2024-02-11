@@ -2,10 +2,10 @@ import { about } from "../data/constants";
 
 export default function About() {
   return (
-    <div className="flex items-center mt-16 justify-center p-4">
+    <div className="flex items-center mt-12 justify-center p-4">
       <div className="flex flex-col items-center max-w-[1500px] gap-4 md:flex-row ">
         <div className="flex-1 flex flex-col gap-6">
-          <h1 className=" font-medium text-customBlue text-2xl md:text-3xl lg:text-4xl ">
+          <h1 className=" font-medium text-customBlue text-3xl lg:text-4xl">
             About Us
           </h1>
           <p className="text-slate-600">{about.text}</p>
