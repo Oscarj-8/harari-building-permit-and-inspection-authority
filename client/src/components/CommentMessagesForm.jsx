@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
-
+import { useEffect } from "react";
 function CommentMessagesForm({
   handleComment,
   isCommentOpen,
@@ -10,15 +10,28 @@ function CommentMessagesForm({
   formData,
   handleSend,
 }) {
+  useEffect(() => {
+    const body = document.body;
+    if (isCommentOpen) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "unset";
+    }
+
+    return () => {
+      body.style.overflow = "unset";
+    };
+  }, [isCommentOpen]);
+
   return (
     <div id="commentDiv">
       <FontAwesomeIcon
         onClick={handleComment}
         icon={faComment}
-        className="text-3xl p-4 bg-blue-700 text-white absolute right-4 rounded-full bottom-2 md:bottom-8 md:right-9 shadow-xl hover:shadow-2xl hover:p-[0.55em] hover:text-[2em] cursor-pointer transition-all duration-500 ease-in-out z-50"
+        className="text-3xl p-4 bg-blue-700 text-white absolute right-4 rounded-full bottom-2 md:bottom-8 md:right-9 shadow-xl hover:shadow-2xl hover:p-[0.55em] hover:text-[2em] cursor-pointer transition-all duration-500 ease-in-out"
       />
       <div
-        className={`fixed bottom-24  min-w-[340px] z-40 transition-all duration-500 ease-in-out ${
+        className={`fixed bottom-24 min-w-[340px] z-50 transition-all duration-500 ease-in-out ${
           isCommentOpen ? "opacity-100 right-8" : "-right-[50em] opacity-0"
         } `}
         style={{
