@@ -150,7 +150,7 @@ export default function HomePage() {
 
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <div
-              className="flex items-center justify-between gap-4"
+              className="flex items-center justify-between"
               style={{ fontFamily: "Roboto, sans-serif" }}
             >
               <h2 className="text-xl text-zinc-700">
@@ -158,9 +158,9 @@ export default function HomePage() {
               </h2>
 
               <CloseIcon
-                className="bg-blue-600 text-white rounded cursor-pointer "
+                className=" text-zinc-700 rounded cursor-pointer "
                 onClick={closeModal}
-                sx={{ fontSize: 32 }}
+                sx={{ fontSize: 28 }}
               />
             </div>
             <hr className="border-1 border-black" />
