@@ -49,6 +49,19 @@ export default function HomePage() {
     };
   }, []);
 
+  useEffect(() => {
+    const body = document.body;
+    if (isModalOpen) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "unset";
+    }
+
+    return () => {
+      body.style.overflow = "unset";
+    };
+  }, [isModalOpen]);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -137,7 +150,7 @@ export default function HomePage() {
 
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <div
-              className="flex items-end justify-between gap-4"
+              className="flex items-center justify-between gap-4"
               style={{ fontFamily: "Roboto, sans-serif" }}
             >
               <h2 className="text-xl text-zinc-700">
