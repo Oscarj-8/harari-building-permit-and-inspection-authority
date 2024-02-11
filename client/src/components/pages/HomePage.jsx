@@ -121,7 +121,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col gap-16 bg-gray-100">
+    <div className="flex flex-col bg-gray-100">
       <main
         className="flex items-center text-slate-700 p-5 "
         style={{

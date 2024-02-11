@@ -39,8 +39,10 @@ export default function Services() {
   }, []);
 
   return (
-    <main className={` flex flex-col gap-12 items-center `}>
-      <h1 className="text-5xl font-medium text-customBlue">Services</h1>
+    <main className={` flex flex-col gap-6 md:gap-12 items-center mt-8`}>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-customBlue">
+        Services
+      </h1>
       <div className="flex flex-wrap items-stretch justify-center p-4 gap-8">
         {services.map((service, id) => (
           <AnimatedCard
