@@ -215,6 +215,7 @@ export default function HomePage() {
       <Element name="about" className="element">
         <About />
       </Element>
+      <hr className="border-2 m-4" />
       <ContactUs
         handleChange={handleChange}
         handleSend={handleSend}

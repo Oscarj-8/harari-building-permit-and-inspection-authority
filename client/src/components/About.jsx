@@ -2,7 +2,7 @@ import { about } from "../data/constants";
 
 export default function About() {
   return (
-    <div className="flex items-center my-12 justify-center p-4">
+    <div className="flex items-center my-8 justify-center p-4">
       <div className="flex flex-col items-center max-w-[1500px] gap-4 md:flex-row ">
         <div className="flex-1 flex flex-col gap-6">
           <h1 className=" font-medium text-customBlue text-3xl lg:text-4xl">
