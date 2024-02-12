@@ -9,6 +9,7 @@ import CommentMessagesForm from "../CommentMessagesForm";
 import CloseIcon from "@mui/icons-material/Close";
 import Services from "../Services";
 import About from "../About";
+import ContactUs from "../ContactUs";
 import Footer from "../Footer";
 import { Element } from "react-scroll";
 import ReusableModal from "../ReusableModal";
@@ -214,6 +215,11 @@ export default function HomePage() {
       <Element name="about" className="element">
         <About />
       </Element>
+      <ContactUs
+        handleChange={handleChange}
+        handleSend={handleSend}
+        formData={formData}
+      />
       <Footer />
       {open && (
         <ReusableModal open={open} onClose={handleClose}>

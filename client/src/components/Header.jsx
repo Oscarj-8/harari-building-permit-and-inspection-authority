@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
+// import Hamburger from "./Hamburger";
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
@@ -23,6 +24,7 @@ export default function Header() {
             <span>building permit and inspection authority</span>
           )}
         </span>
+        {/* <Hamburger /> */}
         <div className="hidden sm:flex gap-6 items-center min-w-[310px]">
           <Link to="/">
             <span className="hover:underline cursor-pointer">Home</span>
