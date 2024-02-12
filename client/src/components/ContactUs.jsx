@@ -7,7 +7,7 @@ const ContactUs = ({ handleChange, formData, handleSend }) => (
       <h1 className="font-medium text-customBlue text-3xl lg:text-5xl">
         Contact Us
       </h1>
-      <h3 className="italic font-light text-xl md:text-2xl">
+      <h3 className="italic font-light text-lg md:text-2xl">
         Do you have anything to share? Tell us? Ideas? Suggestions?
       </h3>
     </div>
