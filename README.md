@@ -28,7 +28,7 @@ Navigate the construction industry's regulatory landscape effortlessly with our 
 
 To initiate any of our services, simply follow the instructions provided in the respective service pages:
 
-- <a href="https://www.hararibpia.com/plan-consent" target="_blank">Plan Consent Service Page</a>
+- <a href="https://www.hararibpia.com/plan-consent" rel="noopener">Plan Consent Service Page</a>
 - [Design Evaluation and Building Permit Service Page](#)
 - [Building Inspection and Occupancy Permit Service Page](#)
 
