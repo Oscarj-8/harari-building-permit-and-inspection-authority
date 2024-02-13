@@ -4,7 +4,14 @@ Welcome to Harari Building Permit and Inspection Authority, your trusted partner
 
 ## About Us
 
+Welcome to Harari Building Permit and Inspection Authority, your trusted partner in ensuring a seamless and compliant construction process.
+
 At Harari Building Permit and Inspection Authority, we specialize in providing comprehensive services to facilitate your construction projects. From Plan Consent to Design Evaluation and Building Permit, and from Building Inspection to Occupancy Permit, we are committed to ensuring your projects comply with regulatory standards while prioritizing safety and quality.
+
+Our team of experts is dedicated to guiding you through every step of the process, ensuring that your projects meet all necessary requirements and are completed to the highest standards. With our extensive experience and commitment to excellence, you can trust us to handle all aspects of your construction projects with professionalism and care.
+
+Whether you're embarking on a new construction project or seeking assistance with an existing one, Harari Building Permit and Inspection Authority is here to support you every step of the way. Contact us today to learn more about how we can help you achieve your construction goals.
+
 
 ## Services
 
@@ -28,7 +35,7 @@ Navigate the construction industry's regulatory landscape effortlessly with our 
 
 To initiate any of our services, simply follow the instructions provided in the respective service pages:
 
-- <a href="https://www.hararibpia.com/plan-consent" rel="noopener">Plan Consent Service Page</a>
-- [Design Evaluation and Building Permit Service Page](#)
-- [Building Inspection and Occupancy Permit Service Page](#)
+- [Plan Consent Service Page](https://www.hararibpia.com/plan-consent)
+- [Design Evaluation and Building Permit Service Page](https://www.hararibpia.com/design-eval)
+- [Building Inspection and Occupancy Permit Service Page](https://www.hararibpia.com/building-ins)
 
