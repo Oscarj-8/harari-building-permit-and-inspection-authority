@@ -201,13 +201,7 @@ export default function HomePage() {
             </ul>
           </Modal>
         </div>
-        <CommentMessagesForm
-          handleComment={handleComment}
-          isCommentOpen={isCommentOpen}
-          handleChange={handleChange}
-          handleSend={handleSend}
-          formData={formData}
-        />
+        <CommentMessagesForm />
       </main>
       <Element name="services" className="element">
         <Services />
