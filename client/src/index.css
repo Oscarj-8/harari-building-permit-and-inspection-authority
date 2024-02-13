@@ -5,3 +5,30 @@
 body::-webkit-scrollbar {
   width: 0px;
 }
+
+/* CommentMessagesForm.css */
+.icon {
+  @apply text-3xl p-4 bg-blue-700 text-white absolute right-4 rounded-full bottom-2 md:bottom-8 md:right-9 shadow-xl hover:shadow-2xl hover:p-[0.55em] hover:text-[2em] cursor-pointer transition-all duration-500 ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s infinite;
+}

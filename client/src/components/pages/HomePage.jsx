@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
-import CommentMessagesForm from "../CommentMessagesForm";
+import CallUs from "../CallUs";
 import CloseIcon from "@mui/icons-material/Close";
 import Services from "../Services";
 import About from "../About";
@@ -201,7 +201,7 @@ export default function HomePage() {
             </ul>
           </Modal>
         </div>
-        <CommentMessagesForm />
+        <CallUs />
       </main>
       <Element name="services" className="element">
         <Services />
