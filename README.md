@@ -2,6 +2,8 @@
 
 Welcome to Harari Building Permit and Inspection Authority, your trusted partner in ensuring a seamless and compliant construction process.
 
+## Demo link - www.hararibpia.com/
+
 ## About Us
 
 At Harari Building Permit and Inspection Authority, we specialize in providing comprehensive services to facilitate your construction projects. From Plan Consent to Design Evaluation and Building Permit, and from Building Inspection to Occupancy Permit, we are committed to ensuring your projects comply with regulatory standards while prioritizing safety and quality.
