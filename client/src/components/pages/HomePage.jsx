@@ -190,14 +190,22 @@ export default function HomePage() {
                   Building inspection and occupancy permit
                 </Button>
               </Link>
-              {/* <Link to="/construction-reg">
+              <Link to="/construction-reg">
                 <Button
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"
                 >
                   Construction regulatory
                 </Button>
-              </Link> */}
+              </Link>
+              <Link to="/license">
+                <Button
+                  className="w-full hover:bg-blue-700 hover:text-white"
+                  variant="outlined"
+                >
+                  License
+                </Button>
+              </Link>
             </ul>
           </Modal>
         </div>

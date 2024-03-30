@@ -58,3 +58,21 @@ export const buildingInsOccPermit = [
       "Welcome to our Building Inspection and Occupancy Permit Service! We recognize the significance of securing proper inspections and permits for your construction projects, and we're dedicated to simplifying this crucial process. To kickstart your journey, follow the straightforward instructions outlined below. Make sure you have all essential documents and information readily available before proceeding. Should you encounter any challenges or require guidance, don't hesitate to reach out to our support team for expert assistance. Your commitment to compliance ensures the safety and integrity of our community's built environment, and we're here to support you every step of the way.",
   },
 ];
+
+export const licenseFormGuide = [
+  {
+    text: "Please Fill the Request Form Properly in order to submit your service request application. Fields marked with ‘astrics (*)’ sign are mandatory information that should be provided by you to process your application by selected service provider.",
+  },
+  {
+    text: "If you wish to pause your application request process and continue later, your can do so by saving your application as a Draft and Resume it later from Draft Applications Section.",
+  },
+  {
+    text: "After you Submit your Service Request Application, you will be provided with a unique Tracking Number and Service provider branch that will process your service request. This information will also be send to your email address you provided at registration time. With your tracking number, you can follow up the progress of your application on Track My Application Section. You can only apply for the Same Service Request once. Only after the completion of existing Service request, you can reapply to the Service again.",
+  },
+  {
+    text: "Case worker who handled your service Request may contact you for further information regarding your application. You can reply for case worker inquires on Messages Section. Depending on you requested service business process, you may also be asked to fill other forms to process your application further on Correspondence Section.",
+  },
+  {
+    text: "For Service requests that requires a physical presence a as a part of business process (Example: Payment, hard print document verifications, Document Pickup), you will be asked to reserve appointment time On Appointment Section. Once you complete your reservation, the provider will reserve the time and service counter for you. You can’t change you reservation time , so make sure you will be at reserved service counter before 10 minutes of reservation time.",
+  },
+];

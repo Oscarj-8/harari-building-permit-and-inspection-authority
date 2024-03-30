@@ -14,6 +14,7 @@ import HeaderContainer from "./components/HeaderContainer";
 import AdminProfile from "./components/pages/admin/AdminProfile";
 import UserProfile from "./components/pages/user/UserProfile";
 import ConstructionRegulatory from "./components/pages/user/ConstructionRegulatory";
+import License from "./components/pages/user/License";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/design-eval" element={<DesignEvaBuildingPermit />} />
         <Route path="/building-ins" element={<BuildingInsOccPermit />} />
         <Route path="/construction-reg" element={<ConstructionRegulatory />} />
+        <Route path="/license" element={<License />} />
         <Route element={<PrivateRoute />}>
           <Route path="/admin-page" element={<AdminPage />} />
           <Route path="/admin-profile" element={<AdminProfile />} />
