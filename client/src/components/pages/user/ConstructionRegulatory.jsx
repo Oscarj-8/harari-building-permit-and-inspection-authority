@@ -50,7 +50,7 @@ const ConstructionRegulatory = () => {
 
   return (
     <div className="bg-slate-100 p-1 min-h-svh">
-      <Box className="max-w-[56em] mx-auto bg-white p-2">
+      <Box className="max-w-[60em] mx-auto bg-white p-2">
         <Box
           sx={{
             borderBottom: 1,

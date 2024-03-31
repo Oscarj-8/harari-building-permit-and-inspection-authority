@@ -42,6 +42,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
@@ -324,7 +326,7 @@ const NewRegComponent = () => {
                       </DemoContainer>
                     </LocalizationProvider>
                   </div>
-                  <div>
+                  <div className="flex flex-col gap-3 items-center justify-center">
                     <div className="w-full flex justify-between">
                       <label> Educational data</label>
                       <Button
@@ -526,7 +528,10 @@ const NewRegComponent = () => {
                                 {data["remarks"]}
                               </TableCell>
                               <TableCell align="right">
-                                {/* Render action buttons if needed */}
+                                <div className="flex gap-2">
+                                  <DeleteForeverIcon className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out " />
+                                  <EditIcon className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out " />
+                                </div>
                               </TableCell>
                             </TableRow>
                           ))}
