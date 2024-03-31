@@ -53,8 +53,8 @@ const ConstructionRegulatory = () => {
   };
 
   return (
-    <div className="bg-slate-100 p-1">
-      <Box sx={{ width: "60%", margin: "auto", backgroundColor: "#fff" }}>
+    <div className="bg-slate-100 p-1 min-h-svh">
+      <Box className="max-w-[50em] mx-auto bg-white p-2">
         <Box
           sx={{
             borderBottom: 1,
