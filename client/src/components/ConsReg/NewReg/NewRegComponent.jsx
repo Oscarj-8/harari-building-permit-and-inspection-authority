@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -105,6 +106,13 @@ const NewRegComponent = () => {
   // modal functions
   const handleEducationChange = (event) => {
     setSelectedEducationalLevel(event.target.value);
+  };
+
+  const handlRemoveEducation = (id) => {
+    const updatedEducationalData = educationalData.filter(
+      (data) => data.id !== id
+    );
+    setEducationalData(updatedEducationalData);
   };
 
   const formik = useFormik({
@@ -353,8 +361,11 @@ const NewRegComponent = () => {
                           const formJson = Object.fromEntries(
                             formData.entries()
                           );
-                          setEducationalData([...educationalData, formJson]);
-                          console.log(educationalData);
+                          const id = uuidv4();
+                          const entryWithId = { id, ...formJson };
+
+                          setEducationalData([...educationalData, entryWithId]);
+
                           handleClose();
                         },
                       }}
@@ -529,7 +540,12 @@ const NewRegComponent = () => {
                               </TableCell>
                               <TableCell align="right">
                                 <div className="flex gap-2">
-                                  <DeleteForeverIcon className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out " />
+                                  <DeleteForeverIcon
+                                    onClick={() =>
+                                      handlRemoveEducation(data.id)
+                                    }
+                                    className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out "
+                                  />
                                   <EditIcon className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out " />
                                 </div>
                               </TableCell>
