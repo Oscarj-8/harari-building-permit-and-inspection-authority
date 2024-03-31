@@ -4,8 +4,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
 import NewRegComponent from "../../ConsReg/NewReg/NewRegComponent";
 // Tab starts here
 function CustomTabPanel(props) {
@@ -44,9 +42,7 @@ function a11yProps(index) {
 // Tab ends here
 
 const ConstructionRegulatory = () => {
-  const theme = useTheme();
   const [value, setValue] = useState(0);
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -54,7 +50,7 @@ const ConstructionRegulatory = () => {
 
   return (
     <div className="bg-slate-100 p-1 min-h-svh">
-      <Box className="max-w-[50em] mx-auto bg-white p-2">
+      <Box className="max-w-[56em] mx-auto bg-white p-2">
         <Box
           sx={{
             borderBottom: 1,
@@ -64,8 +60,10 @@ const ConstructionRegulatory = () => {
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs example"
-            orientation={isSmallScreen ? "vertical" : "horizontal"}
+            variant="scrollable"
+            orientation="horizontal"
+            scrollButtons="auto"
+            aria-label="scrollable auto"
           >
             <Tab
               sx={{
