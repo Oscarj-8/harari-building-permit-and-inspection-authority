@@ -198,14 +198,14 @@ export default function HomePage() {
                   Construction regulatory
                 </Button>
               </Link>
-              <Link to="/license">
+              {/* <Link to="/license">
                 <Button
                   className="w-full hover:bg-blue-700 hover:text-white"
                   variant="outlined"
                 >
                   License
                 </Button>
-              </Link>
+              </Link> */}
             </ul>
           </Modal>
         </div>

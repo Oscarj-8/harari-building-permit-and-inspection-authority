@@ -59,7 +59,7 @@ export const buildingInsOccPermit = [
   },
 ];
 
-export const licenseFormGuide = [
+export const newLicenseFormGuide = [
   {
     description:
       "New Professional Licensing Service is provided: - for those who have graduated from an accredited educational institution and/or for the expert of experience who has Certification of Occupational Competency (COC), to register as a new professional, one must have received no professional licenses form this Authority before. New professional licensing registration services will be provided by design or construction as appropriate. Design professional licenses are issued, for professionals who are employed in the consulting sector, for professionals who are organized or run a consulting firm; in other hand, construction professional licenses are issued for professionals who are employed in the construction sector, for professionals who are organized or run a construction firm.",
@@ -81,4 +81,29 @@ export const licenseFormGuide = [
   },
 ];
 
-export const licenseFormGuideDescription = {};
+export const newLicenseFormGuideInstruction = [
+  {
+    id: 1,
+    title: "Who Can Apply",
+    text: "For those who are graduated from recognized university or similar educational institute /TVET colleges and who has Certification of Occupational Competency (COC). To register as a new professional, one must have received no professional licenses form this Construction Authority before. ",
+  },
+  {
+    id: 2,
+    title: "Prerequisite",
+    text: [
+      "Attach Renewed Resident Id card, Driving license or Passport",
+      "Attach Educational evidence/ Original Diploma and Student Copy for Graduates More than 6 Years ago/",
+      "Attach active/ valid COC (from level 1 up to 5) if an Educational evidence is Diploma",
+      " One 3*3 recent photograph",
+      "Attach Work experience/ optional/ with proof of paying the necessary income taxes from their salary",
+    ],
+  },
+  {
+    id: 3,
+    title: "N.B",
+    text: [
+      "Experience and Educational documents acquired from foreign countries should be authenticated by the Ministry of Foreign Affairs of Ethiopia.",
+      "The file that you have attached must be in PDF format.",
+    ],
+  },
+];

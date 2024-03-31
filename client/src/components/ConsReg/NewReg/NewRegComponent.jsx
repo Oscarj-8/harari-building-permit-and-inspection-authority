@@ -8,9 +8,15 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { licenseFormGuide } from "../../../data/constants.js";
+import {
+  newLicenseFormGuide,
+  newLicenseFormGuideInstruction,
+} from "../../../data/constants.js";
+import PdfViewer from "../../PDFViewr.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
@@ -64,7 +70,7 @@ const NewRegComponent = () => {
         New Registration of Professionals License
       </h1>
       <hr />
-      <p className="text-gray-700">{licenseFormGuide[0].description}</p>
+      <p className="text-gray-700">{newLicenseFormGuide[0].description}</p>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -76,7 +82,7 @@ const NewRegComponent = () => {
         </AccordionSummary>
         <AccordionDetails className=" px-8">
           <ul className="flex flex-col gap-2">
-            {licenseFormGuide.slice(1).map((step, index) => (
+            {newLicenseFormGuide.slice(1).map((step, index) => (
               <li className="list-decimal" key={index}>
                 {step.text}
               </li>
@@ -113,16 +119,57 @@ const NewRegComponent = () => {
         ) : (
           <div className="mt-8">
             {activeStep === 0 && (
-              <div className="flex flex-col gap-2">
-                <h3 className="font-medium">Service Description</h3>
-                <h4>Who Can Apply</h4>
-                <p>
-                  For those who are graduated from recognized university or
-                  similar educational institute /TVET colleges and who has
-                  Certification of Occupational Competency (COC). To register as
-                  a new professional, one must have received no professional
-                  licenses form this Construction Authority before.
-                </p>
+              <div className="flex flex-col gap-4">
+                <h3 className="font-medium -mb-6">Service Description</h3>
+                <div className="flex flex-col">
+                  {newLicenseFormGuideInstruction.map((item) => (
+                    <div className="flex flex-col" key={item.id}>
+                      <h4 className="font-medium mt-4" key={item.id}>
+                        {item.title}
+                      </h4>
+                      {Array.isArray(item.text) ? (
+                        <ul className="list-decimal">
+                          {item.text.map((textItem, index) => (
+                            <li className="ml-8" key={index}>
+                              {textItem}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>{item.text}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="max-w-[50em]">
+                  <h4 className="font-medium">List of attached files</h4>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                      className="bg-gray-100 underline"
+                    >
+                      File : Registration directive.pdf
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <PdfViewer />
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+                <Alert severity="info">
+                  <AlertTitle>Info</AlertTitle>
+                  <p>
+                    By continuing using the system you certify that you have
+                    read the above service request instruction and accept the
+                    applicable
+                  </p>
+                  <span>
+                    <a className="underline text-[#0f3c51] font-medium" href="">
+                      Terms and Conditions
+                    </a>
+                  </span>
+                </Alert>
               </div>
             )}
             {activeStep === 1 && (
