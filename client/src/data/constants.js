@@ -61,6 +61,10 @@ export const buildingInsOccPermit = [
 
 export const licenseFormGuide = [
   {
+    description:
+      "New Professional Licensing Service is provided: - for those who have graduated from an accredited educational institution and/or for the expert of experience who has Certification of Occupational Competency (COC), to register as a new professional, one must have received no professional licenses form this Authority before. New professional licensing registration services will be provided by design or construction as appropriate. Design professional licenses are issued, for professionals who are employed in the consulting sector, for professionals who are organized or run a consulting firm; in other hand, construction professional licenses are issued for professionals who are employed in the construction sector, for professionals who are organized or run a construction firm.",
+  },
+  {
     text: "Please Fill the Request Form Properly in order to submit your service request application. Fields marked with ‘astrics (*)’ sign are mandatory information that should be provided by you to process your application by selected service provider.",
   },
   {
@@ -76,3 +80,5 @@ export const licenseFormGuide = [
     text: "For Service requests that requires a physical presence a as a part of business process (Example: Payment, hard print document verifications, Document Pickup), you will be asked to reserve appointment time On Appointment Section. Once you complete your reservation, the provider will reserve the time and service counter for you. You can’t change you reservation time , so make sure you will be at reserved service counter before 10 minutes of reservation time.",
   },
 ];
+
+export const licenseFormGuideDescription = {};

@@ -4,13 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
-import { licenseFormGuide } from "../../../data/constants.js";
+import NewRegComponent from "../../ConsReg/NewReg/NewRegComponent";
+// Tab starts here
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -43,6 +40,8 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
+// Tab ends here
 
 const ConstructionRegulatory = () => {
   const theme = useTheme();
@@ -92,46 +91,7 @@ const ConstructionRegulatory = () => {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-lg font-medium">
-              New Registration of Professionals License
-            </h1>
-            <hr />
-            <p className="text-gray-700">
-              New Professional Licensing Service is provided: - for those who
-              have graduated from an accredited educational institution and/or
-              for the expert of experience who has Certification of Occupational
-              Competency (COC), to register as a new professional, one must have
-              received no professional licenses form this Authority before. New
-              professional licensing registration services will be provided by
-              design or construction as appropriate. Design professional
-              licenses are issued, for professionals who are employed in the
-              consulting sector, for professionals who are organized or run a
-              consulting firm; in other hand, construction professional licenses
-              are issued for professionals who are employed in the construction
-              sector, for professionals who are organized or run a construction
-              firm.
-            </p>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-                className="bg-gray-100"
-              >
-                Application form guide
-              </AccordionSummary>
-              <AccordionDetails className=" px-8">
-                <ul className="flex flex-col gap-2">
-                  {licenseFormGuide.map((step, index) => (
-                    <li className="list-decimal" key={index}>
-                      {step.text}
-                    </li>
-                  ))}
-                </ul>
-              </AccordionDetails>
-            </Accordion>
-          </div>
+          <NewRegComponent />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           Renewal of Professionals License
