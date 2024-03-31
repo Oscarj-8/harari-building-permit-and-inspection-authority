@@ -17,12 +17,65 @@ import {
   newLicenseFormGuideInstruction,
 } from "../../../data/constants.js";
 import PdfViewer from "../../PDFViewr.jsx";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormControl from "@mui/material/FormControl";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
 const NewRegComponent = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
+  const [value, setValue] = useState("female");
+  const [selectedSubcity, setSelectedSubcity] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [selectedEducationalLevel, setSelectedEducationalLevel] = useState("");
+  const [institution, setInstitution] = useState("");
+  const [country, setCountry] = useState("");
+  const [graduation, setGraduation] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [educationalData, setEducationalData] = useState([]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+  const handleSubCityChange = (event) => {
+    setSelectedSubcity(event.target.value);
+  };
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -46,6 +99,17 @@ const NewRegComponent = () => {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  // modal functions
+  const handleEducationChange = (event) => {
+    setSelectedEducationalLevel(event.target.value);
+  };
+
+  const formik = useFormik({
+    initialValues: {},
+    validationSchema: Yup.object({}),
+    onSubmit: async (values) => {},
+  });
 
   return (
     <div className="flex flex-col gap-2">
@@ -156,9 +220,321 @@ const NewRegComponent = () => {
               </div>
             )}
             {activeStep === 1 && (
-              <form>
-                <TextField label="Field 1" fullWidth />
-                <TextField label="Field 2" fullWidth />
+              <form onSubmit={formik.handleSubmit}>
+                <div className="flex flex-col gap-2">
+                  <TextField
+                    required
+                    id="filled-required"
+                    label="Applicant Full Name"
+                    defaultValue=""
+                    variant="filled"
+                    size="small"
+                  />
+                  <FormLabel id="demo-controlled-radio-buttons-group">
+                    Gender
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={value}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio />}
+                      label="Female"
+                    />
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio />}
+                      label="Male"
+                    />
+                  </RadioGroup>
+                  <TextField
+                    required
+                    id="filled-required"
+                    label="City"
+                    defaultValue=""
+                    variant="filled"
+                    size="small"
+                  />
+                  <TextField
+                    required
+                    id="filled-required"
+                    label="Woreda/Kebele"
+                    defaultValue=""
+                    variant="filled"
+                    size="small"
+                  />
+                  <TextField
+                    required
+                    id="filled-required"
+                    label="Mobile Phone"
+                    defaultValue="number"
+                    variant="filled"
+                    size="small"
+                  />
+                  <TextField
+                    required
+                    id="filled-required"
+                    label="House Number"
+                    type="number"
+                    defaultValue=""
+                    variant="filled"
+                    size="small"
+                  />
+                  <div>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Sub city
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={selectedSubcity}
+                        label="Sub city"
+                        onChange={handleSubCityChange}
+                      >
+                        <MenuItem disabled>Select subcity</MenuItem>
+                        <MenuItem value="Bole subcity">Bole subcity</MenuItem>
+                        <MenuItem value="Gulele subcity">
+                          Gulele subcity
+                        </MenuItem>
+                        <MenuItem value="NifasSilk subcity">
+                          NifasSilk subcity
+                        </MenuItem>
+                        <MenuItem value="Addis Ketema subcity">
+                          Addis Ketema subcity
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div>
+                    <label htmlFor="date-picker">Date of application</label>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DemoContainer components={["DatePicker"]}>
+                        <DatePicker
+                          label="Basic date picker"
+                          id="date-picker"
+                          name="date-picker"
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                        />
+                      </DemoContainer>
+                    </LocalizationProvider>
+                  </div>
+                  <div>
+                    <div className="w-full flex justify-between">
+                      <label> Educational data</label>
+                      <Button
+                        onClick={handleClickOpen}
+                        variant="contained"
+                        disableElevation
+                        className="text-white bg-blue-700 h-8 normal-case"
+                      >
+                        Add
+                      </Button>
+                    </div>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      PaperProps={{
+                        component: "form",
+                        onSubmit: (event) => {
+                          event.preventDefault();
+                          const formData = new FormData(event.currentTarget);
+                          formData.append(
+                            "education level",
+                            selectedEducationalLevel
+                          );
+                          const formJson = Object.fromEntries(
+                            formData.entries()
+                          );
+                          setEducationalData([...educationalData, formJson]);
+                          console.log(educationalData);
+                          handleClose();
+                        },
+                      }}
+                    >
+                      <DialogTitle>Add educational data</DialogTitle>
+                      <DialogContent>
+                        <div>
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                              Description
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={selectedEducationalLevel}
+                              label="Description"
+                              onChange={handleEducationChange}
+                            >
+                              <MenuItem disabled>Select subcity</MenuItem>
+                              <MenuItem value="Elementary">Elementary</MenuItem>
+                              <MenuItem value="High school">
+                                High school
+                              </MenuItem>
+                              <MenuItem value="College/University (Diploma)">
+                                College/University (Diploma)
+                              </MenuItem>
+                              <MenuItem value="College/University (BSC)">
+                                College/University (BSC)
+                              </MenuItem>
+                              <MenuItem value="College/University (MSC)">
+                                College/University (MSC)
+                              </MenuItem>{" "}
+                              <MenuItem value="College/University (PHD)">
+                                College/University (PHD)
+                              </MenuItem>
+                              <MenuItem value="Research performed">
+                                Research performed
+                              </MenuItem>
+                              <MenuItem value="Special training">
+                                Special training
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <TextField
+                          autoFocus
+                          required
+                          margin="dense"
+                          id="institution"
+                          name="institution"
+                          label="Name of institution"
+                          type="text"
+                          fullWidth
+                          variant="standard"
+                          value={institution}
+                          onChange={(event) =>
+                            setInstitution(event.target.value)
+                          }
+                        />
+                        <TextField
+                          autoFocus
+                          required
+                          margin="dense"
+                          id="country"
+                          name="country"
+                          label="Country"
+                          type="text"
+                          fullWidth
+                          variant="standard"
+                          value={country}
+                          onChange={(event) => setCountry(event.target.value)}
+                        />
+                        <TextField
+                          autoFocus
+                          required
+                          margin="dense"
+                          id="year of graduation"
+                          name="year of graduation"
+                          label="Year of graduation"
+                          type="text"
+                          fullWidth
+                          variant="standard"
+                          value={graduation}
+                          onChange={(event) =>
+                            setGraduation(event.target.value)
+                          }
+                        />{" "}
+                        <TextField
+                          autoFocus
+                          required
+                          margin="dense"
+                          id="qualification"
+                          name="qualification"
+                          label="Qualification"
+                          type="text"
+                          fullWidth
+                          variant="standard"
+                          value={qualification}
+                          onChange={(event) =>
+                            setQualification(event.target.value)
+                          }
+                        />{" "}
+                        <TextField
+                          autoFocus
+                          required
+                          margin="dense"
+                          id="remarks"
+                          name="remarks"
+                          label="Any pertinent remarks"
+                          type="text"
+                          fullWidth
+                          variant="standard"
+                          value={remarks}
+                          onChange={(event) => setRemarks(event.target.value)}
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          disableElevation
+                          className="h-8 normal-case"
+                          onClick={handleClose}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          disableElevation
+                          className="text-white bg-blue-700 h-8 normal-case"
+                        >
+                          Done
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    <TableContainer component={Paper}>
+                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Description</TableCell>
+                            <TableCell align="right">
+                              Name of institution
+                            </TableCell>
+                            <TableCell align="right">Country</TableCell>
+                            <TableCell align="right">
+                              Year of graduation
+                            </TableCell>
+                            <TableCell align="right">Qualification</TableCell>
+                            <TableCell align="right">
+                              Any pertinent remarks
+                            </TableCell>
+                            <TableCell align="right">Actions</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {educationalData.map((data, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{data["education level"]}</TableCell>
+                              <TableCell align="right">
+                                {data["institution"]}
+                              </TableCell>
+                              <TableCell align="right">
+                                {data["country"]}
+                              </TableCell>
+                              <TableCell align="right">
+                                {data["year of graduation"]}
+                              </TableCell>
+                              <TableCell align="right">
+                                {data["qualification"]}
+                              </TableCell>
+                              <TableCell align="right">
+                                {data["remarks"]}
+                              </TableCell>
+                              <TableCell align="right">
+                                {/* Render action buttons if needed */}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div>
+                </div>
               </form>
             )}
             {activeStep === 2 && (
