@@ -45,6 +45,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import EditEducationForm from "./EditEducationForm.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
@@ -500,6 +501,14 @@ const NewRegComponent = () => {
                         </Button>
                       </DialogActions>
                     </Dialog>
+                    <EditEducationForm
+                      open={open}
+                      handleClose={handleClose}
+                      selectedEducationalLevel={selectedEducationalLevel}
+                      setSelectedEducationalLevel={setSelectedEducationalLevel}
+                      setEducationalData={setEducationalData}
+                      educationalData={educationalData}
+                    />
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
