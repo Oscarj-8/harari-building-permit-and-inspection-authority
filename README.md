@@ -2,7 +2,7 @@
 
 Welcome to Harari Building Permit and Inspection Authority, your trusted partner in ensuring a seamless and compliant construction process.
 
-## Demo link - www.hararibpia.com/
+## Demo link - www.hararibpia.com
 
 ## About Us
 
