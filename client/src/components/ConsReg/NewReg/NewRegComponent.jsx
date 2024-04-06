@@ -46,17 +46,19 @@ import FormControl from "@mui/material/FormControl";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import EditEducationForm from "./EditEducationForm.jsx";
-
+import DescriptionIcon from "@mui/icons-material/Description";
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
 const NewRegComponent = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
-  const [value, setValue] = useState("female");
+  const [gender, setGender] = useState("");
   const [selectedSubcity, setSelectedSubcity] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [open, setOpen] = useState(false);
-  const [selectedEducationalLevel, setSelectedEducationalLevel] = useState("");
+  const [openEdit, setOpenEdit] = useState(false);
+  const [educationLevel, setEducationLevel] = useState("");
   const [institution, setInstitution] = useState("");
   const [country, setCountry] = useState("");
   const [graduation, setGraduation] = useState("");
@@ -71,14 +73,27 @@ const NewRegComponent = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleEditClose = () => {
+    setOpenEdit(false);
+    setEducationLevel("");
+    setInstitution("");
+    setCountry("");
+    setGraduation("");
+    setQualification("");
+    setRemarks("");
+  };
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
   const handleSubCityChange = (event) => {
     setSelectedSubcity(event.target.value);
   };
+
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setGender(event.target.value);
   };
 
   const isStepSkipped = (step) => {
@@ -104,9 +119,28 @@ const NewRegComponent = () => {
     setActiveStep(0);
   };
 
+  const resetEducationLevelData = () => {
+    setEducationLevel("");
+    setInstitution("");
+    setCountry("");
+    setGraduation("");
+    setQualification("");
+    setRemarks("");
+  };
+
   // modal functions
   const handleEducationChange = (event) => {
-    setSelectedEducationalLevel(event.target.value);
+    setEducationLevel(event.target.value);
+  };
+
+  const handleEditEducation = (data) => {
+    setEducationLevel(data["education level"]);
+    setInstitution(data["institution"]);
+    setCountry(data["country"]);
+    setGraduation(data["year of graduation"]);
+    setQualification(data["qualification"]);
+    setRemarks(data["remarks"]);
+    setOpenEdit(true);
   };
 
   const handlRemoveEducation = (id) => {
@@ -114,6 +148,404 @@ const NewRegComponent = () => {
       (data) => data.id !== id
     );
     setEducationalData(updatedEducationalData);
+  };
+
+  const nextStep = () => {
+    setFormStep((prev) => prev + 1);
+  };
+
+  const prevStep = () => {
+    setFormStep((next) => next - 1);
+  };
+
+  const FormStepOne = () => {
+    return (
+      <div className="flex flex-col gap-6">
+        <TextField
+          required
+          id="filled-required"
+          label="Applicant Full Name"
+          defaultValue=""
+          variant="filled"
+          size="small"
+        />
+        <Box>
+          <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-controlled-radio-buttons-group"
+            name="controlled-radio-buttons-group"
+            value={gender}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value="female"
+              control={<Radio />}
+              label="Female"
+            />
+            <FormControlLabel value="male" control={<Radio />} label="Male" />
+          </RadioGroup>
+        </Box>
+        <TextField
+          required
+          id="filled-required"
+          label="City"
+          defaultValue=""
+          variant="filled"
+          size="small"
+        />
+        <TextField
+          required
+          id="filled-required"
+          label="Woreda/Kebele"
+          defaultValue=""
+          variant="filled"
+          size="small"
+        />
+        <TextField
+          required
+          id="filled-required"
+          label="Mobile Phone"
+          defaultValue="number"
+          variant="filled"
+          size="small"
+        />
+        <TextField
+          required
+          id="filled-required"
+          label="House Number"
+          type="number"
+          defaultValue=""
+          variant="filled"
+          size="small"
+        />
+        <Box>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Sub city</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedSubcity}
+              label="Sub city"
+              onChange={handleSubCityChange}
+            >
+              <MenuItem disabled>Select subcity</MenuItem>
+              <MenuItem value="Bole subcity">Bole subcity</MenuItem>
+              <MenuItem value="Gulele subcity">Gulele subcity</MenuItem>
+              <MenuItem value="NifasSilk subcity">NifasSilk subcity</MenuItem>
+              <MenuItem value="Addis Ketema subcity">
+                Addis Ketema subcity
+              </MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Box>
+          <label htmlFor="date-picker">Date of application</label>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="Selecet date"
+                id="date-picker"
+                name="date-picker"
+                value={selectedDate}
+                onChange={handleDateChange}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </Box>
+        <div className="flex flex-col gap-3 items-center justify-center">
+          <div className="w-full flex justify-between">
+            <label> Educational data</label>
+            <Button
+              onClick={handleClickOpen}
+              variant="contained"
+              disableElevation
+              className="text-white bg-blue-700 h-8 normal-case"
+            >
+              Add
+            </Button>
+          </div>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              component: "form",
+              onSubmit: (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.currentTarget);
+                formData.append("education level", educationLevel);
+                const formJson = Object.fromEntries(formData.entries());
+                const id = uuidv4();
+                const entryWithId = { id, ...formJson };
+
+                setEducationalData([...educationalData, entryWithId]);
+                handleClose();
+                resetEducationLevelData();
+              },
+            }}
+          >
+            <DialogTitle>Add educational data</DialogTitle>
+            <DialogContent>
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Description
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={educationLevel}
+                    label="Description"
+                    onChange={handleEducationChange}
+                  >
+                    <MenuItem disabled>Select subcity</MenuItem>
+                    <MenuItem value="Elementary">Elementary</MenuItem>
+                    <MenuItem value="High school">High school</MenuItem>
+                    <MenuItem value="College/University (Diploma)">
+                      College/University (Diploma)
+                    </MenuItem>
+                    <MenuItem value="College/University (BSC)">
+                      College/University (BSC)
+                    </MenuItem>
+                    <MenuItem value="College/University (MSC)">
+                      College/University (MSC)
+                    </MenuItem>{" "}
+                    <MenuItem value="College/University (PHD)">
+                      College/University (PHD)
+                    </MenuItem>
+                    <MenuItem value="Research performed">
+                      Research performed
+                    </MenuItem>
+                    <MenuItem value="Special training">
+                      Special training
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="institution"
+                name="institution"
+                label="Name of institution"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={institution}
+                onChange={(event) => setInstitution(event.target.value)}
+              />
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="country"
+                name="country"
+                label="Country"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={country}
+                onChange={(event) => setCountry(event.target.value)}
+              />
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="year of graduation"
+                name="year of graduation"
+                label="Year of graduation"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={graduation}
+                onChange={(event) => setGraduation(event.target.value)}
+              />{" "}
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="qualification"
+                name="qualification"
+                label="Qualification"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={qualification}
+                onChange={(event) => setQualification(event.target.value)}
+              />{" "}
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="remarks"
+                name="remarks"
+                label="Any pertinent remarks"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={remarks}
+                onChange={(event) => setRemarks(event.target.value)}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                disableElevation
+                className="h-8 normal-case"
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                disableElevation
+                className="text-white bg-blue-700 h-8 normal-case"
+              >
+                Done
+              </Button>
+            </DialogActions>
+          </Dialog>
+          {/* <EditEducationForm
+                      open={openEdit}
+                      handleClose={handleEditClose}
+                      selectedEducationalLevel={selectedEducationalLevel}
+                      setSelectedEducationalLevel={setSelectedEducationalLevel}
+                      institution={institution}
+                      setInstitution={setInstitution}
+                      country={country}
+                      setCountry={setCountry}
+                      graduation={graduation}
+                      setGraduation={setGraduation}
+                      qualification={qualification}
+                      setQualification={setQualification}
+                      remarks={remarks}
+                      setRemarks={setRemarks}
+                    /> */}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Description</TableCell>
+                  <TableCell align="right">Name of institution</TableCell>
+                  <TableCell align="right">Country</TableCell>
+                  <TableCell align="right">Year of graduation</TableCell>
+                  <TableCell align="right">Qualification</TableCell>
+                  <TableCell align="right">Any pertinent remarks</TableCell>
+                  <TableCell align="right">Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {educationalData.map((data, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{data["education level"]}</TableCell>
+                    <TableCell align="right">{data["institution"]}</TableCell>
+                    <TableCell align="right">{data["country"]}</TableCell>
+                    <TableCell align="right">
+                      {data["year of graduation"]}
+                    </TableCell>
+                    <TableCell align="right">{data["qualification"]}</TableCell>
+                    <TableCell align="right">{data["remarks"]}</TableCell>
+                    <TableCell align="right">
+                      <div className="flex gap-2">
+                        <DeleteForeverIcon
+                          onClick={() => handlRemoveEducation(data.id)}
+                          className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out "
+                        />
+                        <EditIcon
+                          onClick={() => handleEditEducation(data)}
+                          className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out"
+                        />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        <Button onClick={() => nextStep()}>Next</Button>
+      </div>
+    );
+  };
+
+  const FormStepTwo = () => {
+    const [id, setId] = useState(null);
+    const [educationEvidence, setEducationEvidence] = useState(null);
+    const [transcript, setTranscript] = useState(null);
+    const [coc, setCOC] = useState(null);
+    const [applicantPhoto, setApplicantPhoto] = useState(null);
+    const [workExp, setWorkExp] = useState("");
+
+    const handleWorkExp = (event) => {
+      setWorkExp(event.target.value);
+    };
+
+    return (
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">
+            Renewed Resident ID card/Driving License/Passport(Front and Back) *
+          </label>
+          <input type="file" />
+        </div>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">
+            Educational evidence (original with PDF doc)*{" "}
+          </label>
+          <input type="file" />
+        </div>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Student copy / transcript</label>
+          <input type="file" />
+        </div>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">COC (Level 1 upto Level 5)</label>
+          <input type="file" />
+        </div>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <label className="font-medium">Applicant photograph*</label>
+          <input type="file" />
+        </div>
+        <div>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">
+              Type of Working Experience
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={workExp}
+              label="Select work experience"
+              onChange={handleWorkExp}
+            >
+              <MenuItem value="The manager of PLC or Enterprise member">
+                The manager of PLC or Enterprise member
+              </MenuItem>
+              <MenuItem value="Employee">Employee</MenuItem>
+              <MenuItem value="Unemployed">Unemployed</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div>
+          <Button onClick={() => prevStep()}>Back</Button>
+          <Button type="submit">Submit</Button>
+        </div>
+      </div>
+    );
+  };
+
+  const RenderStep = () => {
+    switch (formStep) {
+      case 1:
+        return <FormStepOne />;
+      case 2:
+        return <FormStepTwo />;
+    }
   };
 
   const formik = useFormik({
@@ -148,7 +580,7 @@ const NewRegComponent = () => {
           </ul>
         </AccordionDetails>
       </Accordion>
-      <Box className="border p-2 bg-gray-100 rounded-md" sx={{ width: "100%" }}>
+      <Box className="border p-2 bg-gray-50 rounded-md" sx={{ width: "100%" }}>
         <Stepper
           className="border-b border-black md:border-none"
           activeStep={activeStep}
@@ -237,339 +669,27 @@ const NewRegComponent = () => {
             )}
             {activeStep === 1 && (
               <form onSubmit={formik.handleSubmit}>
-                <div className="flex flex-col gap-2">
-                  <TextField
-                    required
-                    id="filled-required"
-                    label="Applicant Full Name"
-                    defaultValue=""
-                    variant="filled"
-                    size="small"
-                  />
-                  <FormLabel id="demo-controlled-radio-buttons-group">
-                    Gender
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={value}
-                    onChange={handleChange}
+                <div className="flex w-full mb-6">
+                  <p
+                    onClick={() => setFormStep(1)}
+                    className={`flex items-center justify-center gap-1 w-[8em] p-2 border rounded-tl-md cursor-pointer ${
+                      formStep == 1 ? "bg-blue-700 text-white" : ""
+                    }`}
                   >
-                    <FormControlLabel
-                      value="female"
-                      control={<Radio />}
-                      label="Female"
-                    />
-                    <FormControlLabel
-                      value="male"
-                      control={<Radio />}
-                      label="Male"
-                    />
-                  </RadioGroup>
-                  <TextField
-                    required
-                    id="filled-required"
-                    label="City"
-                    defaultValue=""
-                    variant="filled"
-                    size="small"
-                  />
-                  <TextField
-                    required
-                    id="filled-required"
-                    label="Woreda/Kebele"
-                    defaultValue=""
-                    variant="filled"
-                    size="small"
-                  />
-                  <TextField
-                    required
-                    id="filled-required"
-                    label="Mobile Phone"
-                    defaultValue="number"
-                    variant="filled"
-                    size="small"
-                  />
-                  <TextField
-                    required
-                    id="filled-required"
-                    label="House Number"
-                    type="number"
-                    defaultValue=""
-                    variant="filled"
-                    size="small"
-                  />
-                  <div>
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        Sub city
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={selectedSubcity}
-                        label="Sub city"
-                        onChange={handleSubCityChange}
-                      >
-                        <MenuItem disabled>Select subcity</MenuItem>
-                        <MenuItem value="Bole subcity">Bole subcity</MenuItem>
-                        <MenuItem value="Gulele subcity">
-                          Gulele subcity
-                        </MenuItem>
-                        <MenuItem value="NifasSilk subcity">
-                          NifasSilk subcity
-                        </MenuItem>
-                        <MenuItem value="Addis Ketema subcity">
-                          Addis Ketema subcity
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div>
-                    <label htmlFor="date-picker">Date of application</label>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DemoContainer components={["DatePicker"]}>
-                        <DatePicker
-                          label="Basic date picker"
-                          id="date-picker"
-                          name="date-picker"
-                          value={selectedDate}
-                          onChange={handleDateChange}
-                        />
-                      </DemoContainer>
-                    </LocalizationProvider>
-                  </div>
-                  <div className="flex flex-col gap-3 items-center justify-center">
-                    <div className="w-full flex justify-between">
-                      <label> Educational data</label>
-                      <Button
-                        onClick={handleClickOpen}
-                        variant="contained"
-                        disableElevation
-                        className="text-white bg-blue-700 h-8 normal-case"
-                      >
-                        Add
-                      </Button>
-                    </div>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      PaperProps={{
-                        component: "form",
-                        onSubmit: (event) => {
-                          event.preventDefault();
-                          const formData = new FormData(event.currentTarget);
-                          formData.append(
-                            "education level",
-                            selectedEducationalLevel
-                          );
-                          const formJson = Object.fromEntries(
-                            formData.entries()
-                          );
-                          const id = uuidv4();
-                          const entryWithId = { id, ...formJson };
-
-                          setEducationalData([...educationalData, entryWithId]);
-
-                          handleClose();
-                        },
-                      }}
-                    >
-                      <DialogTitle>Add educational data</DialogTitle>
-                      <DialogContent>
-                        <div>
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              Description
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={selectedEducationalLevel}
-                              label="Description"
-                              onChange={handleEducationChange}
-                            >
-                              <MenuItem disabled>Select subcity</MenuItem>
-                              <MenuItem value="Elementary">Elementary</MenuItem>
-                              <MenuItem value="High school">
-                                High school
-                              </MenuItem>
-                              <MenuItem value="College/University (Diploma)">
-                                College/University (Diploma)
-                              </MenuItem>
-                              <MenuItem value="College/University (BSC)">
-                                College/University (BSC)
-                              </MenuItem>
-                              <MenuItem value="College/University (MSC)">
-                                College/University (MSC)
-                              </MenuItem>{" "}
-                              <MenuItem value="College/University (PHD)">
-                                College/University (PHD)
-                              </MenuItem>
-                              <MenuItem value="Research performed">
-                                Research performed
-                              </MenuItem>
-                              <MenuItem value="Special training">
-                                Special training
-                              </MenuItem>
-                            </Select>
-                          </FormControl>
-                        </div>
-                        <TextField
-                          autoFocus
-                          required
-                          margin="dense"
-                          id="institution"
-                          name="institution"
-                          label="Name of institution"
-                          type="text"
-                          fullWidth
-                          variant="standard"
-                          value={institution}
-                          onChange={(event) =>
-                            setInstitution(event.target.value)
-                          }
-                        />
-                        <TextField
-                          autoFocus
-                          required
-                          margin="dense"
-                          id="country"
-                          name="country"
-                          label="Country"
-                          type="text"
-                          fullWidth
-                          variant="standard"
-                          value={country}
-                          onChange={(event) => setCountry(event.target.value)}
-                        />
-                        <TextField
-                          autoFocus
-                          required
-                          margin="dense"
-                          id="year of graduation"
-                          name="year of graduation"
-                          label="Year of graduation"
-                          type="text"
-                          fullWidth
-                          variant="standard"
-                          value={graduation}
-                          onChange={(event) =>
-                            setGraduation(event.target.value)
-                          }
-                        />{" "}
-                        <TextField
-                          autoFocus
-                          required
-                          margin="dense"
-                          id="qualification"
-                          name="qualification"
-                          label="Qualification"
-                          type="text"
-                          fullWidth
-                          variant="standard"
-                          value={qualification}
-                          onChange={(event) =>
-                            setQualification(event.target.value)
-                          }
-                        />{" "}
-                        <TextField
-                          autoFocus
-                          required
-                          margin="dense"
-                          id="remarks"
-                          name="remarks"
-                          label="Any pertinent remarks"
-                          type="text"
-                          fullWidth
-                          variant="standard"
-                          value={remarks}
-                          onChange={(event) => setRemarks(event.target.value)}
-                        />
-                      </DialogContent>
-                      <DialogActions>
-                        <Button
-                          disableElevation
-                          className="h-8 normal-case"
-                          onClick={handleClose}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          disableElevation
-                          className="text-white bg-blue-700 h-8 normal-case"
-                        >
-                          Done
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                    <EditEducationForm
-                      open={open}
-                      handleClose={handleClose}
-                      selectedEducationalLevel={selectedEducationalLevel}
-                      setSelectedEducationalLevel={setSelectedEducationalLevel}
-                      setEducationalData={setEducationalData}
-                      educationalData={educationalData}
-                    />
-                    <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>Description</TableCell>
-                            <TableCell align="right">
-                              Name of institution
-                            </TableCell>
-                            <TableCell align="right">Country</TableCell>
-                            <TableCell align="right">
-                              Year of graduation
-                            </TableCell>
-                            <TableCell align="right">Qualification</TableCell>
-                            <TableCell align="right">
-                              Any pertinent remarks
-                            </TableCell>
-                            <TableCell align="right">Actions</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {educationalData.map((data, index) => (
-                            <TableRow key={index}>
-                              <TableCell>{data["education level"]}</TableCell>
-                              <TableCell align="right">
-                                {data["institution"]}
-                              </TableCell>
-                              <TableCell align="right">
-                                {data["country"]}
-                              </TableCell>
-                              <TableCell align="right">
-                                {data["year of graduation"]}
-                              </TableCell>
-                              <TableCell align="right">
-                                {data["qualification"]}
-                              </TableCell>
-                              <TableCell align="right">
-                                {data["remarks"]}
-                              </TableCell>
-                              <TableCell align="right">
-                                <div className="flex gap-2">
-                                  <DeleteForeverIcon
-                                    onClick={() =>
-                                      handlRemoveEducation(data.id)
-                                    }
-                                    className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out "
-                                  />
-                                  <EditIcon className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out " />
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  </div>
+                    <DescriptionIcon />
+                    Page 1
+                  </p>
+                  <p
+                    onClick={() => setFormStep(2)}
+                    className={`flex items-center justify-center gap-1 w-[8em] p-2 border rounded-tr-md cursor-pointer ${
+                      formStep == 2 ? "bg-blue-700 text-white" : ""
+                    }`}
+                  >
+                    <DescriptionIcon />
+                    Page 2
+                  </p>
                 </div>
+                <RenderStep />
               </form>
             )}
             {activeStep === 2 && (
