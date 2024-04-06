@@ -123,18 +123,18 @@ const NewRegComponent = () => {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <h1 className="text-lg font-medium">
         New Registration of Professionals License
       </h1>
-      <hr />
+      <hr className="" />
       <p className="text-gray-700">{newLicenseFormGuide[0].description}</p>
-      <Accordion>
+      <Accordion className="mb-8">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
-          className="bg-gray-100"
+          className="bg-gray-200"
         >
           Application form guide
         </AccordionSummary>
@@ -148,8 +148,11 @@ const NewRegComponent = () => {
           </ul>
         </AccordionDetails>
       </Accordion>
-      <Box sx={{ width: "100%" }}>
-        <Stepper activeStep={activeStep}>
+      <Box className="border p-2 bg-gray-100 rounded-md" sx={{ width: "100%" }}>
+        <Stepper
+          className="border-b border-black md:border-none"
+          activeStep={activeStep}
+        >
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
@@ -178,7 +181,9 @@ const NewRegComponent = () => {
           <div className="mt-8">
             {activeStep === 0 && (
               <div className="flex flex-col gap-4">
-                <h3 className="font-medium -mb-6">Service Description</h3>
+                <h3 className="font-medium text-lg -mb-6">
+                  Service Description
+                </h3>
                 <div className="flex flex-col">
                   {newLicenseFormGuideInstruction.map((item) => (
                     <div className="flex flex-col" key={item.id}>
@@ -206,7 +211,7 @@ const NewRegComponent = () => {
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1-content"
                       id="panel1-header"
-                      className="bg-gray-100 underline"
+                      className="bg-gray-200 underline"
                     >
                       File : Registration directive.pdf
                     </AccordionSummary>

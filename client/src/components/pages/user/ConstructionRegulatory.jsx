@@ -18,7 +18,7 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -50,7 +50,7 @@ const ConstructionRegulatory = () => {
 
   return (
     <div className="bg-slate-100 p-1 min-h-svh">
-      <Box className="max-w-[60em] mx-auto bg-white p-2">
+      <Box className="max-w-[60em] mx-auto bg-white flex flex-col gap-4">
         <Box
           sx={{
             borderBottom: 1,
