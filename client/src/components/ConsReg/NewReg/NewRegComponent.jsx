@@ -50,6 +50,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import CircularProgress from "@mui/material/CircularProgress";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
@@ -711,7 +712,11 @@ const NewRegComponent = () => {
                 className="text-white bg-blue-700"
               >
                 {activeStep === steps.length - 1 ? (
-                  <span>Finish</span>
+                  <span className="flex justify-center items-center gap-2">
+                    {" "}
+                    Finish
+                    <CheckCircleOutlineIcon sx={{ fontSize: "22px" }} />
+                  </span>
                 ) : (
                   <span className="ml-2">Next</span>
                 )}
