@@ -47,9 +47,14 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import EditEducationForm from "./EditEducationForm.jsx";
 import DescriptionIcon from "@mui/icons-material/Description";
+import ChevronRight from "@mui/icons-material/ChevronRight";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
 const NewRegComponent = () => {
+  const [confirmationLoader, setConfirmationLoader] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
@@ -148,14 +153,6 @@ const NewRegComponent = () => {
       (data) => data.id !== id
     );
     setEducationalData(updatedEducationalData);
-  };
-
-  const nextStep = () => {
-    setFormStep((prev) => prev + 1);
-  };
-
-  const prevStep = () => {
-    setFormStep((next) => next - 1);
   };
 
   const FormStepOne = () => {
@@ -464,7 +461,6 @@ const NewRegComponent = () => {
             </Table>
           </TableContainer>
         </div>
-        <Button onClick={() => nextStep()}>Next</Button>
       </div>
     );
   };
@@ -530,10 +526,6 @@ const NewRegComponent = () => {
               <MenuItem value="Unemployed">Unemployed</MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <div>
-          <Button onClick={() => prevStep()}>Back</Button>
-          <Button type="submit">Submit</Button>
         </div>
       </div>
     );
@@ -693,10 +685,11 @@ const NewRegComponent = () => {
               </form>
             )}
             {activeStep === 2 && (
-              <form>
-                <TextField label="Field 1" fullWidth />
-                <TextField label="Field 2" fullWidth />
-              </form>
+              <div className="w-full flex">
+                <Box className="mx-auto " sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+              </div>
             )}
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
@@ -706,7 +699,8 @@ const NewRegComponent = () => {
                 disabled={activeStep === 0}
                 onClick={handleBack}
               >
-                Back
+                <ChevronLeft />
+                <span className="mr-3"> Back</span>
               </Button>
               <Box sx={{ flex: "1 1 auto" }} />
 
@@ -716,7 +710,12 @@ const NewRegComponent = () => {
                 disableElevation
                 className="text-white bg-blue-700"
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? (
+                  <span>Finish</span>
+                ) : (
+                  <span className="ml-2">Next</span>
+                )}
+                {activeStep === steps.length - 1 ? "" : <ChevronRight />}
               </Button>
             </Box>
           </div>
