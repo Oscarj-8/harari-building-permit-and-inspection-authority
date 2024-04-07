@@ -462,6 +462,14 @@ const NewRegComponent = () => {
             </Table>
           </TableContainer>
         </div>
+        <Button
+          onClick={() => setFormStep(2)}
+          variant="outlined"
+          className="self-end pr-1 w-[7.3em]"
+        >
+          <p>Page 2</p>
+          <ChevronRight sx={{ marginBottom: "1px" }} />
+        </Button>
       </div>
     );
   };
@@ -528,6 +536,14 @@ const NewRegComponent = () => {
             </Select>
           </FormControl>
         </div>
+        <Button
+          onClick={() => setFormStep(1)}
+          variant="outlined"
+          className="self-start pl-1 w-[7.3em]"
+        >
+          <ChevronLeft sx={{ marginBottom: "1px" }} />
+          <p>Page 1</p>
+        </Button>
       </div>
     );
   };
@@ -700,7 +716,7 @@ const NewRegComponent = () => {
                 disabled={activeStep === 0}
                 onClick={handleBack}
               >
-                <ChevronLeft />
+                <ChevronLeft sx={{ marginBottom: "1px" }} />
                 <span className="mr-3"> Back</span>
               </Button>
               <Box sx={{ flex: "1 1 auto" }} />
@@ -720,7 +736,11 @@ const NewRegComponent = () => {
                 ) : (
                   <span className="ml-2">Next</span>
                 )}
-                {activeStep === steps.length - 1 ? "" : <ChevronRight />}
+                {activeStep === steps.length - 1 ? (
+                  ""
+                ) : (
+                  <ChevronRight sx={{ marginBottom: "1px" }} />
+                )}
               </Button>
             </Box>
           </div>
