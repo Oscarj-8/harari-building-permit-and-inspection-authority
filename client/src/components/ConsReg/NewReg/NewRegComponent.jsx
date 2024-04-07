@@ -27,10 +27,6 @@ import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -45,7 +41,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import EditEducationForm from "./EditEducationForm.jsx";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
@@ -55,15 +50,12 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
 const NewRegComponent = () => {
-  const [confirmationLoader, setConfirmationLoader] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
-  const [gender, setGender] = useState("");
-  const [selectedSubcity, setSelectedSubcity] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
+
   const [open, setOpen] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  //step one form values
   const [educationLevel, setEducationLevel] = useState("");
   const [institution, setInstitution] = useState("");
   const [country, setCountry] = useState("");
@@ -78,28 +70,6 @@ const NewRegComponent = () => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleEditClose = () => {
-    setOpenEdit(false);
-    setEducationLevel("");
-    setInstitution("");
-    setCountry("");
-    setGraduation("");
-    setQualification("");
-    setRemarks("");
-  };
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  const handleSubCityChange = (event) => {
-    setSelectedSubcity(event.target.value);
-  };
-
-  const handleChange = (event) => {
-    setGender(event.target.value);
   };
 
   const isStepSkipped = (step) => {
@@ -139,16 +109,6 @@ const NewRegComponent = () => {
     setEducationLevel(event.target.value);
   };
 
-  const handleEditEducation = (data) => {
-    setEducationLevel(data["education level"]);
-    setInstitution(data["institution"]);
-    setCountry(data["country"]);
-    setGraduation(data["year of graduation"]);
-    setQualification(data["qualification"]);
-    setRemarks(data["remarks"]);
-    setOpenEdit(true);
-  };
-
   const handlRemoveEducation = (id) => {
     const updatedEducationalData = educationalData.filter(
       (data) => data.id !== id
@@ -163,18 +123,24 @@ const NewRegComponent = () => {
           required
           id="filled-required"
           label="Applicant Full Name"
-          defaultValue=""
           variant="filled"
           size="small"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.fullname}
         />
+        {formik.touched.firstName && formik.errors.firstName ? (
+          <div>{formik.errors.fullname}</div>
+        ) : null}
         <Box>
           <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
-            value={gender}
-            onChange={handleChange}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.gender}
           >
             <FormControlLabel
               value="female"
@@ -184,6 +150,9 @@ const NewRegComponent = () => {
             <FormControlLabel value="male" control={<Radio />} label="Male" />
           </RadioGroup>
         </Box>
+        {formik.touched.gender && formik.errors.gender ? (
+          <div>{formik.errors.gender}</div>
+        ) : null}
         <TextField
           required
           id="filled-required"
@@ -191,7 +160,13 @@ const NewRegComponent = () => {
           defaultValue=""
           variant="filled"
           size="small"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.city}
         />
+        {formik.touched.city && formik.errors.city ? (
+          <div>{formik.errors.city}</div>
+        ) : null}
         <TextField
           required
           id="filled-required"
@@ -199,7 +174,13 @@ const NewRegComponent = () => {
           defaultValue=""
           variant="filled"
           size="small"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.woreda}
         />
+        {formik.touched.woreda && formik.errors.woreda ? (
+          <div>{formik.errors.woreda}</div>
+        ) : null}
         <TextField
           required
           id="filled-required"
@@ -207,7 +188,13 @@ const NewRegComponent = () => {
           defaultValue="number"
           variant="filled"
           size="small"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.mobilePhone}
         />
+        {formik.touched.mobilePhone && formik.errors.mobilePhone ? (
+          <div>{formik.errors.mobilePhone}</div>
+        ) : null}
         <TextField
           required
           id="filled-required"
@@ -216,16 +203,23 @@ const NewRegComponent = () => {
           defaultValue=""
           variant="filled"
           size="small"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.houseNumber}
         />
+        {formik.touched.houseNumber && formik.errors.houseNumber ? (
+          <div>{formik.errors.houseNumber}</div>
+        ) : null}
         <Box>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Sub city</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={selectedSubcity}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.subCity}
               label="Sub city"
-              onChange={handleSubCityChange}
             >
               <MenuItem disabled>Select subcity</MenuItem>
               <MenuItem value="Bole subcity">Bole subcity</MenuItem>
@@ -237,20 +231,9 @@ const NewRegComponent = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box>
-          <label htmlFor="date-picker">Date of application</label>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker
-                label="Selecet date"
-                id="date-picker"
-                name="date-picker"
-                value={selectedDate}
-                onChange={handleDateChange}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
-        </Box>
+        {formik.touched.subCity && formik.errors.subCity ? (
+          <div>{formik.errors.subCity}</div>
+        ) : null}
         <div className="flex flex-col gap-3 items-center justify-center">
           <div className="w-full flex justify-between">
             <label> Educational data</label>
@@ -404,22 +387,6 @@ const NewRegComponent = () => {
               </Button>
             </DialogActions>
           </Dialog>
-          {/* <EditEducationForm
-                      open={openEdit}
-                      handleClose={handleEditClose}
-                      selectedEducationalLevel={selectedEducationalLevel}
-                      setSelectedEducationalLevel={setSelectedEducationalLevel}
-                      institution={institution}
-                      setInstitution={setInstitution}
-                      country={country}
-                      setCountry={setCountry}
-                      graduation={graduation}
-                      setGraduation={setGraduation}
-                      qualification={qualification}
-                      setQualification={setQualification}
-                      remarks={remarks}
-                      setRemarks={setRemarks}
-                    /> */}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -450,10 +417,7 @@ const NewRegComponent = () => {
                           onClick={() => handlRemoveEducation(data.id)}
                           className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out "
                         />
-                        <EditIcon
-                          onClick={() => handleEditEducation(data)}
-                          className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out"
-                        />
+                        <EditIcon className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out" />
                       </div>
                     </TableCell>
                   </TableRow>
@@ -462,6 +426,9 @@ const NewRegComponent = () => {
             </Table>
           </TableContainer>
         </div>
+        {formik.touched.educationalData && formik.errors.educationalData ? (
+          <div>{formik.errors.educationalData}</div>
+        ) : null}
         <Button
           onClick={() => setFormStep(2)}
           variant="outlined"
@@ -475,17 +442,6 @@ const NewRegComponent = () => {
   };
 
   const FormStepTwo = () => {
-    const [id, setId] = useState(null);
-    const [educationEvidence, setEducationEvidence] = useState(null);
-    const [transcript, setTranscript] = useState(null);
-    const [coc, setCOC] = useState(null);
-    const [applicantPhoto, setApplicantPhoto] = useState(null);
-    const [workExp, setWorkExp] = useState("");
-
-    const handleWorkExp = (event) => {
-      setWorkExp(event.target.value);
-    };
-
     return (
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
@@ -524,9 +480,7 @@ const NewRegComponent = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={workExp}
               label="Select work experience"
-              onChange={handleWorkExp}
             >
               <MenuItem value="The manager of PLC or Enterprise member">
                 The manager of PLC or Enterprise member
@@ -558,9 +512,66 @@ const NewRegComponent = () => {
   };
 
   const formik = useFormik({
-    initialValues: {},
-    validationSchema: Yup.object({}),
-    onSubmit: async (values) => {},
+    initialValues: {
+      fullname: "",
+      gender: "",
+      city: "",
+      woreda: "",
+      mobilePhone: "",
+      houseNumber: "",
+      subCity: "",
+      educationalData: {},
+      idCard: null,
+      educationEvidence: null,
+      transcript: null,
+      COC: null,
+      applicantPhoto: null,
+      workExperience: "",
+    },
+    validationSchema: Yup.object({
+      fullname: Yup.string().required("Full name is required"),
+      gender: Yup.string().required("Gender is required"),
+      city: Yup.string().required("City is required"),
+      woreda: Yup.string().required("Woreda is required"),
+      mobilePhone: Yup.number().required("Mobile is required"),
+      subCity: Yup.string().required("Subcity is required"),
+      educationalData: Yup.object().required("educationalData is required"),
+      idCard: Yup.mixed()
+        .required("Id is required")
+        .test("fileType", "Invalid file format", (value) => {
+          return ["image/jpeg", "image/png", "application/pdf"].includes(
+            value.type
+          );
+        }),
+      educationEvidence: Yup.mixed()
+        .required("Transcript is required")
+        .test("fileType", "Invalid file format", (value) => {
+          return ["application/pdf", "application/doc"].includes(value.type);
+        }),
+      transcript: Yup.mixed()
+        .required("Transcript is required")
+        .test("fileType", "Invalid file format", (value) => {
+          return ["image/jpeg", "image/png", "application/pdf"].includes(
+            value.type
+          );
+        }),
+      COC: Yup.mixed()
+        .required("COC is required")
+        .test("fileType", "Invalid file format", (value) => {
+          return ["image/jpeg", "image/png", "application/pdf"].includes(
+            value.type
+          );
+        }),
+      applicantPhoto: Yup.mixed()
+        .required("Applicant photo is required")
+        .test("fileType", "Invalid file format", (value) => {
+          return ["image/jpeg", "image/png"].includes(value.type);
+        }),
+      workExperience: Yup.string().required("WorkExperience is required"),
+    }),
+    onSubmit: async (values) => {
+      alert(values, 2, null);
+    },
   });
 
   return (
