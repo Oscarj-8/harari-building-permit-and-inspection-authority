@@ -69,6 +69,7 @@ const NewRegComponent = () => {
   };
 
   const handleClose = () => {
+    formik.setFieldValue("educationalData", educationalData, true);
     setOpen(false);
   };
 
@@ -116,401 +117,6 @@ const NewRegComponent = () => {
     setEducationalData(updatedEducationalData);
   };
 
-  const FormStepOne = () => {
-    return (
-      <div className="flex flex-col gap-6">
-        <TextField
-          required
-          id="filled-required"
-          label="Applicant Full Name"
-          variant="filled"
-          size="small"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.fullname}
-        />
-        {formik.touched.firstName && formik.errors.firstName ? (
-          <div>{formik.errors.fullname}</div>
-        ) : null}
-        <Box>
-          <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="demo-controlled-radio-buttons-group"
-            name="controlled-radio-buttons-group"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.gender}
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Female"
-            />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-          </RadioGroup>
-        </Box>
-        {formik.touched.gender && formik.errors.gender ? (
-          <div>{formik.errors.gender}</div>
-        ) : null}
-        <TextField
-          required
-          id="filled-required"
-          label="City"
-          defaultValue=""
-          variant="filled"
-          size="small"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.city}
-        />
-        {formik.touched.city && formik.errors.city ? (
-          <div>{formik.errors.city}</div>
-        ) : null}
-        <TextField
-          required
-          id="filled-required"
-          label="Woreda/Kebele"
-          defaultValue=""
-          variant="filled"
-          size="small"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.woreda}
-        />
-        {formik.touched.woreda && formik.errors.woreda ? (
-          <div>{formik.errors.woreda}</div>
-        ) : null}
-        <TextField
-          required
-          id="filled-required"
-          label="Mobile Phone"
-          defaultValue="number"
-          variant="filled"
-          size="small"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.mobilePhone}
-        />
-        {formik.touched.mobilePhone && formik.errors.mobilePhone ? (
-          <div>{formik.errors.mobilePhone}</div>
-        ) : null}
-        <TextField
-          required
-          id="filled-required"
-          label="House Number"
-          type="number"
-          defaultValue=""
-          variant="filled"
-          size="small"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.houseNumber}
-        />
-        {formik.touched.houseNumber && formik.errors.houseNumber ? (
-          <div>{formik.errors.houseNumber}</div>
-        ) : null}
-        <Box>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Sub city</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.subCity}
-              label="Sub city"
-            >
-              <MenuItem disabled>Select subcity</MenuItem>
-              <MenuItem value="Bole subcity">Bole subcity</MenuItem>
-              <MenuItem value="Gulele subcity">Gulele subcity</MenuItem>
-              <MenuItem value="NifasSilk subcity">NifasSilk subcity</MenuItem>
-              <MenuItem value="Addis Ketema subcity">
-                Addis Ketema subcity
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        {formik.touched.subCity && formik.errors.subCity ? (
-          <div>{formik.errors.subCity}</div>
-        ) : null}
-        <div className="flex flex-col gap-3 items-center justify-center">
-          <div className="w-full flex justify-between">
-            <label> Educational data</label>
-            <Button
-              onClick={handleClickOpen}
-              variant="contained"
-              disableElevation
-              className="text-white bg-blue-700 h-8 normal-case"
-            >
-              Add
-            </Button>
-          </div>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              component: "form",
-              onSubmit: (event) => {
-                event.preventDefault();
-                const formData = new FormData(event.currentTarget);
-                formData.append("education level", educationLevel);
-                const formJson = Object.fromEntries(formData.entries());
-                const id = uuidv4();
-                const entryWithId = { id, ...formJson };
-
-                setEducationalData([...educationalData, entryWithId]);
-                handleClose();
-                resetEducationLevelData();
-              },
-            }}
-          >
-            <DialogTitle>Add educational data</DialogTitle>
-            <DialogContent>
-              <div>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Description
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={educationLevel}
-                    label="Description"
-                    onChange={handleEducationChange}
-                  >
-                    <MenuItem disabled>Select subcity</MenuItem>
-                    <MenuItem value="Elementary">Elementary</MenuItem>
-                    <MenuItem value="High school">High school</MenuItem>
-                    <MenuItem value="College/University (Diploma)">
-                      College/University (Diploma)
-                    </MenuItem>
-                    <MenuItem value="College/University (BSC)">
-                      College/University (BSC)
-                    </MenuItem>
-                    <MenuItem value="College/University (MSC)">
-                      College/University (MSC)
-                    </MenuItem>{" "}
-                    <MenuItem value="College/University (PHD)">
-                      College/University (PHD)
-                    </MenuItem>
-                    <MenuItem value="Research performed">
-                      Research performed
-                    </MenuItem>
-                    <MenuItem value="Special training">
-                      Special training
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-              <TextField
-                autoFocus
-                required
-                margin="dense"
-                id="institution"
-                name="institution"
-                label="Name of institution"
-                type="text"
-                fullWidth
-                variant="standard"
-                value={institution}
-                onChange={(event) => setInstitution(event.target.value)}
-              />
-              <TextField
-                autoFocus
-                required
-                margin="dense"
-                id="country"
-                name="country"
-                label="Country"
-                type="text"
-                fullWidth
-                variant="standard"
-                value={country}
-                onChange={(event) => setCountry(event.target.value)}
-              />
-              <TextField
-                autoFocus
-                required
-                margin="dense"
-                id="year of graduation"
-                name="year of graduation"
-                label="Year of graduation"
-                type="text"
-                fullWidth
-                variant="standard"
-                value={graduation}
-                onChange={(event) => setGraduation(event.target.value)}
-              />{" "}
-              <TextField
-                autoFocus
-                required
-                margin="dense"
-                id="qualification"
-                name="qualification"
-                label="Qualification"
-                type="text"
-                fullWidth
-                variant="standard"
-                value={qualification}
-                onChange={(event) => setQualification(event.target.value)}
-              />{" "}
-              <TextField
-                autoFocus
-                required
-                margin="dense"
-                id="remarks"
-                name="remarks"
-                label="Any pertinent remarks"
-                type="text"
-                fullWidth
-                variant="standard"
-                value={remarks}
-                onChange={(event) => setRemarks(event.target.value)}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                disableElevation
-                className="h-8 normal-case"
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disableElevation
-                className="text-white bg-blue-700 h-8 normal-case"
-              >
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Description</TableCell>
-                  <TableCell align="right">Name of institution</TableCell>
-                  <TableCell align="right">Country</TableCell>
-                  <TableCell align="right">Year of graduation</TableCell>
-                  <TableCell align="right">Qualification</TableCell>
-                  <TableCell align="right">Any pertinent remarks</TableCell>
-                  <TableCell align="right">Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {educationalData.map((data, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{data["education level"]}</TableCell>
-                    <TableCell align="right">{data["institution"]}</TableCell>
-                    <TableCell align="right">{data["country"]}</TableCell>
-                    <TableCell align="right">
-                      {data["year of graduation"]}
-                    </TableCell>
-                    <TableCell align="right">{data["qualification"]}</TableCell>
-                    <TableCell align="right">{data["remarks"]}</TableCell>
-                    <TableCell align="right">
-                      <div className="flex gap-2">
-                        <DeleteForeverIcon
-                          onClick={() => handlRemoveEducation(data.id)}
-                          className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out "
-                        />
-                        <EditIcon className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out" />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        {formik.touched.educationalData && formik.errors.educationalData ? (
-          <div>{formik.errors.educationalData}</div>
-        ) : null}
-        <Button
-          onClick={() => setFormStep(2)}
-          variant="outlined"
-          className="self-end pr-1 w-[7.3em]"
-        >
-          <p>Page 2</p>
-          <ChevronRight sx={{ marginBottom: "1px" }} />
-        </Button>
-      </div>
-    );
-  };
-
-  const FormStepTwo = () => {
-    return (
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">
-            Renewed Resident ID card/Driving License/Passport(Front and Back) *
-          </label>
-          <input type="file" />
-        </div>
-        <hr />
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">
-            Educational evidence (original with PDF doc)*{" "}
-          </label>
-          <input type="file" />
-        </div>
-        <hr />
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">Student copy / transcript</label>
-          <input type="file" />
-        </div>
-        <hr />
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">COC (Level 1 upto Level 5)</label>
-          <input type="file" />
-        </div>
-        <hr />
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">Applicant photograph*</label>
-          <input type="file" />
-        </div>
-        <div>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
-              Type of Working Experience
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Select work experience"
-            >
-              <MenuItem value="The manager of PLC or Enterprise member">
-                The manager of PLC or Enterprise member
-              </MenuItem>
-              <MenuItem value="Employee">Employee</MenuItem>
-              <MenuItem value="Unemployed">Unemployed</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <Button
-          onClick={() => setFormStep(1)}
-          variant="outlined"
-          className="self-start pl-1 w-[7.3em]"
-        >
-          <ChevronLeft sx={{ marginBottom: "1px" }} />
-          <p>Page 1</p>
-        </Button>
-      </div>
-    );
-  };
-
-  const RenderStep = () => {
-    switch (formStep) {
-      case 1:
-        return <FormStepOne />;
-      case 2:
-        return <FormStepTwo />;
-    }
-  };
-
   const formik = useFormik({
     initialValues: {
       fullname: "",
@@ -520,13 +126,13 @@ const NewRegComponent = () => {
       mobilePhone: "",
       houseNumber: "",
       subCity: "",
-      educationalData: {},
-      idCard: null,
-      educationEvidence: null,
-      transcript: null,
-      COC: null,
-      applicantPhoto: null,
-      workExperience: "",
+      educationalData: [],
+      // idCard: null,
+      // educationEvidence: null,
+      // transcript: null,
+      // COC: null,
+      // applicantPhoto: null,
+      // workExperience: "",
     },
     validationSchema: Yup.object({
       fullname: Yup.string().required("Full name is required"),
@@ -534,43 +140,44 @@ const NewRegComponent = () => {
       city: Yup.string().required("City is required"),
       woreda: Yup.string().required("Woreda is required"),
       mobilePhone: Yup.number().required("Mobile is required"),
+      houseNumber: Yup.number().required("House number is required"),
       subCity: Yup.string().required("Subcity is required"),
-      educationalData: Yup.object().required("educationalData is required"),
-      idCard: Yup.mixed()
-        .required("Id is required")
-        .test("fileType", "Invalid file format", (value) => {
-          return ["image/jpeg", "image/png", "application/pdf"].includes(
-            value.type
-          );
-        }),
-      educationEvidence: Yup.mixed()
-        .required("Transcript is required")
-        .test("fileType", "Invalid file format", (value) => {
-          return ["application/pdf", "application/doc"].includes(value.type);
-        }),
-      transcript: Yup.mixed()
-        .required("Transcript is required")
-        .test("fileType", "Invalid file format", (value) => {
-          return ["image/jpeg", "image/png", "application/pdf"].includes(
-            value.type
-          );
-        }),
-      COC: Yup.mixed()
-        .required("COC is required")
-        .test("fileType", "Invalid file format", (value) => {
-          return ["image/jpeg", "image/png", "application/pdf"].includes(
-            value.type
-          );
-        }),
-      applicantPhoto: Yup.mixed()
-        .required("Applicant photo is required")
-        .test("fileType", "Invalid file format", (value) => {
-          return ["image/jpeg", "image/png"].includes(value.type);
-        }),
-      workExperience: Yup.string().required("WorkExperience is required"),
+      educationalData: Yup.array().required("educationalData is required"),
+      // idCard: Yup.mixed()
+      //   .required("Id is required")
+      //   .test("fileType", "Invalid file format", (value) => {
+      //     return ["image/jpeg", "image/png", "application/pdf"].includes(
+      //       value.type
+      //     );
+      //   }),
+      // educationEvidence: Yup.mixed()
+      //   .required("Transcript is required")
+      //   .test("fileType", "Invalid file format", (value) => {
+      //     return ["application/pdf", "application/doc"].includes(value.type);
+      //   }),
+      // transcript: Yup.mixed()
+      //   .required("Transcript is required")
+      //   .test("fileType", "Invalid file format", (value) => {
+      //     return ["image/jpeg", "image/png", "application/pdf"].includes(
+      //       value.type
+      //     );
+      //   }),
+      // COC: Yup.mixed()
+      //   .required("COC is required")
+      //   .test("fileType", "Invalid file format", (value) => {
+      //     return ["image/jpeg", "image/png", "application/pdf"].includes(
+      //       value.type
+      //     );
+      //   }),
+      // applicantPhoto: Yup.mixed()
+      //   .required("Applicant photo is required")
+      //   .test("fileType", "Invalid file format", (value) => {
+      //     return ["image/jpeg", "image/png"].includes(value.type);
+      //   }),
+      // workExperience: Yup.string().required("WorkExperience is required"),
     }),
     onSubmit: async (values) => {
-      alert(values, 2, null);
+      alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -709,7 +316,441 @@ const NewRegComponent = () => {
                     Page 2
                   </p>
                 </div>
-                <RenderStep />
+                {/* <RenderStep /> */}
+                {formStep === 1 && (
+                  <div className="flex flex-col gap-6">
+                    <TextField
+                      required
+                      id="fullname"
+                      label="Applicant Full Name"
+                      variant="filled"
+                      size="small"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.fullname}
+                    />
+                    {formik.touched.fullname && formik.errors.fullname ? (
+                      <div>{formik.errors.fullname}</div>
+                    ) : null}
+                    {formik.values.fullname}
+                    <Box>
+                      <FormLabel id="demo-controlled-radio-buttons-group">
+                        Gender
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="gender"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.gender}
+                      >
+                        <FormControlLabel
+                          value="female"
+                          control={<Radio />}
+                          label="Female"
+                        />
+                        <FormControlLabel
+                          value="male"
+                          control={<Radio />}
+                          label="Male"
+                        />
+                      </RadioGroup>
+                    </Box>
+                    {formik.touched.gender && formik.errors.gender ? (
+                      <div>{formik.errors.gender}</div>
+                    ) : null}
+                    <TextField
+                      required
+                      id="city"
+                      label="City"
+                      variant="filled"
+                      size="small"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.city}
+                    />
+                    {formik.touched.city && formik.errors.city ? (
+                      <div>{formik.errors.city}</div>
+                    ) : null}
+                    <TextField
+                      required
+                      id="woreda"
+                      label="Woreda/Kebele"
+                      variant="filled"
+                      size="small"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.woreda}
+                    />
+                    {formik.touched.woreda && formik.errors.woreda ? (
+                      <div>{formik.errors.woreda}</div>
+                    ) : null}
+                    <TextField
+                      required
+                      id="mobilePhone"
+                      label="Mobile Phone"
+                      variant="filled"
+                      size="small"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.mobilePhone}
+                    />
+                    {formik.touched.mobilePhone && formik.errors.mobilePhone ? (
+                      <div>{formik.errors.mobilePhone}</div>
+                    ) : null}
+                    <TextField
+                      required
+                      name="houseNumber"
+                      label="House Number"
+                      type="number"
+                      variant="filled"
+                      size="small"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.houseNumber}
+                    />
+                    {formik.touched.houseNumber && formik.errors.houseNumber ? (
+                      <div>{formik.errors.houseNumber}</div>
+                    ) : null}
+                    <Box>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Sub city
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          name="subCity"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.subCity}
+                          label="Sub city"
+                        >
+                          <MenuItem disabled>Select subcity</MenuItem>
+                          <MenuItem value="Bole subcity">Bole subcity</MenuItem>
+                          <MenuItem value="Gulele subcity">
+                            Gulele subcity
+                          </MenuItem>
+                          <MenuItem value="NifasSilk subcity">
+                            NifasSilk subcity
+                          </MenuItem>
+                          <MenuItem value="Addis Ketema subcity">
+                            Addis Ketema subcity
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    {formik.touched.subCity && formik.errors.subCity ? (
+                      <div>{formik.errors.subCity}</div>
+                    ) : null}
+                    {formik.values.subCity}
+                    <div className="flex flex-col gap-3 items-center justify-center">
+                      <div className="w-full flex justify-between">
+                        <label> Educational data</label>
+                        <Button
+                          onClick={handleClickOpen}
+                          variant="contained"
+                          disableElevation
+                          className="text-white bg-blue-700 h-8 normal-case"
+                        >
+                          Add
+                        </Button>
+                      </div>
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        PaperProps={{
+                          component: "form",
+                          onSubmit: (event) => {
+                            event.preventDefault(); // Prevent default form submission
+                            event.stopPropagation();
+
+                            const formData = new FormData(event.currentTarget);
+                            formData.append("education level", educationLevel);
+                            const formJson = Object.fromEntries(
+                              formData.entries()
+                            );
+                            const id = uuidv4();
+                            const entryWithId = { id, ...formJson };
+
+                            setEducationalData([
+                              ...educationalData,
+                              entryWithId,
+                            ]);
+                            console.log(educationalData);
+                            handleClose();
+                            resetEducationLevelData();
+                          },
+                        }}
+                      >
+                        <DialogTitle>Add educational data</DialogTitle>
+                        <DialogContent>
+                          <div>
+                            <FormControl fullWidth>
+                              <InputLabel id="demo-simple-select-label">
+                                Description
+                              </InputLabel>
+                              <Select
+                                required
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={educationLevel}
+                                label="Description"
+                                onChange={handleEducationChange}
+                              >
+                                <MenuItem disabled>Select subcity</MenuItem>
+                                <MenuItem value="Elementary">
+                                  Elementary
+                                </MenuItem>
+                                <MenuItem value="High school">
+                                  High school
+                                </MenuItem>
+                                <MenuItem value="College/University (Diploma)">
+                                  College/University (Diploma)
+                                </MenuItem>
+                                <MenuItem value="College/University (BSC)">
+                                  College/University (BSC)
+                                </MenuItem>
+                                <MenuItem value="College/University (MSC)">
+                                  College/University (MSC)
+                                </MenuItem>{" "}
+                                <MenuItem value="College/University (PHD)">
+                                  College/University (PHD)
+                                </MenuItem>
+                                <MenuItem value="Research performed">
+                                  Research performed
+                                </MenuItem>
+                                <MenuItem value="Special training">
+                                  Special training
+                                </MenuItem>
+                              </Select>
+                            </FormControl>
+                          </div>
+                          <TextField
+                            autoFocus
+                            required
+                            margin="dense"
+                            id="institution"
+                            name="institution"
+                            label="Name of institution"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            value={institution}
+                            onChange={(event) =>
+                              setInstitution(event.target.value)
+                            }
+                          />
+                          <TextField
+                            autoFocus
+                            required
+                            margin="dense"
+                            id="country"
+                            name="country"
+                            label="Country"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            value={country}
+                            onChange={(event) => setCountry(event.target.value)}
+                          />
+                          <TextField
+                            autoFocus
+                            required
+                            margin="dense"
+                            id="year of graduation"
+                            name="year of graduation"
+                            label="Year of graduation"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            value={graduation}
+                            onChange={(event) =>
+                              setGraduation(event.target.value)
+                            }
+                          />{" "}
+                          <TextField
+                            autoFocus
+                            required
+                            margin="dense"
+                            id="qualification"
+                            name="qualification"
+                            label="Qualification"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            value={qualification}
+                            onChange={(event) =>
+                              setQualification(event.target.value)
+                            }
+                          />{" "}
+                          <TextField
+                            autoFocus
+                            required
+                            margin="dense"
+                            id="remarks"
+                            name="remarks"
+                            label="Any pertinent remarks"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            value={remarks}
+                            onChange={(event) => setRemarks(event.target.value)}
+                          />
+                        </DialogContent>
+                        <DialogActions>
+                          <Button
+                            disableElevation
+                            className="h-8 normal-case"
+                            onClick={handleClose}
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            disableElevation
+                            className="text-white bg-blue-700 h-8 normal-case"
+                          >
+                            Done
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                      <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Description</TableCell>
+                              <TableCell align="right">
+                                Name of institution
+                              </TableCell>
+                              <TableCell align="right">Country</TableCell>
+                              <TableCell align="right">
+                                Year of graduation
+                              </TableCell>
+                              <TableCell align="right">Qualification</TableCell>
+                              <TableCell align="right">
+                                Any pertinent remarks
+                              </TableCell>
+                              <TableCell align="right">Actions</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {educationalData.map((data, index) => (
+                              <TableRow key={index}>
+                                <TableCell>{data["education level"]}</TableCell>
+                                <TableCell align="right">
+                                  {data["institution"]}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {data["country"]}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {data["year of graduation"]}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {data["qualification"]}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {data["remarks"]}
+                                </TableCell>
+                                <TableCell align="right">
+                                  <div className="flex gap-2">
+                                    <DeleteForeverIcon
+                                      onClick={() =>
+                                        handlRemoveEducation(data.id)
+                                      }
+                                      className="text-red-600 hover:bg-red-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out "
+                                    />
+                                    <EditIcon className="text-blue-600 hover:bg-blue-200 rounded-full p-1 size-8 transition-all duration-300 ease-in-out" />
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </div>
+                    {formik.touched.educationalData &&
+                    formik.errors.educationalData ? (
+                      <div>{formik.errors.educationalData}</div>
+                    ) : null}
+                    <Button
+                      onClick={() => setFormStep(2)}
+                      variant="outlined"
+                      className="self-end pr-1 w-[7.3em]"
+                    >
+                      <p>Page 2</p>
+                      <ChevronRight sx={{ marginBottom: "1px" }} />
+                    </Button>
+                  </div>
+                )}
+                {formStep === 2 && (
+                  <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Renewed Resident ID card/Driving License/Passport(Front
+                        and Back) *
+                      </label>
+                      <input type="file" />
+                    </div>
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Educational evidence (original with PDF doc)*{" "}
+                      </label>
+                      <input type="file" />
+                    </div>
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Student copy / transcript
+                      </label>
+                      <input type="file" />
+                    </div>
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        COC (Level 1 upto Level 5)
+                      </label>
+                      <input type="file" />
+                    </div>
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Applicant photograph*
+                      </label>
+                      <input type="file" />
+                    </div>
+                    {/* <div>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Type of Working Experience
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          name="workExperience"
+                          label="Select work experience"
+                        >
+                          <MenuItem value="The manager of PLC or Enterprise member">
+                            The manager of PLC or Enterprise member
+                          </MenuItem>
+                          <MenuItem value="Employee">Employee</MenuItem>
+                          <MenuItem value="Unemployed">Unemployed</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div> */}
+                    <Button
+                      onClick={() => setFormStep(1)}
+                      variant="outlined"
+                      className="self-start pl-1 w-[7.3em]"
+                    >
+                      <ChevronLeft sx={{ marginBottom: "1px" }} />
+                      <p>Page 1</p>
+                    </Button>{" "}
+                    <Button type="subit">Submit</Button>
+                  </div>
+                )}
               </form>
             )}
             {activeStep === 2 && (
