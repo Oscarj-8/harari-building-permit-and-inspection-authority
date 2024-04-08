@@ -332,7 +332,6 @@ const NewRegComponent = () => {
                     {formik.touched.fullname && formik.errors.fullname ? (
                       <div>{formik.errors.fullname}</div>
                     ) : null}
-                    {formik.values.fullname}
                     <Box>
                       <FormLabel id="demo-controlled-radio-buttons-group">
                         Gender
@@ -443,7 +442,6 @@ const NewRegComponent = () => {
                     {formik.touched.subCity && formik.errors.subCity ? (
                       <div>{formik.errors.subCity}</div>
                     ) : null}
-                    {formik.values.subCity}
                     <div className="flex flex-col gap-3 items-center justify-center">
                       <div className="w-full flex justify-between">
                         <label> Educational data</label>
