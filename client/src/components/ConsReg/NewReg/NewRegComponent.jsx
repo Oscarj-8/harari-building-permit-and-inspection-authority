@@ -209,7 +209,7 @@ const NewRegComponent = () => {
       </Accordion>
       <Box className="border p-2 bg-gray-50 rounded-md" sx={{ width: "100%" }}>
         <Stepper
-          className="border-b border-black md:border-none"
+          className="hidden md:flex border-b border-gray-400 md:border-none"
           activeStep={activeStep}
         >
           {steps.map((label, index) => {
