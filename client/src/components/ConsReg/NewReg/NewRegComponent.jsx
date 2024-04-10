@@ -63,7 +63,7 @@ const NewRegComponent = () => {
   const [qualification, setQualification] = useState("");
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
-  const [files, setFiles] = useState([]);
+  const [filesArray, setFilesArray] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -105,6 +105,12 @@ const NewRegComponent = () => {
     setQualification("");
     setRemarks("");
   };
+
+  const captureFile = (event) => {
+    const newFile = event.target.files[0];
+    setFilesArray([...filesArray, newFile]);
+  };
+  console.log(filesArray);
 
   // modal functions
   const handleEducationChange = (event) => {
@@ -691,35 +697,47 @@ const NewRegComponent = () => {
                         Renewed Resident ID card/Driving License/Passport(Front
                         and Back) *
                       </label>
-                      <input type="file" />
+                      <input type="file" onChange={captureFile} id="file-one" />
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         Educational evidence (original with PDF doc)*{" "}
                       </label>
-                      <input type="file" />
+                      <input type="file" onChange={captureFile} id="file-two" />
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         Student copy / transcript
                       </label>
-                      <input type="file" />
+                      <input
+                        type="file"
+                        onChange={captureFile}
+                        id="file-three"
+                      />
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         COC (Level 1 upto Level 5)
                       </label>
-                      <input type="file" />
+                      <input
+                        type="file"
+                        onChange={captureFile}
+                        id="file-four"
+                      />
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         Applicant photograph*
                       </label>
-                      <input type="file" />
+                      <input
+                        type="file"
+                        onChange={captureFile}
+                        id="file-five"
+                      />
                     </div>
                     {/* <div>
                       <FormControl fullWidth>
