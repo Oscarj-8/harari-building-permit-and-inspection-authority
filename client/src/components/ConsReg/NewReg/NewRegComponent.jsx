@@ -63,6 +63,7 @@ const NewRegComponent = () => {
   const [qualification, setQualification] = useState("");
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
+  const [files, setFiles] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
