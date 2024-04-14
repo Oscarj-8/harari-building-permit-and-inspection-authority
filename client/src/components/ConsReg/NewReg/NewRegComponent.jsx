@@ -64,7 +64,7 @@ const NewRegComponent = () => {
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
-  // console.log(filesArray);
+  console.log("test", educationalData);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -451,7 +451,7 @@ const NewRegComponent = () => {
                           component: "form",
                           onSubmit: (event) => {
                             event.preventDefault(); // Prevent default form submission
-                            event.stopPropagation();
+                            // event.stopPropagation();
 
                             const formData = new FormData(event.currentTarget);
                             formData.append("education level", educationLevel);
@@ -461,10 +461,11 @@ const NewRegComponent = () => {
                             const id = uuidv4();
                             const entryWithId = { id, ...formJson };
 
-                            setEducationalData([
-                              ...educationalData,
+                            setEducationalData((prevEducationalData) => [
+                              ...prevEducationalData,
                               entryWithId,
                             ]);
+                            console.log("education", educationalData);
                             handleClose();
                             resetEducationLevelData();
                           },
