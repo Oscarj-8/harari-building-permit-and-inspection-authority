@@ -64,7 +64,7 @@ const NewRegComponent = () => {
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
-
+  // console.log(filesArray);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -106,11 +106,13 @@ const NewRegComponent = () => {
     setRemarks("");
   };
 
-  const captureFile = (event) => {
+  const captureFile = (event, fieldName) => {
     const newFile = event.target.files[0];
-    setFilesArray([...filesArray, newFile]);
+    console.log(newFile);
+    setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
+    console.log(filesArray);
+    formik.setFieldValue(fieldName, newFile);
   };
-  console.log(filesArray);
 
   // modal functions
   const handleEducationChange = (event) => {
@@ -134,57 +136,38 @@ const NewRegComponent = () => {
       houseNumber: "",
       subCity: "",
       educationalData: [],
-      // idCard: null,
-      // educationEvidence: null,
-      // transcript: null,
-      // COC: null,
-      // applicantPhoto: null,
-      // workExperience: "",
+      idCard: null,
+      educationEvidence: null,
+      transcript: null,
+      COC: null,
+      applicantPhoto: null,
+      workExperience: "",
     },
     validationSchema: Yup.object({
-      fullname: Yup.string().required("Full name is required"),
-      gender: Yup.string().required("Gender is required"),
-      city: Yup.string().required("City is required"),
-      woreda: Yup.string().required("Woreda is required"),
-      mobilePhone: Yup.number().required("Mobile is required"),
-      houseNumber: Yup.number().required("House number is required"),
-      subCity: Yup.string().required("Subcity is required"),
-      educationalData: Yup.array().required("educationalData is required"),
-      // idCard: Yup.mixed()
-      //   .required("Id is required")
-      //   .test("fileType", "Invalid file format", (value) => {
-      //     return ["image/jpeg", "image/png", "application/pdf"].includes(
-      //       value.type
-      //     );
-      //   }),
-      // educationEvidence: Yup.mixed()
-      //   .required("Transcript is required")
-      //   .test("fileType", "Invalid file format", (value) => {
-      //     return ["application/pdf", "application/doc"].includes(value.type);
-      //   }),
-      // transcript: Yup.mixed()
-      //   .required("Transcript is required")
-      //   .test("fileType", "Invalid file format", (value) => {
-      //     return ["image/jpeg", "image/png", "application/pdf"].includes(
-      //       value.type
-      //     );
-      //   }),
-      // COC: Yup.mixed()
-      //   .required("COC is required")
-      //   .test("fileType", "Invalid file format", (value) => {
-      //     return ["image/jpeg", "image/png", "application/pdf"].includes(
-      //       value.type
-      //     );
-      //   }),
-      // applicantPhoto: Yup.mixed()
-      //   .required("Applicant photo is required")
-      //   .test("fileType", "Invalid file format", (value) => {
-      //     return ["image/jpeg", "image/png"].includes(value.type);
-      //   }),
-      // workExperience: Yup.string().required("WorkExperience is required"),
+      // fullname: Yup.string().required("Full name is required"),
+      // gender: Yup.string().required("Gender is required"),
+      // city: Yup.string().required("City is required"),
+      // woreda: Yup.string().required("Woreda is required"),
+      // mobilePhone: Yup.number().required("Mobile is required"),
+      // houseNumber: Yup.number().required("House number is required"),
+      // subCity: Yup.string().required("Subcity is required"),
+      // educationalData: Yup.array().required("educationalData is required"),
+      idCard: Yup.mixed().required("Id is required"),
+      educationEvidence: Yup.mixed().required("Transcript is required"),
+      transcript: Yup.mixed().required("Transcript is required"),
+      COC: Yup.mixed().required("COC is required"),
+      applicantPhoto: Yup.mixed().required("Applicant photo is required"),
+      workExperience: Yup.string().required("WorkExperience is required"),
     }),
     onSubmit: async (values) => {
+      if (!formik.isValid) {
+        // Handle validation errors here (e.g., display an alert)
+        console.error("Form submission failed due to validation errors");
+        return;
+      }
+      console.log("clicked");
       alert(JSON.stringify(values, null, 2));
+      console.log(values);
     },
   });
 
@@ -482,7 +465,6 @@ const NewRegComponent = () => {
                               ...educationalData,
                               entryWithId,
                             ]);
-                            console.log(educationalData);
                             handleClose();
                             resetEducationLevelData();
                           },
@@ -697,14 +679,31 @@ const NewRegComponent = () => {
                         Renewed Resident ID card/Driving License/Passport(Front
                         and Back) *
                       </label>
-                      <input type="file" onChange={captureFile} id="file-one" />
+                      <input
+                        type="file"
+                        onChange={(event) => captureFile(event, "idCard")}
+                        name="idCard"
+                      />
+                      {formik.touched.idCard && formik.errors.idCard ? (
+                        <div>{formik.errors.idCard}</div>
+                      ) : null}
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         Educational evidence (original with PDF doc)*{" "}
                       </label>
-                      <input type="file" onChange={captureFile} id="file-two" />
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "educationEvidence")
+                        }
+                        name="educationEvidence"
+                      />
+                      {formik.touched.educationEvidence &&
+                      formik.errors.educationEvidence ? (
+                        <div>{formik.errors.educationEvidence}</div>
+                      ) : null}
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
@@ -713,9 +712,12 @@ const NewRegComponent = () => {
                       </label>
                       <input
                         type="file"
-                        onChange={captureFile}
-                        id="file-three"
+                        onChange={(event) => captureFile(event, "transcript")}
+                        name="transcript"
                       />
+                      {formik.touched.transcript && formik.errors.transcript ? (
+                        <div>{formik.errors.transcript}</div>
+                      ) : null}
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
@@ -724,9 +726,12 @@ const NewRegComponent = () => {
                       </label>
                       <input
                         type="file"
-                        onChange={captureFile}
-                        id="file-four"
+                        onChange={(event) => captureFile(event, "COC")}
+                        name="COC"
                       />
+                      {formik.touched.COC && formik.errors.COC ? (
+                        <div>{formik.errors.COC}</div>
+                      ) : null}
                     </div>
                     <hr />
                     <div className="flex flex-col gap-2">
@@ -735,11 +740,17 @@ const NewRegComponent = () => {
                       </label>
                       <input
                         type="file"
-                        onChange={captureFile}
-                        id="file-five"
+                        onChange={(event) =>
+                          captureFile(event, "applicantPhoto")
+                        }
+                        name="applicantPhoto"
                       />
+                      {formik.touched.applicantPhoto &&
+                      formik.errors.applicantPhoto ? (
+                        <div>{formik.errors.applicantPhoto}</div>
+                      ) : null}
                     </div>
-                    {/* <div>
+                    <div>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
                           Type of Working Experience
@@ -748,6 +759,9 @@ const NewRegComponent = () => {
                           labelId="demo-simple-select-label"
                           name="workExperience"
                           label="Select work experience"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.workExperience}
                         >
                           <MenuItem value="The manager of PLC or Enterprise member">
                             The manager of PLC or Enterprise member
@@ -756,7 +770,11 @@ const NewRegComponent = () => {
                           <MenuItem value="Unemployed">Unemployed</MenuItem>
                         </Select>
                       </FormControl>
-                    </div> */}
+                      {formik.touched.workExperience &&
+                      formik.errors.workExperience ? (
+                        <div>{formik.errors.workExperience}</div>
+                      ) : null}
+                    </div>
                     <Button
                       onClick={() => setFormStep(1)}
                       variant="outlined"
