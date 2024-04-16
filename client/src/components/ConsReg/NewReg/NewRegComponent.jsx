@@ -64,7 +64,9 @@ const NewRegComponent = () => {
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
-  console.log("test", educationalData);
+
+  console.log(filesArray);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -106,12 +108,41 @@ const NewRegComponent = () => {
     setRemarks("");
   };
 
+  // const captureFile = (event, fieldName) => {
+  //   const newFile = event.target.files[0];
+  //   console.log(newFile);
+  //   setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
+  //   console.log(filesArray);
+  //   formik.setFieldValue(fieldName, newFile);
+  // };
+
   const captureFile = (event, fieldName) => {
     const newFile = event.target.files[0];
     console.log(newFile);
     setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
     console.log(filesArray);
-    formik.setFieldValue(fieldName, newFile);
+
+    const updatedInitialValues = { ...formik.initialValues };
+    switch (fieldName) {
+      case "idCard":
+        updatedInitialValues.idCard = newFile;
+        break;
+      case "educationEvidence":
+        updatedInitialValues.educationEvidence = newFile;
+        break;
+      case "transcript":
+        updatedInitialValues.transcript = newFile;
+        break;
+      case "COC":
+        updatedInitialValues.COC = newFile;
+        break;
+      case "applicantPhoto":
+        updatedInitialValues.applicantPhoto = newFile;
+        break;
+      default:
+        break;
+    }
+    formik.setValues(updatedInitialValues);
   };
 
   // modal functions
@@ -144,14 +175,14 @@ const NewRegComponent = () => {
       workExperience: "",
     },
     validationSchema: Yup.object({
-      // fullname: Yup.string().required("Full name is required"),
-      // gender: Yup.string().required("Gender is required"),
-      // city: Yup.string().required("City is required"),
-      // woreda: Yup.string().required("Woreda is required"),
-      // mobilePhone: Yup.number().required("Mobile is required"),
-      // houseNumber: Yup.number().required("House number is required"),
-      // subCity: Yup.string().required("Subcity is required"),
-      // educationalData: Yup.array().required("educationalData is required"),
+      fullname: Yup.string().required("Full name is required"),
+      gender: Yup.string().required("Gender is required"),
+      city: Yup.string().required("City is required"),
+      woreda: Yup.string().required("Woreda is required"),
+      mobilePhone: Yup.number().required("Mobile is required"),
+      houseNumber: Yup.number().required("House number is required"),
+      subCity: Yup.string().required("Subcity is required"),
+      educationalData: Yup.array().required("educationalData is required"),
       idCard: Yup.mixed().required("Id is required"),
       educationEvidence: Yup.mixed().required("Transcript is required"),
       transcript: Yup.mixed().required("Transcript is required"),
@@ -320,7 +351,9 @@ const NewRegComponent = () => {
                       value={formik.values.fullname}
                     />
                     {formik.touched.fullname && formik.errors.fullname ? (
-                      <div>{formik.errors.fullname}</div>
+                      <div className="text-red-600">
+                        {formik.errors.fullname}
+                      </div>
                     ) : null}
                     <Box>
                       <FormLabel id="demo-controlled-radio-buttons-group">
@@ -347,7 +380,7 @@ const NewRegComponent = () => {
                       </RadioGroup>
                     </Box>
                     {formik.touched.gender && formik.errors.gender ? (
-                      <div>{formik.errors.gender}</div>
+                      <div className="text-red-600">{formik.errors.gender}</div>
                     ) : null}
                     <TextField
                       required
@@ -360,7 +393,7 @@ const NewRegComponent = () => {
                       value={formik.values.city}
                     />
                     {formik.touched.city && formik.errors.city ? (
-                      <div>{formik.errors.city}</div>
+                      <div className="text-red-600">{formik.errors.city}</div>
                     ) : null}
                     <TextField
                       required
@@ -373,7 +406,7 @@ const NewRegComponent = () => {
                       value={formik.values.woreda}
                     />
                     {formik.touched.woreda && formik.errors.woreda ? (
-                      <div>{formik.errors.woreda}</div>
+                      <div className="text-red-600">{formik.errors.woreda}</div>
                     ) : null}
                     <TextField
                       required
@@ -386,7 +419,9 @@ const NewRegComponent = () => {
                       value={formik.values.mobilePhone}
                     />
                     {formik.touched.mobilePhone && formik.errors.mobilePhone ? (
-                      <div>{formik.errors.mobilePhone}</div>
+                      <div className="text-red-600">
+                        {formik.errors.mobilePhone}
+                      </div>
                     ) : null}
                     <TextField
                       required
@@ -400,7 +435,9 @@ const NewRegComponent = () => {
                       value={formik.values.houseNumber}
                     />
                     {formik.touched.houseNumber && formik.errors.houseNumber ? (
-                      <div>{formik.errors.houseNumber}</div>
+                      <div className="text-red-600">
+                        {formik.errors.houseNumber}
+                      </div>
                     ) : null}
                     <Box>
                       <FormControl fullWidth>
@@ -430,7 +467,9 @@ const NewRegComponent = () => {
                       </FormControl>
                     </Box>
                     {formik.touched.subCity && formik.errors.subCity ? (
-                      <div>{formik.errors.subCity}</div>
+                      <div className="text-red-600">
+                        {formik.errors.subCity}
+                      </div>
                     ) : null}
                     <div className="flex flex-col gap-3 items-center justify-center">
                       <div className="w-full flex justify-between">
@@ -661,7 +700,9 @@ const NewRegComponent = () => {
                     </div>
                     {formik.touched.educationalData &&
                     formik.errors.educationalData ? (
-                      <div>{formik.errors.educationalData}</div>
+                      <div className="text-red-600">
+                        {formik.errors.educationalData}
+                      </div>
                     ) : null}
                     <Button
                       onClick={() => setFormStep(2)}
@@ -686,7 +727,9 @@ const NewRegComponent = () => {
                         name="idCard"
                       />
                       {formik.touched.idCard && formik.errors.idCard ? (
-                        <div>{formik.errors.idCard}</div>
+                        <div className="text-red-600">
+                          {formik.errors.idCard}
+                        </div>
                       ) : null}
                     </div>
                     <hr />
@@ -703,7 +746,9 @@ const NewRegComponent = () => {
                       />
                       {formik.touched.educationEvidence &&
                       formik.errors.educationEvidence ? (
-                        <div>{formik.errors.educationEvidence}</div>
+                        <div className="text-red-600">
+                          {formik.errors.educationEvidence}
+                        </div>
                       ) : null}
                     </div>
                     <hr />
@@ -717,7 +762,9 @@ const NewRegComponent = () => {
                         name="transcript"
                       />
                       {formik.touched.transcript && formik.errors.transcript ? (
-                        <div>{formik.errors.transcript}</div>
+                        <div className="text-red-600">
+                          {formik.errors.transcript}
+                        </div>
                       ) : null}
                     </div>
                     <hr />
@@ -731,7 +778,7 @@ const NewRegComponent = () => {
                         name="COC"
                       />
                       {formik.touched.COC && formik.errors.COC ? (
-                        <div>{formik.errors.COC}</div>
+                        <div className="text-red-600">{formik.errors.COC}</div>
                       ) : null}
                     </div>
                     <hr />
@@ -748,7 +795,9 @@ const NewRegComponent = () => {
                       />
                       {formik.touched.applicantPhoto &&
                       formik.errors.applicantPhoto ? (
-                        <div>{formik.errors.applicantPhoto}</div>
+                        <div className="text-red-600">
+                          {formik.errors.applicantPhoto}
+                        </div>
                       ) : null}
                     </div>
                     <div>
@@ -773,7 +822,9 @@ const NewRegComponent = () => {
                       </FormControl>
                       {formik.touched.workExperience &&
                       formik.errors.workExperience ? (
-                        <div>{formik.errors.workExperience}</div>
+                        <div className="text-red-600">
+                          {formik.errors.workExperience}
+                        </div>
                       ) : null}
                     </div>
                     <Button
