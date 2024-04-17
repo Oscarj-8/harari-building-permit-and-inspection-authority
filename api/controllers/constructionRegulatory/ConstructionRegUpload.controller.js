@@ -1,29 +1,58 @@
-import fs from "fs";
-import path from "path";
+const NewLicenseForm = require("../models/NewLicenseForm");
+const RenewalForm = require("../models/RenewalForm");
+const UpgradeForm = require("../models/UpgradeForm");
 
-export const formUpload = (req, res) => {
-  const formdata = req.body;
-  const username = formdata.username;
-  const userDirectory = path.join(
-    process.cwd(),
-    "api/constructionRegulatoryFolder",
-    username
-  );
-  if (!fs.existsSync(userDirectory)) {
-    fs.mkdirSync(userDirectory, { recursive: true });
+// Controller function to handle submission of new license form
+const submitNewLicenseForm = async (req, res) => {
+  try {
+    const formData = req.body;
+    // Create a new instance of the NewLicenseForm model with the form data
+    const newLicense = new NewLicenseForm(formData);
+    await newLicense.save();
+    return res.status(201).json({
+      message: "New license form submitted successfully",
+      data: newLicense,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
+};
 
-  const filePath = path.join(userDirectory, "form_data.txt");
+// Controller function to handle submission of renewal form
+const submitRenewalForm = async (req, res) => {
+  try {
+    const formData = req.body;
+    // Create a new instance of the RenewalForm model with the form data
+    const renewal = new RenewalForm(formData);
+    await renewal.save();
+    return res
+      .status(201)
+      .json({ message: "Renewal form submitted successfully", data: renewal });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
 
-  const formdataString = JSON.stringify(formdata, null, 2);
+// Controller function to handle submission of upgrade form
+const submitUpgradeForm = async (req, res) => {
+  try {
+    const formData = req.body;
+    // Create a new instance of the UpgradeForm model with the form data
+    const upgrade = new UpgradeForm(formData);
+    await upgrade.save();
+    return res
+      .status(201)
+      .json({ message: "Upgrade form submitted successfully", data: upgrade });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
 
-  fs.appendFile(filePath, formdataString + "\n", (err) => {
-    if (err) {
-      console.log("Error writing to file:", err);
-      res.status(500).send("Error saving txt file");
-    } else {
-      console.log("Form data saved to file:", filePath);
-      res.status(200).send({ message: "Form data saved" });
-    }
-  });
+module.exports = {
+  submitNewLicenseForm,
+  submitRenewalForm,
+  submitUpgradeForm,
 };

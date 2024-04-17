@@ -159,7 +159,7 @@ const NewRegComponent = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullname: "",
+      fullName: "",
       gender: "",
       city: "",
       woreda: "",
@@ -175,7 +175,7 @@ const NewRegComponent = () => {
       workExperience: "",
     },
     validationSchema: Yup.object({
-      fullname: Yup.string().required("Full name is required"),
+      fullName: Yup.string().required("Full name is required"),
       gender: Yup.string().required("Gender is required"),
       city: Yup.string().required("City is required"),
       woreda: Yup.string().required("Woreda is required"),
@@ -342,17 +342,17 @@ const NewRegComponent = () => {
                   <div className="flex flex-col gap-6">
                     <TextField
                       required
-                      id="fullname"
+                      id="fullName"
                       label="Applicant Full Name"
                       variant="filled"
                       size="small"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.fullname}
+                      value={formik.values.fullName}
                     />
-                    {formik.touched.fullname && formik.errors.fullname ? (
+                    {formik.touched.fullName && formik.errors.fullName ? (
                       <div className="text-red-600">
-                        {formik.errors.fullname}
+                        {formik.errors.fullName}
                       </div>
                     ) : null}
                     <Box>
