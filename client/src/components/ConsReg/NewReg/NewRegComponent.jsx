@@ -63,9 +63,7 @@ const NewRegComponent = () => {
   const [qualification, setQualification] = useState("");
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
-  const [filesArray, setFilesArray] = useState([]);
-
-  console.log(filesArray);
+  // const [filesArray, setFilesArray] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -116,34 +114,32 @@ const NewRegComponent = () => {
   //   formik.setFieldValue(fieldName, newFile);
   // };
 
-  const captureFile = (event, fieldName) => {
-    const newFile = event.target.files[0];
-    console.log(newFile);
-    setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
-    console.log(filesArray);
+  // const captureFile = (event, fieldName) => {
+  //   const newFile = event.target.files[0];
+  //   setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
 
-    const updatedInitialValues = { ...formik.initialValues };
-    switch (fieldName) {
-      case "idCard":
-        updatedInitialValues.idCard = newFile;
-        break;
-      case "educationEvidence":
-        updatedInitialValues.educationEvidence = newFile;
-        break;
-      case "transcript":
-        updatedInitialValues.transcript = newFile;
-        break;
-      case "COC":
-        updatedInitialValues.COC = newFile;
-        break;
-      case "applicantPhoto":
-        updatedInitialValues.applicantPhoto = newFile;
-        break;
-      default:
-        break;
-    }
-    formik.setValues(updatedInitialValues);
-  };
+  //   const updatedInitialValues = { ...formik.initialValues };
+  //   switch (fieldName) {
+  //     case "idCard":
+  //       updatedInitialValues.idCard = newFile;
+  //       break;
+  //     case "educationEvidence":
+  //       updatedInitialValues.educationEvidence = newFile;
+  //       break;
+  //     case "transcript":
+  //       updatedInitialValues.transcript = newFile;
+  //       break;
+  //     case "COC":
+  //       updatedInitialValues.COC = newFile;
+  //       break;
+  //     case "applicantPhoto":
+  //       updatedInitialValues.applicantPhoto = newFile;
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   formik.setValues(updatedInitialValues);
+  // };
 
   // modal functions
   const handleEducationChange = (event) => {
@@ -167,11 +163,11 @@ const NewRegComponent = () => {
       houseNumber: "",
       subCity: "",
       educationalData: [],
-      idCard: null,
-      educationEvidence: null,
-      transcript: null,
-      COC: null,
-      applicantPhoto: null,
+      // idCard: null,
+      // educationEvidence: null,
+      // transcript: null,
+      // COC: null,
+      // applicantPhoto: null,
       workExperience: "",
     },
     validationSchema: Yup.object({
@@ -183,11 +179,11 @@ const NewRegComponent = () => {
       houseNumber: Yup.number().required("House number is required"),
       subCity: Yup.string().required("Subcity is required"),
       educationalData: Yup.array().required("educationalData is required"),
-      idCard: Yup.mixed().required("Id is required"),
-      educationEvidence: Yup.mixed().required("Transcript is required"),
-      transcript: Yup.mixed().required("Transcript is required"),
-      COC: Yup.mixed().required("COC is required"),
-      applicantPhoto: Yup.mixed().required("Applicant photo is required"),
+      // idCard: Yup.mixed().required("Id is required"),
+      // educationEvidence: Yup.mixed().required("Transcript is required"),
+      // transcript: Yup.mixed().required("Transcript is required"),
+      // COC: Yup.mixed().required("COC is required"),
+      // applicantPhoto: Yup.mixed().required("Applicant photo is required"),
       workExperience: Yup.string().required("WorkExperience is required"),
     }),
     onSubmit: async (values) => {
@@ -196,11 +192,102 @@ const NewRegComponent = () => {
         console.error("Form submission failed due to validation errors");
         return;
       }
-      console.log("clicked");
-      alert(JSON.stringify(values, null, 2));
-      console.log(values);
+      console.log(values); // Log form data before sending the request
+
+      // Append form values to FormData
+
+      try {
+        const response = await fetch(
+          "/api/construction-regulatory/new-license",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          }
+        );
+        if (response.ok) {
+          console.log("File uploaded successfully");
+        } else {
+          console.error("Error uploading file");
+        }
+        // Handle response
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
     },
   });
+
+  // const formik = useFormik({
+  //   initialValues: {
+  //     fullName: "",
+  //     gender: "",
+  //     city: "",
+  //     woreda: "",
+  //     mobilePhone: "",
+  //     houseNumber: "",
+  //     subCity: "",
+  //     educationalData: [],
+  //     idCard: null,
+  //     educationEvidence: null,
+  //     transcript: null,
+  //     COC: null,
+  //     applicantPhoto: null,
+  //     workExperience: "",
+  //   },
+  //   validationSchema: Yup.object({
+  //     // Your validation schema
+  //   }),
+  //   onSubmit: async (values) => {
+  //     console.log(values);
+  //     if (!formik.isValid) {
+  //       // Handle validation errors here (e.g., display an alert)
+  //       console.error("Form submission failed due to validation errors");
+  //       return;
+  //     }
+
+  //     const formData = new FormData();
+
+  //     // Append non-file form fields to the FormData object
+  //     Object.keys(values).forEach((key) => {
+  //       if (
+  //         key !== "idCard" &&
+  //         key !== "educationEvidence" &&
+  //         key !== "transcript" &&
+  //         key !== "COC" &&
+  //         key !== "applicantPhoto"
+  //       ) {
+  //         formData.append(key, values[key]);
+  //       }
+  //     });
+
+  //     // Append file fields to the FormData object
+  //     formData.append("idCard", values.idCard);
+  //     formData.append("educationEvidence", values.educationEvidence);
+  //     formData.append("transcript", values.transcript);
+  //     formData.append("COC", values.COC);
+  //     formData.append("applicantPhoto", values.applicantPhoto);
+  //     console.log(formData);
+  //     // try {
+  //     //   const response = await fetch(
+  //     //     "/api/construction-regulatory/new-license",
+  //     //     {
+  //     //       method: "POST",
+  //     //       body: formData,
+  //     //     }
+  //     //   );
+  //     //   if (response.ok) {
+  //     //     console.log("File uploaded successfully");
+  //     //   } else {
+  //     //     console.error("Error uploading file");
+  //     //   }
+  //     //   // Handle response
+  //     // } catch (error) {
+  //     //   console.error("An error occurred", error);
+  //     // }
+  //   },
+  // });
 
   return (
     <div className="flex flex-col gap-4">
@@ -504,7 +591,6 @@ const NewRegComponent = () => {
                               ...prevEducationalData,
                               entryWithId,
                             ]);
-                            console.log("education", educationalData);
                             handleClose();
                             resetEducationLevelData();
                           },
@@ -716,7 +802,7 @@ const NewRegComponent = () => {
                 )}
                 {formStep === 2 && (
                   <div className="flex flex-col gap-6">
-                    <div className="flex flex-col gap-2">
+                    {/* <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         Renewed Resident ID card/Driving License/Passport(Front
                         and Back) *
@@ -799,7 +885,7 @@ const NewRegComponent = () => {
                           {formik.errors.applicantPhoto}
                         </div>
                       ) : null}
-                    </div>
+                    </div> */}
                     <div>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">

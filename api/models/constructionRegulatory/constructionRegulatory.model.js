@@ -55,3 +55,7 @@ const newLicenseFormSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+const newLicenseFormModel = mongoose.model("Form", newLicenseFormSchema);
+
+export default newLicenseFormModel;

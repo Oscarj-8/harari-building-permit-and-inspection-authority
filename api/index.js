@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import adminAuthRouter from "./routes/admin/adminAuth.route.js";
 import userAuthRouter from "./routes/user/userAuth.route.js";
@@ -14,6 +15,7 @@ import buildingInsOccPermitfileGetRoutes from "./routes/buildingInsOccPermit/Bui
 import designEvaBuildingPerFileUpload from "./routes/designEvaBuildingPer/DesignEvaBuildingPerUpload.route.js";
 import designEvaBuildingPerFileGetRoutes from "./routes/designEvaBuildingPer/DesignEvaBuildingPerFileGet.route.js";
 import constructionRegUploadRoute from "./routes/constructionRegulatory/ConstructionRegUpload.route.js";
+import constructionRegUpload from "./routes/constructionRegulatory/ConstructionRegUpload.route.js";
 import path from "path";
 import messageRoute from "./routes/message/messages.route.js";
 
@@ -37,6 +39,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
 
 app.use("/api", planConsentfileUpload);
 app.use("/api", planConsentFileGetRoutes);
@@ -44,6 +47,7 @@ app.use("/api", buildingInsOccPermitfileUpload);
 app.use("/api", buildingInsOccPermitfileGetRoutes);
 app.use("/api", designEvaBuildingPerFileUpload);
 app.use("/api", designEvaBuildingPerFileGetRoutes);
+app.use("/api", constructionRegUpload);
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
