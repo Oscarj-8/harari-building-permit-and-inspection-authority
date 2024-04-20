@@ -53,7 +53,6 @@ const NewRegComponent = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
-
   const [open, setOpen] = useState(false);
   //step one form values
   const [educationLevel, setEducationLevel] = useState("");
@@ -63,7 +62,7 @@ const NewRegComponent = () => {
   const [qualification, setQualification] = useState("");
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
-  // const [filesArray, setFilesArray] = useState([]);
+  const [filesArray, setFilesArray] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -106,14 +105,13 @@ const NewRegComponent = () => {
     setRemarks("");
   };
 
-  // const captureFile = (event, fieldName) => {
-  //   const newFile = event.target.files[0];
-  //   console.log(newFile);
-  //   setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
-  //   console.log(filesArray);
-  //   formik.setFieldValue(fieldName, newFile);
-  // };
+  const captureFile = (event, fieldName) => {
+    const newFile = event.target.files[0];
+    setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
+    formik.setFieldValue(fieldName, newFile);
+  };
 
+  console.log(filesArray);
   // const captureFile = (event, fieldName) => {
   //   const newFile = event.target.files[0];
   //   setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
@@ -163,7 +161,7 @@ const NewRegComponent = () => {
       houseNumber: "",
       subCity: "",
       educationalData: [],
-      // idCard: null,
+      idCard: null,
       // educationEvidence: null,
       // transcript: null,
       // COC: null,
@@ -179,8 +177,8 @@ const NewRegComponent = () => {
       houseNumber: Yup.number().required("House number is required"),
       subCity: Yup.string().required("Subcity is required"),
       educationalData: Yup.array().required("educationalData is required"),
-      // idCard: Yup.mixed().required("Id is required"),
-      // educationEvidence: Yup.mixed().required("Transcript is required"),
+      idCard: Yup.mixed().required("Id is required"),
+      educationEvidence: Yup.mixed().required("education evidence is required"),
       // transcript: Yup.mixed().required("Transcript is required"),
       // COC: Yup.mixed().required("COC is required"),
       // applicantPhoto: Yup.mixed().required("Applicant photo is required"),
@@ -196,26 +194,27 @@ const NewRegComponent = () => {
 
       // Append form values to FormData
 
-      try {
-        const response = await fetch(
-          "/api/construction-regulatory/new-license",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          }
-        );
-        if (response.ok) {
-          console.log("File uploaded successfully");
-        } else {
-          console.error("Error uploading file");
-        }
-        // Handle response
-      } catch (error) {
-        console.error("An error occurred", error);
-      }
+      // try {
+      //   console.log(filesArray);
+      //   const response = await fetch(
+      //     "/api/construction-regulatory/new-license",
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(values),
+      //     }
+      //   );
+      //   if (response.ok) {
+      //     console.log("File uploaded successfully");
+      //   } else {
+      //     console.error("Error uploading file");
+      //   }
+      //   // Handle response
+      // } catch (error) {
+      //   console.error("An error occurred", error);
+      // }
     },
   });
 
@@ -802,14 +801,14 @@ const NewRegComponent = () => {
                 )}
                 {formStep === 2 && (
                   <div className="flex flex-col gap-6">
-                    {/* <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         Renewed Resident ID card/Driving License/Passport(Front
                         and Back) *
                       </label>
                       <input
                         type="file"
-                        onChange={(event) => captureFile(event, "idCard")}
+                        onChange={formik.handleChange}
                         name="idCard"
                       />
                       {formik.touched.idCard && formik.errors.idCard ? (
@@ -825,9 +824,7 @@ const NewRegComponent = () => {
                       </label>
                       <input
                         type="file"
-                        onChange={(event) =>
-                          captureFile(event, "educationEvidence")
-                        }
+                        onChange={formik.handleFileUpload}
                         name="educationEvidence"
                       />
                       {formik.touched.educationEvidence &&
@@ -854,7 +851,7 @@ const NewRegComponent = () => {
                       ) : null}
                     </div>
                     <hr />
-                    <div className="flex flex-col gap-2">
+                    {/*        <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         COC (Level 1 upto Level 5)
                       </label>

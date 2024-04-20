@@ -30,8 +30,8 @@ const newLicenseFormSchema = new mongoose.Schema({
     required: true,
   },
   idCard: {
-    type: String,
-    required: true,
+    data: Buffer, // or specify a different data type like File
+    contentType: String, // optional, to store the content type of the file
   },
   educationEvidence: {
     type: String,
