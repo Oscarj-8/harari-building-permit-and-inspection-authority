@@ -7,7 +7,7 @@ const route = express.Router();
 // Route to handle submission of new license form
 route.post(
   "/construction-regulatory/new-license",
-  upload.single("fieldName"),
+  upload.any(),
   submitNewLicenseForm
 );
 // // Route to handle submission of renewal form
