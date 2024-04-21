@@ -111,34 +111,6 @@ const NewRegComponent = () => {
     formik.setFieldValue(fieldName, newFile);
   };
 
-  console.log(filesArray);
-  // const captureFile = (event, fieldName) => {
-  //   const newFile = event.target.files[0];
-  //   setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
-
-  //   const updatedInitialValues = { ...formik.initialValues };
-  //   switch (fieldName) {
-  //     case "idCard":
-  //       updatedInitialValues.idCard = newFile;
-  //       break;
-  //     case "educationEvidence":
-  //       updatedInitialValues.educationEvidence = newFile;
-  //       break;
-  //     case "transcript":
-  //       updatedInitialValues.transcript = newFile;
-  //       break;
-  //     case "COC":
-  //       updatedInitialValues.COC = newFile;
-  //       break;
-  //     case "applicantPhoto":
-  //       updatedInitialValues.applicantPhoto = newFile;
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   formik.setValues(updatedInitialValues);
-  // };
-
   // modal functions
   const handleEducationChange = (event) => {
     setEducationLevel(event.target.value);
@@ -162,10 +134,10 @@ const NewRegComponent = () => {
       subCity: "",
       educationalData: [],
       idCard: null,
-      // educationEvidence: null,
-      // transcript: null,
-      // COC: null,
-      // applicantPhoto: null,
+      educationEvidence: null,
+      transcript: null,
+      COC: null,
+      applicantPhoto: null,
       workExperience: "",
     },
     validationSchema: Yup.object({
@@ -179,114 +151,50 @@ const NewRegComponent = () => {
       educationalData: Yup.array().required("educationalData is required"),
       idCard: Yup.mixed().required("Id is required"),
       educationEvidence: Yup.mixed().required("education evidence is required"),
-      // transcript: Yup.mixed().required("Transcript is required"),
-      // COC: Yup.mixed().required("COC is required"),
-      // applicantPhoto: Yup.mixed().required("Applicant photo is required"),
+      transcript: Yup.mixed().required("Transcript is required"),
+      COC: Yup.mixed().required("COC is required"),
+      applicantPhoto: Yup.mixed().required("Applicant photo is required"),
       workExperience: Yup.string().required("WorkExperience is required"),
     }),
     onSubmit: async (values) => {
       if (!formik.isValid) {
-        // Handle validation errors here (e.g., display an alert)
         console.error("Form submission failed due to validation errors");
         return;
       }
-      console.log(values); // Log form data before sending the request
+      console.log(values);
 
-      // Append form values to FormData
+      const formData = new FormData();
 
-      // try {
-      //   console.log(filesArray);
-      //   const response = await fetch(
-      //     "/api/construction-regulatory/new-license",
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify(values),
-      //     }
-      //   );
-      //   if (response.ok) {
-      //     console.log("File uploaded successfully");
-      //   } else {
-      //     console.error("Error uploading file");
-      //   }
-      //   // Handle response
-      // } catch (error) {
-      //   console.error("An error occurred", error);
-      // }
+      for (const key in values) {
+        const value = values[key];
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, value);
+        }
+      }
+
+      try {
+        for (const [key, value] of formData.entries()) {
+          console.log(key, value);
+        }
+        const response = await fetch(
+          "/api/construction-regulatory/new-license",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        if (response.ok) {
+          console.log("File uploaded successfully");
+        } else {
+          console.error("Error uploading file");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
     },
   });
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     fullName: "",
-  //     gender: "",
-  //     city: "",
-  //     woreda: "",
-  //     mobilePhone: "",
-  //     houseNumber: "",
-  //     subCity: "",
-  //     educationalData: [],
-  //     idCard: null,
-  //     educationEvidence: null,
-  //     transcript: null,
-  //     COC: null,
-  //     applicantPhoto: null,
-  //     workExperience: "",
-  //   },
-  //   validationSchema: Yup.object({
-  //     // Your validation schema
-  //   }),
-  //   onSubmit: async (values) => {
-  //     console.log(values);
-  //     if (!formik.isValid) {
-  //       // Handle validation errors here (e.g., display an alert)
-  //       console.error("Form submission failed due to validation errors");
-  //       return;
-  //     }
-
-  //     const formData = new FormData();
-
-  //     // Append non-file form fields to the FormData object
-  //     Object.keys(values).forEach((key) => {
-  //       if (
-  //         key !== "idCard" &&
-  //         key !== "educationEvidence" &&
-  //         key !== "transcript" &&
-  //         key !== "COC" &&
-  //         key !== "applicantPhoto"
-  //       ) {
-  //         formData.append(key, values[key]);
-  //       }
-  //     });
-
-  //     // Append file fields to the FormData object
-  //     formData.append("idCard", values.idCard);
-  //     formData.append("educationEvidence", values.educationEvidence);
-  //     formData.append("transcript", values.transcript);
-  //     formData.append("COC", values.COC);
-  //     formData.append("applicantPhoto", values.applicantPhoto);
-  //     console.log(formData);
-  //     // try {
-  //     //   const response = await fetch(
-  //     //     "/api/construction-regulatory/new-license",
-  //     //     {
-  //     //       method: "POST",
-  //     //       body: formData,
-  //     //     }
-  //     //   );
-  //     //   if (response.ok) {
-  //     //     console.log("File uploaded successfully");
-  //     //   } else {
-  //     //     console.error("Error uploading file");
-  //     //   }
-  //     //   // Handle response
-  //     // } catch (error) {
-  //     //   console.error("An error occurred", error);
-  //     // }
-  //   },
-  // });
 
   return (
     <div className="flex flex-col gap-4">
@@ -423,7 +331,6 @@ const NewRegComponent = () => {
                     Page 2
                   </p>
                 </div>
-                {/* <RenderStep /> */}
                 {formStep === 1 && (
                   <div className="flex flex-col gap-6">
                     <TextField
@@ -808,7 +715,7 @@ const NewRegComponent = () => {
                       </label>
                       <input
                         type="file"
-                        onChange={formik.handleChange}
+                        onChange={(event) => captureFile(event, "idCard")}
                         name="idCard"
                       />
                       {formik.touched.idCard && formik.errors.idCard ? (
@@ -824,7 +731,9 @@ const NewRegComponent = () => {
                       </label>
                       <input
                         type="file"
-                        onChange={formik.handleFileUpload}
+                        onChange={(event) =>
+                          captureFile(event, "educationEvidence")
+                        }
                         name="educationEvidence"
                       />
                       {formik.touched.educationEvidence &&
@@ -851,7 +760,7 @@ const NewRegComponent = () => {
                       ) : null}
                     </div>
                     <hr />
-                    {/*        <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2">
                       <label className="font-medium">
                         COC (Level 1 upto Level 5)
                       </label>
@@ -882,7 +791,7 @@ const NewRegComponent = () => {
                           {formik.errors.applicantPhoto}
                         </div>
                       ) : null}
-                    </div> */}
+                    </div>
                     <div>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">

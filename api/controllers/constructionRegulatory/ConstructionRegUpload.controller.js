@@ -5,12 +5,12 @@ import newLicenseFormModel from "../../models/constructionRegulatory/constructio
 // Controller function to handle submission of new license form
 const submitNewLicenseForm = async (req, res) => {
   try {
-    const values = req.body;
-    console.log(values); // Log form data received by the backend
+    const formData = req.body;
+    console.log(formData); // Log form data received by the backend
 
     return res.status(201).json({
       message: "New license form submitted successfully",
-      data: values, // Return form data in the response
+      data: formData, // Return form data in the response
     });
   } catch (error) {
     console.error(error);
