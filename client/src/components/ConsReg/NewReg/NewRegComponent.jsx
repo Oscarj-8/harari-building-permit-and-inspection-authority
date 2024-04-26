@@ -123,6 +123,45 @@ const NewRegComponent = () => {
     setEducationalData(updatedEducationalData);
   };
 
+  const handleEducationDataAdd = () => {
+    // event.preventDefault(); // Prevent default form submission
+    // event.stopPropagation();
+
+    // const formData = new FormData();
+    // formData.append("education level", educationLevel);
+    // formData.appen
+    // const id = uuidv4();
+    // const entryWithId = { id, ...formJson };
+
+    // setEducationalData((prevEducationalData) => [
+    //   ...prevEducationalData,
+    //   entryWithId,
+    // ]);
+    // handleClose();
+    // resetEducationLevelData();
+    const formData = {
+      educationLevel,
+      institution,
+      country,
+      graduation,
+      qualification,
+      remarks,
+    };
+    const id = uuidv4();
+    const entryWithId = { id, ...formData };
+    setEducationalData((prevEducationData) => [
+      ...prevEducationData,
+      entryWithId,
+    ]);
+    // Log the formData object to the console
+    console.log("Form Data:", formData);
+
+    // Close the dialog or perform any other necessary actions
+    handleClose();
+    handleClose();
+    resetEducationLevelData();
+  };
+
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -161,8 +200,6 @@ const NewRegComponent = () => {
         console.error("Form submission failed due to validation errors");
         return;
       }
-      console.log(values);
-
       const formData = new FormData();
 
       for (const key in values) {
@@ -175,9 +212,6 @@ const NewRegComponent = () => {
       }
 
       try {
-        for (const [key, value] of formData.entries()) {
-          console.log(key, value);
-        }
         const response = await fetch(
           "/api/construction-regulatory/new-license",
           {
@@ -476,32 +510,7 @@ const NewRegComponent = () => {
                           Add
                         </Button>
                       </div>
-                      <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        PaperProps={{
-                          component: "form",
-                          onSubmit: (event) => {
-                            event.preventDefault(); // Prevent default form submission
-                            // event.stopPropagation();
-
-                            const formData = new FormData(event.currentTarget);
-                            formData.append("education level", educationLevel);
-                            const formJson = Object.fromEntries(
-                              formData.entries()
-                            );
-                            const id = uuidv4();
-                            const entryWithId = { id, ...formJson };
-
-                            setEducationalData((prevEducationalData) => [
-                              ...prevEducationalData,
-                              entryWithId,
-                            ]);
-                            handleClose();
-                            resetEducationLevelData();
-                          },
-                        }}
-                      >
+                      <Dialog open={open} onClose={handleClose}>
                         <DialogTitle>Add educational data</DialogTitle>
                         <DialogContent>
                           <div>
@@ -626,7 +635,7 @@ const NewRegComponent = () => {
                             Cancel
                           </Button>
                           <Button
-                            type="submit"
+                            onClick={() => handleEducationDataAdd()}
                             variant="contained"
                             disableElevation
                             className="text-white bg-blue-700 h-8 normal-case"
@@ -657,7 +666,7 @@ const NewRegComponent = () => {
                           <TableBody>
                             {educationalData.map((data, index) => (
                               <TableRow key={index}>
-                                <TableCell>{data["education level"]}</TableCell>
+                                <TableCell>{data["educationLevel"]}</TableCell>
                                 <TableCell align="right">
                                   {data["institution"]}
                                 </TableCell>
@@ -665,7 +674,7 @@ const NewRegComponent = () => {
                                   {data["country"]}
                                 </TableCell>
                                 <TableCell align="right">
-                                  {data["year of graduation"]}
+                                  {data["graduation"]}
                                 </TableCell>
                                 <TableCell align="right">
                                   {data["qualification"]}
@@ -690,12 +699,12 @@ const NewRegComponent = () => {
                         </Table>
                       </TableContainer>
                     </div>
-                    {formik.touched.educationalData &&
-                    formik.errors.educationalData ? (
+                    {educationalData.length < 1 ? (
                       <div className="text-red-600">
-                        {formik.errors.educationalData}
+                        <p>Please endter </p>
                       </div>
                     ) : null}
+                    <Button type="subit">Submit</Button>
                     <Button
                       onClick={() => setFormStep(2)}
                       variant="outlined"
