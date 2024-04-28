@@ -46,8 +46,8 @@ import FormControl from "@mui/material/FormControl";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import SendIcon from "@mui/icons-material/Send";
 import { postNewConstRegForm } from "../../../services/service.js";
 import ReusableModal from "../../ReusableModal.jsx";
 
@@ -868,19 +868,20 @@ const NewRegComponent = () => {
                       <ChevronLeft sx={{ marginBottom: "1px" }} />
                       <p>Page 1</p>
                     </Button>
-                    <Button variant="outlined" type="submit">
-                      {loading ? "Submitting" : "Submit"}
+                    <Button
+                      className="flex items-center justify-center md:self-end md:w-[7.4em] p-2 gap-2"
+                      variant="outlined"
+                      type="submit"
+                    >
+                      <span>{loading ? "Submitting" : "Submit"}</span>
+                      <SendIcon
+                        fontSize="small"
+                        className="relative -top-[0.05em]"
+                      />
                     </Button>
                   </div>
                 )}
               </form>
-            )}
-            {activeStep === 2 && (
-              <div className="w-full flex">
-                <Box className="mx-auto " sx={{ display: "flex" }}>
-                  <CircularProgress />
-                </Box>
-              </div>
             )}
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
