@@ -14,6 +14,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Snackbar from "@mui/material/Snackbar";
 import {
   newLicenseFormGuide,
   newLicenseFormGuideInstruction,
@@ -55,7 +56,7 @@ const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 const NewRegComponent = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [openError, setOpenError] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
@@ -80,6 +81,16 @@ const NewRegComponent = () => {
   //   formik.setFieldValue("educationalData", educationalData, true);
   //   setOpen(false);
   // };
+
+  const handleErrorClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenError(false);
+  };
+
+  // Function to display error and disable scrolling
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -117,6 +128,7 @@ const NewRegComponent = () => {
     const newFile = event.target.files[0];
     setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
     formik.setFieldValue(fieldName, newFile);
+    console.log(filesArray);
   };
 
   // modal functions
@@ -167,7 +179,6 @@ const NewRegComponent = () => {
   //   resetEducationLevelData();
   // };
 
-  console.log(currentUser.username);
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -177,6 +188,7 @@ const NewRegComponent = () => {
       mobilePhone: "",
       houseNumber: "",
       subCity: "",
+      currentOrganization: "",
       // educationalData: [],
       idCard: null,
       educationEvidence: null,
@@ -193,7 +205,9 @@ const NewRegComponent = () => {
       mobilePhone: Yup.number().required("Mobile is required"),
       houseNumber: Yup.number().required("House number is required"),
       subCity: Yup.string().required("Subcity is required"),
-      // educationalData: Yup.array().required("educationalData is required"),
+      currentOrganization: Yup.string().required(
+        "Current organization is required"
+      ), // educationalData: Yup.array().required("educationalData is required"),
       idCard: Yup.mixed().required("Id is required"),
       educationEvidence: Yup.mixed().required("education evidence is required"),
       transcript: Yup.mixed().required("Transcript is required"),
@@ -217,30 +231,24 @@ const NewRegComponent = () => {
         }
       }
 
-      // console.log(formData);
-
-      // for (const [key, value] of formData) {
-      //   console.log(key, "", value);
-      // }
-
       try {
         setLoading(true);
         const { statusCode } = await postNewConstRegForm(formData);
 
         if (statusCode !== 201) {
-          console.log("Can't post, Client side log");
-          setError(true);
+          setOpenError(true);
         } else {
           setSuccessOpen(true);
           setLoading(false);
         }
       } catch (error) {
+        setOpenError(true);
         console.error("An error occurred", error);
       }
     },
   });
   return (
-    <div className="flex flex-col gap-4">
+    <div className="relative flex flex-col gap-4">
       <h1 className="text-lg font-medium">
         New Registration of Professionals License
       </h1>
@@ -505,6 +513,22 @@ const NewRegComponent = () => {
                     {formik.touched.subCity && formik.errors.subCity ? (
                       <div className="text-red-600">
                         {formik.errors.subCity}
+                      </div>
+                    ) : null}
+                    <TextField
+                      required
+                      name="currentOrganization"
+                      label="Currently working at (Name of Organization)"
+                      variant="filled"
+                      size="small"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.currentOrganization}
+                    />
+                    {formik.touched.currentOrganization &&
+                    formik.errors.currentOrganization ? (
+                      <div className="text-red-600">
+                        {formik.errors.currentOrganization}
                       </div>
                     ) : null}
                     {/* <div className="flex flex-col gap-3 items-center justify-center">
@@ -843,8 +867,10 @@ const NewRegComponent = () => {
                     >
                       <ChevronLeft sx={{ marginBottom: "1px" }} />
                       <p>Page 1</p>
-                    </Button>{" "}
-                    <Button type="subit">Submit</Button>
+                    </Button>
+                    <Button variant="outlined" type="submit">
+                      {loading ? "Submitting" : "Submit"}
+                    </Button>
                   </div>
                 )}
               </form>
@@ -916,6 +942,21 @@ const NewRegComponent = () => {
           </Button>
         </div>
       </ReusableModal>
+      <Snackbar
+        open={openError}
+        autoHideDuration={6000}
+        onClose={handleErrorClose}
+      >
+        <Alert
+          onClose={handleErrorClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Server Error: Apologies! Something went wrong. Our team&apos;s on it.
+          Please retry shortly.
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
