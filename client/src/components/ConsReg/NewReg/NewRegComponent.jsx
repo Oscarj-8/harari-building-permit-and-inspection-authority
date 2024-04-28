@@ -47,6 +47,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CircularProgress from "@mui/material/CircularProgress";
 import SendIcon from "@mui/icons-material/Send";
 import { postNewConstRegForm } from "../../../services/service.js";
 import ReusableModal from "../../ReusableModal.jsx";
@@ -57,6 +58,7 @@ const NewRegComponent = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const [logInError, setLogInError] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
@@ -88,6 +90,7 @@ const NewRegComponent = () => {
     }
 
     setOpenError(false);
+    setLogInError(false);
   };
 
   // Function to display error and disable scrolling
@@ -220,19 +223,29 @@ const NewRegComponent = () => {
         console.error("Form submission failed due to validation errors");
         return;
       }
-      const formData = new FormData();
-      formData.append("username", currentUser.username);
-      for (const key in values) {
-        const value = values[key];
-        if (value instanceof File) {
-          formData.append(key, value);
-        } else {
-          formData.append(key, value);
-        }
-      }
 
       try {
         setLoading(true);
+
+        const formData = new FormData();
+
+        if (currentUser === null) {
+          setLogInError(true);
+          setLoading(false);
+          return;
+        } else {
+          formData.append("username", currentUser.username);
+        }
+
+        for (const key in values) {
+          const value = values[key];
+          if (value instanceof File) {
+            formData.append(key, value);
+          } else {
+            formData.append(key, value);
+          }
+        }
+
         const { statusCode } = await postNewConstRegForm(formData);
 
         if (statusCode !== 201) {
@@ -869,15 +882,25 @@ const NewRegComponent = () => {
                       <p>Page 1</p>
                     </Button>
                     <Button
-                      className="flex items-center justify-center md:self-end md:w-[7.4em] p-2 gap-2"
+                      className="flex items-center justify-center md:self-end p-2 gap-2"
                       variant="outlined"
                       type="submit"
                     >
-                      <span>{loading ? "Submitting" : "Submit"}</span>
-                      <SendIcon
-                        fontSize="small"
-                        className="relative -top-[0.05em]"
-                      />
+                      <span>
+                        {loading ? (
+                          <span className="flex items-center gap-2">
+                            Submitting <CircularProgress size={20} />
+                          </span>
+                        ) : (
+                          <span>
+                            Submit{" "}
+                            <SendIcon
+                              fontSize="small"
+                              className="relative -top-[0.08em]"
+                            />
+                          </span>
+                        )}
+                      </span>
                     </Button>
                   </div>
                 )}
@@ -956,6 +979,16 @@ const NewRegComponent = () => {
         >
           Server Error: Apologies! Something went wrong. Our team&apos;s on it.
           Please retry shortly.
+        </Alert>
+      </Snackbar>
+      <Snackbar open={logInError} onClose={handleErrorClose}>
+        <Alert
+          onClose={handleErrorClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Please Log in first!
         </Alert>
       </Snackbar>
     </div>
