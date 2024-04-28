@@ -37,7 +37,7 @@ import path from "path";
 
 const createMulterStorage = (
   destinationBasePath,
-  userFolderKey = "fullName"
+  userFolderKey = "username"
 ) => {
   return multer.diskStorage({
     destination: (req, file, cb) => {
@@ -67,7 +67,7 @@ const createMulterStorage = (
 
 const createMulterInstance = (
   destinationBasePath,
-  userFolderKey = "fullName"
+  userFolderKey = "username"
 ) => {
   const storage = createMulterStorage(destinationBasePath, userFolderKey);
 

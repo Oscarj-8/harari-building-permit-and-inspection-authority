@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
+// import { v4 as uuidv4 } from "uuid";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -27,51 +28,58 @@ import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
+// import Dialog from "@mui/material/Dialog";
+// import DialogActions from "@mui/material/DialogActions";
+// import DialogContent from "@mui/material/DialogContent";
+// import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
+// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+// import EditIcon from "@mui/icons-material/Edit";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { postNewConstRegForm } from "../../../services/service.js";
+import ReusableModal from "../../ReusableModal.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
 const NewRegComponent = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
-  const [open, setOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const handleClose = () => setSuccessOpen(false);
+  // const [open, setOpen] = useState(false);
   //step one form values
-  const [educationLevel, setEducationLevel] = useState("");
-  const [institution, setInstitution] = useState("");
-  const [country, setCountry] = useState("");
-  const [graduation, setGraduation] = useState("");
-  const [qualification, setQualification] = useState("");
-  const [remarks, setRemarks] = useState("");
-  const [educationalData, setEducationalData] = useState([]);
+  // const [educationLevel, setEducationLevel] = useState("");
+  // const [institution, setInstitution] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [graduation, setGraduation] = useState("");
+  // const [qualification, setQualification] = useState("");
+  // const [remarks, setRemarks] = useState("");
+  // const [educationalData, setEducationalData] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    formik.setFieldValue("educationalData", educationalData, true);
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   formik.setFieldValue("educationalData", educationalData, true);
+  //   setOpen(false);
+  // };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -96,14 +104,14 @@ const NewRegComponent = () => {
     setActiveStep(0);
   };
 
-  const resetEducationLevelData = () => {
-    setEducationLevel("");
-    setInstitution("");
-    setCountry("");
-    setGraduation("");
-    setQualification("");
-    setRemarks("");
-  };
+  // const resetEducationLevelData = () => {
+  //   setEducationLevel("");
+  //   setInstitution("");
+  //   setCountry("");
+  //   setGraduation("");
+  //   setQualification("");
+  //   setRemarks("");
+  // };
 
   const captureFile = (event, fieldName) => {
     const newFile = event.target.files[0];
@@ -112,56 +120,54 @@ const NewRegComponent = () => {
   };
 
   // modal functions
-  const handleEducationChange = (event) => {
-    setEducationLevel(event.target.value);
-  };
+  // const handleEducationChange = (event) => {
+  //   setEducationLevel(event.target.value);
+  // };
 
-  const handlRemoveEducation = (id) => {
-    const updatedEducationalData = educationalData.filter(
-      (data) => data.id !== id
-    );
-    setEducationalData(updatedEducationalData);
-  };
+  // const handlRemoveEducation = (id) => {
+  //   const updatedEducationalData = educationalData.filter(
+  //     (data) => data.id !== id
+  //   );
+  //   setEducationalData(updatedEducationalData);
+  // };
 
-  const handleEducationDataAdd = () => {
-    // event.preventDefault(); // Prevent default form submission
-    // event.stopPropagation();
+  // const handleEducationDataAdd = () => {
+  //   // event.preventDefault(); // Prevent default form submission
+  //   // event.stopPropagation();
 
-    // const formData = new FormData();
-    // formData.append("education level", educationLevel);
-    // formData.appen
-    // const id = uuidv4();
-    // const entryWithId = { id, ...formJson };
+  //   // const formData = new FormData();
+  //   // formData.append("education level", educationLevel);
+  //   // formData.appen
+  //   // const id = uuidv4();
+  //   // const entryWithId = { id, ...formJson };
 
-    // setEducationalData((prevEducationalData) => [
-    //   ...prevEducationalData,
-    //   entryWithId,
-    // ]);
-    // handleClose();
-    // resetEducationLevelData();
-    const formData = {
-      educationLevel,
-      institution,
-      country,
-      graduation,
-      qualification,
-      remarks,
-    };
-    const id = uuidv4();
-    const entryWithId = { id, ...formData };
-    setEducationalData((prevEducationData) => [
-      ...prevEducationData,
-      entryWithId,
-    ]);
-    // Log the formData object to the console
-    console.log("Form Data:", formData);
+  //   // setEducationalData((prevEducationalData) => [
+  //   //   ...prevEducationalData,
+  //   //   entryWithId,
+  //   // ]);
+  //   // handleClose();
+  //   // resetEducationLevelData();
+  //   const formData = {
+  //     educationLevel,
+  //     institution,
+  //     country,
+  //     graduation,
+  //     qualification,
+  //     remarks,
+  //   };
+  //   const id = uuidv4();
+  //   const entryWithId = { id, ...formData };
+  //   setEducationalData((prevEducationData) => [
+  //     ...prevEducationData,
+  //     entryWithId,
+  //   ]);
+  //   // Close the dialog or perform any other necessary actions
+  //   handleClose();
+  //   handleClose();
+  //   resetEducationLevelData();
+  // };
 
-    // Close the dialog or perform any other necessary actions
-    handleClose();
-    handleClose();
-    resetEducationLevelData();
-  };
-
+  console.log(currentUser.username);
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -171,7 +177,7 @@ const NewRegComponent = () => {
       mobilePhone: "",
       houseNumber: "",
       subCity: "",
-      educationalData: [],
+      // educationalData: [],
       idCard: null,
       educationEvidence: null,
       transcript: null,
@@ -187,7 +193,7 @@ const NewRegComponent = () => {
       mobilePhone: Yup.number().required("Mobile is required"),
       houseNumber: Yup.number().required("House number is required"),
       subCity: Yup.string().required("Subcity is required"),
-      educationalData: Yup.array().required("educationalData is required"),
+      // educationalData: Yup.array().required("educationalData is required"),
       idCard: Yup.mixed().required("Id is required"),
       educationEvidence: Yup.mixed().required("education evidence is required"),
       transcript: Yup.mixed().required("Transcript is required"),
@@ -201,7 +207,7 @@ const NewRegComponent = () => {
         return;
       }
       const formData = new FormData();
-
+      formData.append("username", currentUser.username);
       for (const key in values) {
         const value = values[key];
         if (value instanceof File) {
@@ -211,25 +217,28 @@ const NewRegComponent = () => {
         }
       }
 
+      // console.log(formData);
+
+      // for (const [key, value] of formData) {
+      //   console.log(key, "", value);
+      // }
+
       try {
-        const response = await fetch(
-          "/api/construction-regulatory/new-license",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        if (response.ok) {
-          console.log("File uploaded successfully");
+        setLoading(true);
+        const { statusCode } = await postNewConstRegForm(formData);
+
+        if (statusCode !== 201) {
+          console.log("Can't post, Client side log");
+          setError(true);
         } else {
-          console.error("Error uploading file");
+          setSuccessOpen(true);
+          setLoading(false);
         }
       } catch (error) {
         console.error("An error occurred", error);
       }
     },
   });
-
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-lg font-medium">
@@ -498,7 +507,7 @@ const NewRegComponent = () => {
                         {formik.errors.subCity}
                       </div>
                     ) : null}
-                    <div className="flex flex-col gap-3 items-center justify-center">
+                    {/* <div className="flex flex-col gap-3 items-center justify-center">
                       <div className="w-full flex justify-between">
                         <label> Educational data</label>
                         <Button
@@ -703,8 +712,7 @@ const NewRegComponent = () => {
                       <div className="text-red-600">
                         <p>Please endter </p>
                       </div>
-                    ) : null}
-                    <Button type="subit">Submit</Button>
+                    ) : null} */}
                     <Button
                       onClick={() => setFormStep(2)}
                       variant="outlined"
@@ -886,6 +894,28 @@ const NewRegComponent = () => {
           </div>
         )}
       </Box>
+      <ReusableModal open={successOpen} onClose={handleClose}>
+        <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirmation
+          </Typography>
+          <Typography
+            className="text-green-700 text-center"
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            You have successfully uploaded and sent the request, we will get in
+            touch with in a few days
+          </Typography>
+          <Button
+            variant="contained"
+            className="w-[100px] bg-blue-700 mt-6"
+            onClick={handleClose}
+          >
+            Ok
+          </Button>
+        </div>
+      </ReusableModal>
     </div>
   );
 };
