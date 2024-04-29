@@ -1,16 +1,47 @@
-import newLicenseFormModel from "../../models/constructionRegulatory/constructionRegulatory.model.js";
-// const RenewalForm = require("../models/RenewalForm");
-// const UpgradeForm = require("../models/UpgradeForm");
+import NewLicenseForm from "../../models/constructionRegulatory/constructionRegulatory.model.js";
 
-// Controller function to handle submission of new license form
 const submitNewLicenseForm = async (req, res) => {
   try {
     const formData = req.body;
-    console.log(formData); // Log form data received by the backend
+    console.log(formData);
+
+    const newForm = new NewLicenseForm({
+      fullName: formData.fullName,
+      gender: formData.gender,
+      woreda: formData.woreda,
+      mobilePhone: formData.mobilePhone,
+      houseNumber: formData.houseNumber,
+      subCity: formData.subCity,
+      currentOrganization: formData.currentOrganization,
+      idCard: {
+        name: formData.idCard.name,
+        path: formData.idCard.path,
+      },
+      educationEvidence: {
+        name: formData.educationEvidence.name,
+        path: formData.educationEvidence.path,
+      },
+      transcript: {
+        name: formData.transcript.name,
+        path: formData.transcript.path,
+      },
+      COC: {
+        name: formData.COC.name,
+        path: formData.COC.path,
+      },
+      applicantPhoto: {
+        name: formData.applicantPhoto.name,
+        path: formData.applicantPhoto.path,
+      },
+      workExperience: formData.workExperience,
+    });
+
+    // Save the new document to the database
+    await newForm.save();
 
     return res.status(201).json({
       message: "New license form submitted successfully",
-      data: formData, // Return form data in the response
+      data: newForm,
     });
   } catch (error) {
     console.error(error);

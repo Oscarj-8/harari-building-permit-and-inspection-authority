@@ -25,29 +25,29 @@ const newLicenseFormSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  educationalData: {
-    type: [String],
+  currentOrganization: {
+    type: String,
     required: true,
   },
   idCard: {
-    type: String, // or specify a different data type like File
-    required: true,
+    name: { type: String, required: true },
+    path: { type: String, required: true },
   },
   educationEvidence: {
-    type: String,
-    required: true,
+    name: { type: String, required: true },
+    path: { type: String, required: true },
   },
   transcript: {
-    type: String,
-    required: true,
+    name: { type: String, required: true },
+    path: { type: String, required: true },
   },
   COC: {
-    type: String,
-    required: true,
+    name: { type: String, required: true },
+    path: { type: String, required: true },
   },
   applicantPhoto: {
-    type: String,
-    required: true,
+    name: { type: String, required: true },
+    path: { type: String, required: true },
   },
   workExperience: {
     type: String,
@@ -56,6 +56,6 @@ const newLicenseFormSchema = new mongoose.Schema({
   },
 });
 
-const newLicenseFormModel = mongoose.model("Form", newLicenseFormSchema);
+const NewLicenseForm = mongoose.model("Form", newLicenseFormSchema);
 
-export default newLicenseFormModel;
+export default NewLicenseForm;
