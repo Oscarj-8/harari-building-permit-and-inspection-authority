@@ -224,41 +224,44 @@ const NewRegComponent = () => {
         return;
       }
 
-      console.log(values.idCard);
-      // try {
-      //   setLoading(true);
+      try {
+        setLoading(true);
+        const formData = new FormData();
 
-      //   const formData = new FormData();
+        if (currentUser === null) {
+          setLogInError(true);
+          setLoading(false);
+          return;
+        } else {
+          formData.append("username", currentUser.username);
+        }
 
-      //   if (currentUser === null) {
-      //     setLogInError(true);
-      //     setLoading(false);
-      //     return;
-      //   } else {
-      //     formData.append("username", currentUser.username);
-      //   }
+        for (const key in values) {
+          const value = values[key];
+          if (value instanceof File) {
+            formData.append(key, value);
+          } else {
+            formData.append(key, value);
+          }
+        }
 
-      //   for (const key in values) {
-      //     const value = values[key];
-      //     if (value instanceof File) {
-      //       formData.append(key, value);
-      //     } else {
-      //       formData.append(key, value);
-      //     }
-      //   }
+        const educationEvidence = formData.get("educationEvidence");
+        if (educationEvidence) {
+          console.log(`Education Evidence: ${educationEvidence.name}`);
+        }
 
-      //   const { statusCode } = await postNewConstRegForm(formData);
+        const { statusCode } = await postNewConstRegForm(formData);
 
-      //   if (statusCode !== 201) {
-      //     setOpenError(true);
-      //   } else {
-      //     setSuccessOpen(true);
-      //     setLoading(false);
-      //   }
-      // } catch (error) {
-      //   setOpenError(true);
-      //   console.error("An error occurred", error);
-      // }
+        if (statusCode !== 201) {
+          setOpenError(true);
+        } else {
+          setSuccessOpen(true);
+          setLoading(false);
+        }
+      } catch (error) {
+        setOpenError(true);
+        console.error("An error occurred", error);
+      }
     },
   });
   return (

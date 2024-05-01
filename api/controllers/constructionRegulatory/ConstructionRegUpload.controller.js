@@ -4,6 +4,13 @@ const submitNewLicenseForm = async (req, res) => {
   try {
     const formData = req.body;
     console.log(formData);
+    const idCard = req.files.idCard[0];
+    const educationEvidence = req.files.educationEvidence[0];
+    const transcript = req.files.transcript[0];
+    const COC = req.files.COC[0];
+    const applicantPhoto = req.files.applicantPhoto[0];
+
+    console.log(idCard.filename);
 
     const newForm = new NewLicenseForm({
       fullName: formData.fullName,
@@ -14,24 +21,24 @@ const submitNewLicenseForm = async (req, res) => {
       subCity: formData.subCity,
       currentOrganization: formData.currentOrganization,
       idCard: {
-        name: formData.idCard.name,
-        path: formData.idCard.path,
+        name: idCard.filename,
+        path: idCard.path,
       },
       educationEvidence: {
-        name: formData.educationEvidence.name,
-        path: formData.educationEvidence.path,
+        name: educationEvidence.filename,
+        path: educationEvidence.path,
       },
       transcript: {
-        name: formData.transcript.name,
-        path: formData.transcript.path,
+        name: transcript.filename,
+        path: transcript.path,
       },
       COC: {
-        name: formData.COC.name,
-        path: formData.COC.path,
+        name: COC.filename,
+        path: COC.path,
       },
       applicantPhoto: {
-        name: formData.applicantPhoto.name,
-        path: formData.applicantPhoto.path,
+        name: applicantPhoto.filename,
+        path: applicantPhoto.path,
       },
       workExperience: formData.workExperience,
     });
