@@ -14,8 +14,8 @@ import buildingInsOccPermitfileUpload from "./routes/buildingInsOccPermit/Buildi
 import buildingInsOccPermitfileGetRoutes from "./routes/buildingInsOccPermit/BuildingInsOccPermitfileGet.route.js";
 import designEvaBuildingPerFileUpload from "./routes/designEvaBuildingPer/DesignEvaBuildingPerUpload.route.js";
 import designEvaBuildingPerFileGetRoutes from "./routes/designEvaBuildingPer/DesignEvaBuildingPerFileGet.route.js";
-import constructionRegUploadRoute from "./routes/constructionRegulatory/ConstructionRegUpload.route.js";
 import constructionRegUpload from "./routes/constructionRegulatory/ConstructionRegUpload.route.js";
+import constructionRegGetRoutes from "./routes/constructionRegulatory/ConstructionRegGet.route.js";
 import path from "path";
 import messageRoute from "./routes/message/messages.route.js";
 
@@ -48,12 +48,12 @@ app.use("/api", buildingInsOccPermitfileGetRoutes);
 app.use("/api", designEvaBuildingPerFileUpload);
 app.use("/api", designEvaBuildingPerFileGetRoutes);
 app.use("/api", constructionRegUpload);
+app.use("/api", constructionRegGetRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);
 app.use("/api/user-auth", userAuthRouter);
 app.use("/api", messageRoute);
-app.use("/api", constructionRegUploadRoute);
 
 app.use(
   express.static(

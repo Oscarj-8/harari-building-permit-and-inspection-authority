@@ -3,14 +3,11 @@ import NewLicenseForm from "../../models/constructionRegulatory/constructionRegu
 const submitNewLicenseForm = async (req, res) => {
   try {
     const formData = req.body;
-    console.log(formData);
     const idCard = req.files.idCard[0];
     const educationEvidence = req.files.educationEvidence[0];
     const transcript = req.files.transcript[0];
     const COC = req.files.COC[0];
     const applicantPhoto = req.files.applicantPhoto[0];
-
-    console.log(idCard.filename);
 
     const newForm = new NewLicenseForm({
       fullName: formData.fullName,
@@ -43,7 +40,6 @@ const submitNewLicenseForm = async (req, res) => {
       workExperience: formData.workExperience,
     });
 
-    // Save the new document to the database
     await newForm.save();
 
     return res.status(201).json({

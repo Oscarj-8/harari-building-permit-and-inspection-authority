@@ -232,8 +232,6 @@ const NewRegComponent = () => {
           setLogInError(true);
           setLoading(false);
           return;
-        } else {
-          formData.append("username", currentUser.username);
         }
 
         for (const key in values) {
