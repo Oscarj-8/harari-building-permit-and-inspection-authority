@@ -1,82 +1,4 @@
-// import NewLicenseForm from "../../models/constructionRegulatory/constructionRegulatory.model.js";
-// import fs from "fs/promises";
-// import path from "path";
-
-// const basePath = "/api/constructionReg/newConstructionReg";
-
-// const getConstructionRegList = async (req, res) => {
-//   const folderPath = path.join(process.cwd(), basePath, "Lane Jr Junior");
-//   console.log("folder path is: ", folderPath);
-//   const folderContents = await fs.readdir(folderPath);
-
-//   // Log the contents of the folder
-//   console.log("Contents of the folder:");
-//   console.log(folderContents);
-
-//   try {
-//     const documents = await NewLicenseForm.find();
-//     for (let document of documents) {
-//       const idCardPath = path.join(
-//         process.cwd(),
-//         basePath,
-//         `${document.fullName}/${document.idCard.name}`
-//       );
-//       const educationEvidencePath = path.join(
-//         process.cwd(),
-//         basePath,
-//         `${document.fullName}/${document.educationEvidence.name}`
-//       );
-//       const transcriptPath = path.join(
-//         process.cwd(),
-//         basePath,
-//         `${document.fullName}/${document.transcript.name}`
-//       );
-//       const COCPath = path.join(
-//         process.cwd(),
-//         basePath,
-//         `${document.fullName}/${document.COC.name}`
-//       );
-//       const applicantPhotoPath = path.join(
-//         process.cwd(),
-//         basePath,
-//         `${document.fullName}/${document.applicantPhoto.name}`
-//       );
-
-//       document.idCard = {
-//         ...document.idCard,
-//         base64: await convertImageToBase64(idCardPath),
-//       };
-//       document.educationEvidence = {
-//         ...document.educationEvidence,
-//         base64: await convertImageToBase64(educationEvidencePath),
-//       };
-//       document.transcript = {
-//         ...document.transcript,
-//         base64: await convertImageToBase64(transcriptPath),
-//       };
-//       document.COC = {
-//         ...document.COC,
-//         base64: await convertImageToBase64(COCPath),
-//       };
-//       document.applicantPhoto = {
-//         ...document.applicantPhoto,
-//         base64: await convertImageToBase64(applicantPhotoPath),
-//       };
-//     }
-
-//     res.json({ success: true, data: documents });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ success: false, message: "Server Error" });
-//   }
-// };
-
-// export const convertImageToBase64 = async (imagePath) => {
-//   const imageData = await fs.readFile(imagePath);
-//   return Buffer.from(imageData).toString("base64");
-// };
-// export { getConstructionRegList };
-
+import { log } from "console";
 import NewLicenseForm from "../../models/constructionRegulatory/constructionRegulatory.model.js";
 import fs from "fs/promises";
 import path from "path";
@@ -84,70 +6,91 @@ import path from "path";
 const basePath = "/api/constructionReg/newConstructionReg";
 
 const getConstructionRegList = async (req, res) => {
-  const folderPath = path.join(process.cwd(), basePath, "Lane Jr Junior");
-  console.log("folder path is: ", folderPath);
-  const folderContents = await fs.readdir(folderPath);
-
-  // Log the contents of the folder
-  console.log("Contents of the folder:");
-  console.log(folderContents);
-
   try {
-    const documents = await NewLicenseForm.find();
-    for (let document of documents) {
-      const idCardPath = path.join(
-        process.cwd(),
-        basePath,
-        `${document.fullName}/${document.idCard.name}`
-      );
-      const educationEvidencePath = path.join(
-        process.cwd(),
-        basePath,
-        `${document.fullName}/${document.educationEvidence.name}`
-      );
-      const transcriptPath = path.join(
-        process.cwd(),
-        basePath,
-        `${document.fullName}/${document.transcript.name}`
-      );
-      const COCPath = path.join(
-        process.cwd(),
-        basePath,
-        `${document.fullName}/${document.COC.name}`
-      );
-      const applicantPhotoPath = path.join(
-        process.cwd(),
-        basePath,
-        `${document.fullName}/${document.applicantPhoto.name}`
-      );
+    let documents = await NewLicenseForm.find();
 
-      const idCardBase64 = await convertImageToBase64(idCardPath);
-      const educationEvidenceBase64 = await convertImageToBase64(
-        educationEvidencePath
-      );
-      const transcriptBase64 = await convertImageToBase64(transcriptPath);
-      const COCBase64 = await convertImageToBase64(COCPath);
-      const applicantPhotoBase64 = await convertImageToBase64(
-        applicantPhotoPath
-      );
+    // Convert all images to base64
+    documents = await Promise.all(
+      documents.map(async (document) => {
+        if (
+          !document.idCard ||
+          !document.educationEvidence ||
+          !document.transcript ||
+          !document.COC ||
+          !document.applicantPhoto
+        ) {
+          console.error("Document is missing necessary properties:", document);
+          return document; // Skip this document if it's missing necessary properties
+        }
 
-      document.idCard.base64 = idCardBase64;
-      document.educationEvidence.base64 = educationEvidenceBase64;
-      document.transcript.base64 = transcriptBase64;
-      document.COC.base64 = COCBase64;
-      document.applicantPhoto.base64 = applicantPhotoBase64;
-    }
+        const folderPath = path.join(
+          process.cwd(),
+          basePath,
+          document.fullName
+        );
 
-    res.json({ success: true, data: documents });
+        const idCardPath = path.join(folderPath, document.idCard.name);
+        const educationEvidencePath = path.join(
+          folderPath,
+          document.educationEvidence.name
+        );
+        const transcriptPath = path.join(folderPath, document.transcript.name);
+        const COCPath = path.join(folderPath, document.COC.name);
+        const applicantPhotoPath = path.join(
+          folderPath,
+          document.applicantPhoto.name
+        );
+
+        document.idCard.base64 = await convertImageToBase64(idCardPath);
+        document.educationEvidence = await convertImageToBase64(
+          educationEvidencePath
+        );
+        document.transcript = await convertImageToBase64(transcriptPath);
+        document.COC = await convertImageToBase64(COCPath);
+        document.applicantPhoto = await convertImageToBase64(
+          applicantPhotoPath
+        );
+        return document;
+      })
+    );
+
+    // Check if all images have base64 representation
+    const allImagesBase64 = documents.every(
+      (document) =>
+        document.idCard.base64 &&
+        document.educationEvidence.base64 &&
+        document.transcript.base64 &&
+        document.COC.base64 &&
+        document.applicantPhoto.base64
+    );
+
+    console.log(documents.map((d) => d.idCard.base64));
+
+    res.json({
+      success: true,
+      data: documents,
+    });
+    // console.log(
+    //   documents.map((data) => ({
+    //     fullName: data.fullName,
+    //     idCard: data.base64, // Log only base64 for idCard
+    //   }))
+    // );
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching construction reg list:", err);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
-export const convertImageToBase64 = async (imagePath) => {
-  const imageData = await fs.readFile(imagePath);
-  return Buffer.from(imageData).toString("base64");
+const convertImageToBase64 = async (imagePath) => {
+  try {
+    const imageData = await fs.readFile(imagePath);
+    const base64String = Buffer.from(imageData).toString("base64");
+    return base64String;
+  } catch (error) {
+    console.error("Error converting image to base64:", error);
+    return null; // or throw error if you want to handle it elsewhere
+  }
 };
 
 export { getConstructionRegList };
