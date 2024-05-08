@@ -190,7 +190,7 @@ const NewRegComponent = () => {
       woreda: "",
       mobilePhone: "",
       houseNumber: "",
-      subCity: "",
+      kebele: "",
       currentOrganization: "",
       // educationalData: [],
       idCard: null,
@@ -207,7 +207,7 @@ const NewRegComponent = () => {
       woreda: Yup.string().required("Woreda is required"),
       mobilePhone: Yup.number().required("Mobile is required"),
       houseNumber: Yup.number().required("House number is required"),
-      subCity: Yup.string().required("Subcity is required"),
+      kebele: Yup.string().required("Kebele is required"),
       currentOrganization: Yup.string().required(
         "Current organization is required"
       ), // educationalData: Yup.array().required("educationalData is required"),
@@ -454,7 +454,7 @@ const NewRegComponent = () => {
                     {formik.touched.city && formik.errors.city ? (
                       <div className="text-red-600">{formik.errors.city}</div>
                     ) : null}
-                    <TextField
+                    {/* <TextField
                       required
                       id="woreda"
                       label="Woreda/Kebele"
@@ -466,7 +466,7 @@ const NewRegComponent = () => {
                     />
                     {formik.touched.woreda && formik.errors.woreda ? (
                       <div className="text-red-600">{formik.errors.woreda}</div>
-                    ) : null}
+                    ) : null} */}
                     <TextField
                       required
                       id="mobilePhone"
@@ -501,34 +501,66 @@ const NewRegComponent = () => {
                     <Box>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
-                          Sub city
+                          kebele
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          name="kebele"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.kebele}
+                          label="Woreda"
+                        >
+                          <MenuItem disabled>Select kebele</MenuItem>
+                          <MenuItem value="01">01 </MenuItem>
+                          <MenuItem value="02">02</MenuItem>
+                          <MenuItem value="03">03</MenuItem>
+                          <MenuItem value="04">04</MenuItem>
+                          <MenuItem value="05">05</MenuItem>
+                          <MenuItem value="06">06 </MenuItem>
+                          <MenuItem value="07">07 </MenuItem>
+                          <MenuItem value="08">08</MenuItem>
+                          <MenuItem value="09">09</MenuItem>
+                          <MenuItem value="10">10</MenuItem>
+                          <MenuItem value="11">11</MenuItem>
+                          <MenuItem value="12">12 </MenuItem>
+                          <MenuItem value="13">13 </MenuItem>
+                          <MenuItem value="14">14</MenuItem>
+                          <MenuItem value="15">15</MenuItem>
+                          <MenuItem value="16">16</MenuItem>
+                          <MenuItem value="17">17</MenuItem>
+                          <MenuItem value="18">18 </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    {formik.touched.kebele && formik.errors.kebele ? (
+                      <div className="text-red-600">{formik.errors.kebele}</div>
+                    ) : null}
+                    <Box>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Woreda
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           name="subCity"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.subCity}
-                          label="Sub city"
+                          value={formik.values.woreda}
+                          label="Woreda"
                         >
-                          <MenuItem disabled>Select subcity</MenuItem>
-                          <MenuItem value="Bole subcity">Bole subcity</MenuItem>
-                          <MenuItem value="Gulele subcity">
-                            Gulele subcity
-                          </MenuItem>
-                          <MenuItem value="NifasSilk subcity">
-                            NifasSilk subcity
-                          </MenuItem>
-                          <MenuItem value="Addis Ketema subcity">
-                            Addis Ketema subcity
-                          </MenuItem>
+                          <MenuItem disabled>Select woreda</MenuItem>
+                          <MenuItem value="Abadir ">Abadir </MenuItem>
+                          <MenuItem value="Aboker">Aboker</MenuItem>
+                          <MenuItem value="Amir nur">Amir nur</MenuItem>
+                          <MenuItem value="Hakim">Hakim</MenuItem>
+                          <MenuItem value="Jeneala ">Jeneala </MenuItem>
+                          <MenuItem value="Shenkor ">Shenkor </MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
-                    {formik.touched.subCity && formik.errors.subCity ? (
-                      <div className="text-red-600">
-                        {formik.errors.subCity}
-                      </div>
+                    {formik.touched.woreda && formik.errors.woreda ? (
+                      <div className="text-red-600">{formik.errors.woreda}</div>
                     ) : null}
                     <TextField
                       required
