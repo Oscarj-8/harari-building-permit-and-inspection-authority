@@ -21,7 +21,7 @@ const newLicenseFormSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  subCity: {
+  kebele: {
     type: String,
     required: true,
   },

@@ -543,7 +543,7 @@ const NewRegComponent = () => {
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
-                          name="subCity"
+                          name="woreda"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.woreda}

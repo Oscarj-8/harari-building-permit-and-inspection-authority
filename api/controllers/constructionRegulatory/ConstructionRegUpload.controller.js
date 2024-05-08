@@ -15,7 +15,7 @@ const submitNewLicenseForm = async (req, res) => {
       woreda: formData.woreda,
       mobilePhone: formData.mobilePhone,
       houseNumber: formData.houseNumber,
-      subCity: formData.subCity,
+      kebele: formData.kebele,
       currentOrganization: formData.currentOrganization,
       idCard: {
         name: idCard.filename,
