@@ -198,7 +198,15 @@ const NewRegComponent = () => {
       transcript: null,
       COC: null,
       applicantPhoto: null,
-      workExperience: "",
+      PDF: "",
+      competencyCertification: null,
+      businessLicense: null,
+      contractAgreement: null,
+      paymentDocument: null,
+      performanceLetter: null,
+      enterpriseArticles: null,
+      byLaws: null,
+      workExperiencePDF: null,
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required("Full name is required"),
@@ -217,6 +225,20 @@ const NewRegComponent = () => {
       COC: Yup.mixed().required("COC is required"),
       applicantPhoto: Yup.mixed().required("Applicant photo is required"),
       workExperience: Yup.string().required("WorkExperience is required"),
+      competencyCertification: Yup.mixed().required(
+        "Competency certification is required"
+      ),
+      businessLicense: Yup.mixed().required("Business license is required"),
+      contractAgreement: Yup.mixed().required("Contract agreement is required"),
+      paymentDocument: Yup.mixed().required("Payment document is required"),
+      performanceLetter: Yup.mixed().required("Performance letter is required"),
+      enterpriseArticles: Yup.mixed().required(
+        "Enterprise articles is required"
+      ),
+      byLaws: Yup.mixed().required("By laws is required"),
+      workExperiencePDF: Yup.mixed().required(
+        "Work experience pdf or doc file is required"
+      ),
     }),
     onSubmit: async (values) => {
       if (!formik.isValid) {
@@ -558,7 +580,7 @@ const NewRegComponent = () => {
                           <MenuItem value="Hakim">Hakim</MenuItem>
                           <MenuItem value="Jeneala">Jeneala</MenuItem>
                           <MenuItem value="Shenkor">Shenkor</MenuItem>
-                          <MenuItem value="Sofi ">Sofi </MenuItem>
+                          <MenuItem value="Sofi">Sofi </MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
@@ -883,6 +905,7 @@ const NewRegComponent = () => {
                         </div>
                       ) : null}
                     </div>
+                    <hr />
                     <div>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
@@ -910,6 +933,161 @@ const NewRegComponent = () => {
                         </div>
                       ) : null}
                     </div>
+                    {formik.values.workExperience ===
+                      "The manager of PLC or Enterprise member" && (
+                      <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            Competency certification of company *
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) =>
+                              captureFile(event, "competencyCertification")
+                            }
+                            name="competencyCertification"
+                          />
+                          {formik.touched.competencyCertification &&
+                          formik.errors.competencyCertification ? (
+                            <div className="text-red-600">
+                              {formik.errors.competencyCertification}
+                            </div>
+                          ) : null}
+                        </div>
+                        <hr />
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            Business license *
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) =>
+                              captureFile(event, "businessLicense")
+                            }
+                            name="businessLicense"
+                          />
+                          {formik.touched.businessLicense &&
+                          formik.errors.businessLicense ? (
+                            <div className="text-red-600">
+                              {formik.errors.businessLicense}
+                            </div>
+                          ) : null}
+                        </div>{" "}
+                        <hr />
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            Contract Agreement *
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) =>
+                              captureFile(event, "contractAgreement")
+                            }
+                            name="contractAgreement"
+                          />
+                          {formik.touched.contractAgreement &&
+                          formik.errors.contractAgreement ? (
+                            <div className="text-red-600">
+                              {formik.errors.contractAgreement}
+                            </div>
+                          ) : null}
+                        </div>{" "}
+                        <hr />
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            Payment document or certificate *
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) =>
+                              captureFile(event, "paymentDocument")
+                            }
+                            name="paymentDocument"
+                          />
+                          {formik.touched.paymentDocument &&
+                          formik.errors.paymentDocument ? (
+                            <div className="text-red-600">
+                              {formik.errors.paymentDocument}
+                            </div>
+                          ) : null}
+                        </div>{" "}
+                        <hr />
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            Good job performance letter *
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) =>
+                              captureFile(event, "performanceLetter")
+                            }
+                            name="performanceLetter"
+                          />
+                          {formik.touched.performanceLetter &&
+                          formik.errors.performanceLetter ? (
+                            <div className="text-red-600">
+                              {formik.errors.performanceLetter}
+                            </div>
+                          ) : null}
+                        </div>{" "}
+                        <hr />
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            Articles of Enterprise(መመስረቻ ደንብ) *
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) =>
+                              captureFile(event, "enterpriseArticles")
+                            }
+                            name="enterpriseArticles"
+                          />
+                          {formik.touched.enterpriseArticles &&
+                          formik.errors.enterpriseArticles ? (
+                            <div className="text-red-600">
+                              {formik.errors.enterpriseArticles}
+                            </div>
+                          ) : null}
+                        </div>{" "}
+                        <hr />
+                        <div className="flex flex-col gap-2">
+                          <label className="font-medium">
+                            The bylaws of the organization(መተዳደሪያ ደንብ)
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(event) => captureFile(event, "byLaws")}
+                            name="byLaws"
+                          />
+                          {formik.touched.byLaws && formik.errors.byLaws ? (
+                            <div className="text-red-600">
+                              {formik.errors.byLaws}
+                            </div>
+                          ) : null}
+                        </div>
+                        <hr />
+                      </div>
+                    )}
+                    {formik.values.workExperience === "Employee" && (
+                      <div className="flex flex-col gap-2">
+                        <label className="font-medium">
+                          Work experience(orginal with PDF doc) *
+                        </label>
+                        <input
+                          type="file"
+                          onChange={(event) =>
+                            captureFile(event, "workExperiencePDF")
+                          }
+                          name="workExperiencePDF"
+                        />
+                        {formik.touched.workExperiencePDF &&
+                        formik.errors.workExperiencePDF ? (
+                          <div className="text-red-600">
+                            {formik.errors.workExperiencePDF}
+                          </div>
+                        ) : null}
+                      </div>
+                    )}
                     <Button
                       onClick={() => setFormStep(1)}
                       variant="outlined"
