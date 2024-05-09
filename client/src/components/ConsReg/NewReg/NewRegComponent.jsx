@@ -198,7 +198,7 @@ const NewRegComponent = () => {
       transcript: null,
       COC: null,
       applicantPhoto: null,
-      PDF: "",
+      workExperience: "",
       competencyCertification: null,
       businessLicense: null,
       contractAgreement: null,

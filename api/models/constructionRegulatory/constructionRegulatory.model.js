@@ -54,6 +54,38 @@ const newLicenseFormSchema = new mongoose.Schema({
     enum: ["The manager of PLC or Enterprise member", "Employee", "Unemployed"],
     required: true,
   },
+  competencyCertification: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  businessLicense: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  ontractAgreement: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  paymentDocument: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  performanceLetter: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  enterpriseArticles: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  byLaws: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
+  workExperiencePDF: {
+    name: { type: String, required: true },
+    path: { type: String, required: true },
+  },
 });
 
 const NewLicenseForm = mongoose.model("Form", newLicenseFormSchema);
