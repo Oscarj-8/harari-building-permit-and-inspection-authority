@@ -550,12 +550,15 @@ const NewRegComponent = () => {
                           label="Woreda"
                         >
                           <MenuItem disabled>Select woreda</MenuItem>
-                          <MenuItem value="Abadir ">Abadir </MenuItem>
+                          <MenuItem value="Abadir">Abadir </MenuItem>
                           <MenuItem value="Aboker">Aboker</MenuItem>
                           <MenuItem value="Amir nur">Amir nur</MenuItem>
+                          <MenuItem value="Dire yeyara">Dire yeyara</MenuItem>
+                          <MenuItem value="Erer">Erer</MenuItem>
                           <MenuItem value="Hakim">Hakim</MenuItem>
-                          <MenuItem value="Jeneala ">Jeneala </MenuItem>
-                          <MenuItem value="Shenkor ">Shenkor </MenuItem>
+                          <MenuItem value="Jeneala">Jeneala</MenuItem>
+                          <MenuItem value="Shenkor">Shenkor</MenuItem>
+                          <MenuItem value="Sofi ">Sofi </MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
