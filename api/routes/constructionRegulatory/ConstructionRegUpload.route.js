@@ -11,6 +11,14 @@ const upload = multerInstance.fields([
   { name: "transcript", maxCount: 1 },
   { name: "COC", maxCount: 1 },
   { name: "applicantPhoto", maxCount: 1 },
+  { name: "competencyCertification", maxCount: 1 },
+  { name: "businessLicense", maxCount: 1 },
+  { name: "contractAgreement", maxCount: 1 },
+  { name: "paymentDocument", maxCount: 1 },
+  { name: "performanceLetter", maxCount: 1 },
+  { name: "enterpriseArticles", maxCount: 1 },
+  { name: "byLaws", maxCount: 1 },
+  { name: "workExperiencePDF", maxCount: 1 },
 ]);
 
 route.post(

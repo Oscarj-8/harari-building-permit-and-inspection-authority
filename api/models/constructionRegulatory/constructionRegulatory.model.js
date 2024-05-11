@@ -55,36 +55,36 @@ const newLicenseFormSchema = new mongoose.Schema({
     required: true,
   },
   competencyCertification: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
   businessLicense: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
-  ontractAgreement: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+  contractAgreement: {
+    name: { type: String },
+    path: { type: String },
   },
   paymentDocument: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
   performanceLetter: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
   enterpriseArticles: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
   byLaws: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
   workExperiencePDF: {
-    name: { type: String, required: true },
-    path: { type: String, required: true },
+    name: { type: String },
+    path: { type: String },
   },
 });
 

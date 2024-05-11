@@ -208,7 +208,7 @@ const NewRegComponent = () => {
       byLaws: null,
       workExperiencePDF: null,
     },
-    validationSchema: Yup.object({
+    validationSchema: Yup.object().shape({
       fullName: Yup.string().required("Full name is required"),
       gender: Yup.string().required("Gender is required"),
       city: Yup.string().required("City is required"),
@@ -224,21 +224,109 @@ const NewRegComponent = () => {
       transcript: Yup.mixed().required("Transcript is required"),
       COC: Yup.mixed().required("COC is required"),
       applicantPhoto: Yup.mixed().required("Applicant photo is required"),
-      workExperience: Yup.string().required("WorkExperience is required"),
-      competencyCertification: Yup.mixed().required(
-        "Competency certification is required"
-      ),
-      businessLicense: Yup.mixed().required("Business license is required"),
-      contractAgreement: Yup.mixed().required("Contract agreement is required"),
-      paymentDocument: Yup.mixed().required("Payment document is required"),
-      performanceLetter: Yup.mixed().required("Performance letter is required"),
-      enterpriseArticles: Yup.mixed().required(
-        "Enterprise articles is required"
-      ),
-      byLaws: Yup.mixed().required("By laws is required"),
-      workExperiencePDF: Yup.mixed().required(
-        "Work experience pdf or doc file is required"
-      ),
+      workExperience: Yup.string()
+        .required("Work experience is required")
+        .oneOf(
+          ["The manager of PLC or Enterprise member", "Employee", "Unemployed"],
+          "Invalid work experience"
+        ),
+      competencyCertification: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Competency certification is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      businessLicense: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Business license is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      contractAgreement: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Contract agreement is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      paymentDocument: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Payment document is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      performanceLetter: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Performance letter is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      enterpriseArticles: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Enterprise articles is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      byLaws: Yup.mixed()
+        .nullable()
+        .test("workExperience", "By laws is required", function (value) {
+          return this.parent.workExperience ===
+            "The manager of PLC or Enterprise member"
+            ? !!value
+            : true;
+        }),
+      // workExperiencePDF: Yup.mixed()
+      //   .nullable()
+      //   .test("workExperience", "By laws is required", function (value) {
+      //     return this.parent.workExperience === "Employee" ? !!value : true;
+      //   }),
+
+      // businessLicense: Yup.mixed().required("Business license is required"),
+      // contractAgreement: Yup.mixed().required("Contract agreement is required"),
+      // paymentDocument: Yup.mixed().required("Payment document is required"),
+      // performanceLetter: Yup.mixed().required("Performance letter is required"),
+      // enterpriseArticles: Yup.mixed().required(
+      //   "Enterprise articles is required"
+      // ),
+      // byLaws: Yup.mixed().required("By laws is required"),
+      // workExperiencePDF: Yup.mixed().required(
+      //   "Work experience pdf or doc file is required"
+      // ),
     }),
     onSubmit: async (values) => {
       if (!formik.isValid) {
@@ -274,12 +362,14 @@ const NewRegComponent = () => {
 
         if (statusCode !== 201) {
           setOpenError(true);
+          setLoading(false);
         } else {
           setSuccessOpen(true);
           setLoading(false);
         }
       } catch (error) {
         setOpenError(true);
+        setLoading(false);
         console.error("An error occurred", error);
       }
     },
