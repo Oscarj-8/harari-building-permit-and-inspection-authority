@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -29,20 +29,20 @@ import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
-// import Dialog from "@mui/material/Dialog";
-// import DialogActions from "@mui/material/DialogActions";
-// import DialogContent from "@mui/material/DialogContent";
-// import DialogTitle from "@mui/material/DialogTitle";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
-// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-// import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
@@ -63,26 +63,27 @@ const NewRegComponent = () => {
   const [formStep, setFormStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
   const [successOpen, setSuccessOpen] = useState(false);
-  const handleClose = () => setSuccessOpen(false);
-  // const [open, setOpen] = useState(false);
+  // const handleClose = () => setSuccessOpen(false);
+  const [open, setOpen] = useState(false);
   //step one form values
-  // const [educationLevel, setEducationLevel] = useState("");
-  // const [institution, setInstitution] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [graduation, setGraduation] = useState("");
-  // const [qualification, setQualification] = useState("");
-  // const [remarks, setRemarks] = useState("");
-  // const [educationalData, setEducationalData] = useState([]);
+  const [educationLevel, setEducationLevel] = useState("");
+  const [institution, setInstitution] = useState("");
+  const [country, setCountry] = useState("");
+  const [graduation, setGraduation] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [educationalData, setEducationalData] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  // const handleClose = () => {
-  //   formik.setFieldValue("educationalData", educationalData, true);
-  //   setOpen(false);
-  // };
+  const handleClose = () => {
+    formik.setFieldValue("educationalData", educationalData, true);
+    setOpen(false);
+    setSuccessOpen(false);
+  };
 
   const handleErrorClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -135,52 +136,52 @@ const NewRegComponent = () => {
   };
 
   // modal functions
-  // const handleEducationChange = (event) => {
-  //   setEducationLevel(event.target.value);
-  // };
+  const handleEducationChange = (event) => {
+    setEducationLevel(event.target.value);
+  };
 
-  // const handlRemoveEducation = (id) => {
-  //   const updatedEducationalData = educationalData.filter(
-  //     (data) => data.id !== id
-  //   );
-  //   setEducationalData(updatedEducationalData);
-  // };
+  const handlRemoveEducation = (id) => {
+    const updatedEducationalData = educationalData.filter(
+      (data) => data.id !== id
+    );
+    setEducationalData(updatedEducationalData);
+  };
 
-  // const handleEducationDataAdd = () => {
-  //   // event.preventDefault(); // Prevent default form submission
-  //   // event.stopPropagation();
+  const handleEducationDataAdd = () => {
+    // event.preventDefault(); // Prevent default form submission
+    // event.stopPropagation();
 
-  //   // const formData = new FormData();
-  //   // formData.append("education level", educationLevel);
-  //   // formData.appen
-  //   // const id = uuidv4();
-  //   // const entryWithId = { id, ...formJson };
+    // const formData = new FormData();
+    // formData.append("education level", educationLevel);
+    // formData.appen
+    // const id = uuidv4();
+    // const entryWithId = { id, ...formJson };
 
-  //   // setEducationalData((prevEducationalData) => [
-  //   //   ...prevEducationalData,
-  //   //   entryWithId,
-  //   // ]);
-  //   // handleClose();
-  //   // resetEducationLevelData();
-  //   const formData = {
-  //     educationLevel,
-  //     institution,
-  //     country,
-  //     graduation,
-  //     qualification,
-  //     remarks,
-  //   };
-  //   const id = uuidv4();
-  //   const entryWithId = { id, ...formData };
-  //   setEducationalData((prevEducationData) => [
-  //     ...prevEducationData,
-  //     entryWithId,
-  //   ]);
-  //   // Close the dialog or perform any other necessary actions
-  //   handleClose();
-  //   handleClose();
-  //   resetEducationLevelData();
-  // };
+    // setEducationalData((prevEducationalData) => [
+    //   ...prevEducationalData,
+    //   entryWithId,
+    // ]);
+    // handleClose();
+    // resetEducationLevelData();
+    const formData = {
+      educationLevel,
+      institution,
+      country,
+      graduation,
+      qualification,
+      remarks,
+    };
+    const id = uuidv4();
+    const entryWithId = { id, ...formData };
+    setEducationalData((prevEducationData) => [
+      ...prevEducationData,
+      entryWithId,
+    ]);
+    // Close the dialog or perform any other necessary actions
+    handleClose();
+    handleClose();
+    // resetEducationLevelData();
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -192,7 +193,7 @@ const NewRegComponent = () => {
       houseNumber: "",
       kebele: "",
       currentOrganization: "",
-      // educationalData: [],
+      educationalData: [],
       idCard: null,
       educationEvidence: null,
       transcript: null,
@@ -353,9 +354,19 @@ const NewRegComponent = () => {
           }
         }
 
-        const educationEvidence = formData.get("educationEvidence");
-        if (educationEvidence) {
-          console.log(`Education Evidence: ${educationEvidence.name}`);
+        const edu = JSON.stringify(educationalData);
+
+        formData.educationalData = edu;
+
+        console.log("This is the new log", formData);
+        console.log("====================================");
+
+        console.log("====================================");
+        // for (const [key, value] of formData) {
+        //   console.log(key, value);
+        // }
+        for (const [key, value] of formData.entries()) {
+          console.log(key, value);
         }
 
         const { statusCode } = await postNewConstRegForm(formData);
@@ -693,7 +704,7 @@ const NewRegComponent = () => {
                         {formik.errors.currentOrganization}
                       </div>
                     ) : null}
-                    {/* <div className="flex flex-col gap-3 items-center justify-center">
+                    <div className="flex flex-col gap-3 items-center justify-center">
                       <div className="w-full flex justify-between">
                         <label> Educational data</label>
                         <Button
@@ -898,7 +909,7 @@ const NewRegComponent = () => {
                       <div className="text-red-600">
                         <p>Please endter </p>
                       </div>
-                    ) : null} */}
+                    ) : null}
                     <Button
                       onClick={() => setFormStep(2)}
                       variant="outlined"

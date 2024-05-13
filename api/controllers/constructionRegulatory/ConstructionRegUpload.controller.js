@@ -205,9 +205,11 @@ const submitNewLicenseForm = async (req, res) => {
         }
       }
     }
-
-    await newForm.save();
-
+    try {
+      await newForm.save();
+    } catch (err) {
+      res.status.json({ message: "Database error", "Error,": err });
+    }
     return res.status(201).json({
       message: "New license form submitted successfully",
       data: newForm,
