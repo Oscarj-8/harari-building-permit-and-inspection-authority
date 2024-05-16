@@ -107,3 +107,55 @@ export const newLicenseFormGuideInstruction = [
     ],
   },
 ];
+
+export const upgradeLicenseFormGuide = [
+  {
+    id: 1,
+    description:
+      "Professional license upgrading service for existing professionals is provided: - with a proven and continuous experience that a professional could register. Regarding requirement of professional license upgrading is detailed on this service page.",
+  },
+  {
+    id: 2,
+    title: "Who can apply",
+    text: "Any construction Industry professional that works on construction sector & Professionals that fulfill the requirement of the services can apply for this service.",
+  },
+  {
+    id: 3,
+    title: "Prerequisite",
+    text: [
+      "Renewed residence ID card/driving license/passport",
+      "Attach your Previous professional license",
+      "One 3 * 3 photograph",
+      " Educational Evidence/ Original Diploma and Student Copy for Graduates More Than 6 Years ago",
+      " Attach active/valid COC (from level 1 up to 5) if an Educational evidence is Diploma",
+    ],
+  },
+  {
+    id: 4,
+    title:
+      "If the applicant is Manager/Member of PLC or enterprise attach the following required documents:",
+    text: [
+      "Competency certification of company, Business license",
+      "Contract Agreement of a projects and acceptance later of the projects/last payment certificate.",
+      "Article of the plc or enterprise is required",
+    ],
+  },
+  {
+    id: 5,
+    title:
+      "If the applicant is foreign citizenship additionally attach the following documents: -",
+    text: [
+      "Work permit",
+      "Residence permit",
+      "the renewed professional certificate or certificate issued by the country of origin",
+    ],
+  },
+  {
+    id: 6,
+    title: "N.B",
+    text: [
+      "Experience and Educational documents acquired from foreign countries should be authenticated by the Ministry of Foreign Affairs of Ethiopia.",
+      "The file that you have attached must be in PDF format.",
+    ],
+  },
+];

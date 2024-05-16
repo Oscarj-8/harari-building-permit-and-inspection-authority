@@ -19,7 +19,7 @@ import {
   newLicenseFormGuide,
   newLicenseFormGuideInstruction,
 } from "../../../data/constants.js";
-import PdfViewer from "../../PDFViewr.jsx";
+import { PdfViewer } from "../../PDFViewr.jsx";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Radio from "@mui/material/Radio";

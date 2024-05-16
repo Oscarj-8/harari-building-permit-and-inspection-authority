@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import NewReg from "../../ConsReg/NewReg/NewReg";
+import UpgradeReg from "../../ConsReg/NewReg/UpgradeReg";
 // Tab starts here
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -95,7 +96,7 @@ const ConstructionRegulatory = () => {
           Renewal of Professionals License
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Upgrade of Professionals License
+          <UpgradeReg />
         </CustomTabPanel>
       </Box>
     </div>
