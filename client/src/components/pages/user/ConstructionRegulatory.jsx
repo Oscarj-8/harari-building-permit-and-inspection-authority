@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import NewRegComponent from "../../ConsReg/NewReg/NewRegComponent";
+import NewReg from "../../ConsReg/NewReg/NewReg";
 // Tab starts here
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -89,7 +89,7 @@ const ConstructionRegulatory = () => {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <NewRegComponent />
+          <NewReg />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           Renewal of Professionals License

@@ -54,7 +54,7 @@ import ReusableModal from "../../ReusableModal.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
-const NewRegComponent = () => {
+const NewReg = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -1311,4 +1311,4 @@ const NewRegComponent = () => {
   );
 };
 
-export default NewRegComponent;
+export default NewReg;
