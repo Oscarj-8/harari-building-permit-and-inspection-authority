@@ -6,6 +6,7 @@ import {
   AlertTitle,
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -27,6 +28,7 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -63,6 +65,7 @@ const UpgradeReg = () => {
   const [fieldOfStudy, setFieldOfStudy] = useState("");
   const [professionalTitle, setProfessionalTitle] = useState("");
   const [educationalData, setEducationalData] = useState([]);
+  const [filesArray, setFilesArray] = useState([]);
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -147,6 +150,13 @@ const UpgradeReg = () => {
     setSuccessOpen(false);
   };
 
+  const captureFile = (event, fieldName) => {
+    const newFile = event.target.files[0];
+    setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
+    formik.setFieldValue(fieldName, newFile);
+    console.log(filesArray);
+  };
+
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -172,6 +182,9 @@ const UpgradeReg = () => {
       enterpriseArticles: null,
       byLaws: null,
       workExperiencePDF: null,
+      businessLicenseProprietor: null,
+      testimonial: null,
+      companyLicense: null,
     },
     validationSchema: Yup.object().shape({
       fullName: Yup.string().required("Full name is required"),
@@ -192,7 +205,7 @@ const UpgradeReg = () => {
       workExperience: Yup.string()
         .required("Work experience is required")
         .oneOf(
-          ["The manager of PLC or Enterprise member", "Employee", "Unemployed"],
+          ["The manager of PLC or Enterprise member", "Employee", "Freelancer"],
           "Invalid work experience"
         ),
       competencyCertification: Yup.mixed()
@@ -716,9 +729,356 @@ const UpgradeReg = () => {
                 </Button>
               </div>
             )}
+            {formStep === 2 && (
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="font-medium">
+                    Renewed Resident ID card/Driving License/Passport(Front and
+                    Back) *
+                  </label>
+                  <input
+                    type="file"
+                    onChange={(event) => captureFile(event, "idCard")}
+                    name="idCard"
+                  />
+                  {formik.touched.idCard && formik.errors.idCard ? (
+                    <div className="text-red-600">{formik.errors.idCard}</div>
+                  ) : null}
+                </div>
+                <hr />
+                <div className="flex flex-col gap-2">
+                  <label className="font-medium">
+                    Educational evidence (original with PDF doc)*{" "}
+                  </label>
+                  <input
+                    type="file"
+                    onChange={(event) =>
+                      captureFile(event, "educationEvidence")
+                    }
+                    name="educationEvidence"
+                  />
+                  {formik.touched.educationEvidence &&
+                  formik.errors.educationEvidence ? (
+                    <div className="text-red-600">
+                      {formik.errors.educationEvidence}
+                    </div>
+                  ) : null}
+                </div>
+                <hr />
+                <div className="flex flex-col gap-2">
+                  <label className="font-medium">
+                    Student copy / transcript
+                  </label>
+                  <input
+                    type="file"
+                    onChange={(event) => captureFile(event, "transcript")}
+                    name="transcript"
+                  />
+                  {formik.touched.transcript && formik.errors.transcript ? (
+                    <div className="text-red-600">
+                      {formik.errors.transcript}
+                    </div>
+                  ) : null}
+                </div>
+                <hr />
+                <div className="flex flex-col gap-2">
+                  <label className="font-medium">
+                    COC (Level 1 upto Level 5)
+                  </label>
+                  <input
+                    type="file"
+                    onChange={(event) => captureFile(event, "COC")}
+                    name="COC"
+                  />
+                  {formik.touched.COC && formik.errors.COC ? (
+                    <div className="text-red-600">{formik.errors.COC}</div>
+                  ) : null}
+                </div>
+                <hr />
+                <div className="flex flex-col gap-2">
+                  <label className="font-medium">Applicant photograph*</label>
+                  <input
+                    type="file"
+                    onChange={(event) => captureFile(event, "applicantPhoto")}
+                    name="applicantPhoto"
+                  />
+                  {formik.touched.applicantPhoto &&
+                  formik.errors.applicantPhoto ? (
+                    <div className="text-red-600">
+                      {formik.errors.applicantPhoto}
+                    </div>
+                  ) : null}
+                </div>
+                <hr />
+                <div>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Type of Working Experience
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      name="workExperience"
+                      label="Select work experience"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.workExperience}
+                    >
+                      <MenuItem value="The manager of PLC or Enterprise member">
+                        The manager of PLC or Enterprise member
+                      </MenuItem>
+                      <MenuItem value="Employee">Employee</MenuItem>
+                      <MenuItem value="Freelancer">Freelancer</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {formik.touched.workExperience &&
+                  formik.errors.workExperience ? (
+                    <div className="text-red-600">
+                      {formik.errors.workExperience}
+                    </div>
+                  ) : null}
+                </div>
+                {formik.values.workExperience ===
+                  "The manager of PLC or Enterprise member" && (
+                  <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Competency certification of company *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "competencyCertification")
+                        }
+                        name="competencyCertification"
+                      />
+                      {formik.touched.competencyCertification &&
+                      formik.errors.competencyCertification ? (
+                        <div className="text-red-600">
+                          {formik.errors.competencyCertification}
+                        </div>
+                      ) : null}
+                    </div>
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">Business license *</label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "businessLicense")
+                        }
+                        name="businessLicense"
+                      />
+                      {formik.touched.businessLicense &&
+                      formik.errors.businessLicense ? (
+                        <div className="text-red-600">
+                          {formik.errors.businessLicense}
+                        </div>
+                      ) : null}
+                    </div>{" "}
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Contract Agreement *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "contractAgreement")
+                        }
+                        name="contractAgreement"
+                      />
+                      {formik.touched.contractAgreement &&
+                      formik.errors.contractAgreement ? (
+                        <div className="text-red-600">
+                          {formik.errors.contractAgreement}
+                        </div>
+                      ) : null}
+                    </div>{" "}
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Payment document or certificate *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "paymentDocument")
+                        }
+                        name="paymentDocument"
+                      />
+                      {formik.touched.paymentDocument &&
+                      formik.errors.paymentDocument ? (
+                        <div className="text-red-600">
+                          {formik.errors.paymentDocument}
+                        </div>
+                      ) : null}
+                    </div>{" "}
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Good job performance letter *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "performanceLetter")
+                        }
+                        name="performanceLetter"
+                      />
+                      {formik.touched.performanceLetter &&
+                      formik.errors.performanceLetter ? (
+                        <div className="text-red-600">
+                          {formik.errors.performanceLetter}
+                        </div>
+                      ) : null}
+                    </div>{" "}
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Articles of Enterprise(መመስረቻ ደንብ) *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "enterpriseArticles")
+                        }
+                        name="enterpriseArticles"
+                      />
+                      {formik.touched.enterpriseArticles &&
+                      formik.errors.enterpriseArticles ? (
+                        <div className="text-red-600">
+                          {formik.errors.enterpriseArticles}
+                        </div>
+                      ) : null}
+                    </div>{" "}
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        The bylaws of the organization(መተዳደሪያ ደንብ)
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) => captureFile(event, "byLaws")}
+                        name="byLaws"
+                      />
+                      {formik.touched.byLaws && formik.errors.byLaws ? (
+                        <div className="text-red-600">
+                          {formik.errors.byLaws}
+                        </div>
+                      ) : null}
+                    </div>
+                    <hr />
+                  </div>
+                )}
+                {formik.values.workExperience === "Employee" && (
+                  <div className="flex flex-col gap-2">
+                    <label className="font-medium">
+                      Work experience(orginal with PDF doc) *
+                    </label>
+                    <input
+                      type="file"
+                      onChange={(event) =>
+                        captureFile(event, "workExperiencePDF")
+                      }
+                      name="workExperiencePDF"
+                    />
+                    {formik.touched.workExperiencePDF &&
+                    formik.errors.workExperiencePDF ? (
+                      <div className="text-red-600">
+                        {formik.errors.workExperiencePDF}
+                      </div>
+                    ) : null}
+                  </div>
+                )}
+                {formik.values.workExperience === "Freelancer" && (
+                  <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Business Licence of Proprietor *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "businessLicenseProprietor")
+                        }
+                        name="businessLicenseProprietor"
+                      />
+                      {formik.touched.businessLicenseProprietor &&
+                      formik.errors.businessLicenseProprietor ? (
+                        <div className="text-red-600">
+                          {formik.errors.businessLicenseProprietor}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Letter of testimonial for Approved Projects *
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) => captureFile(event, "testimonial")}
+                        name="testimonial"
+                      />
+                      {formik.touched.testimonial &&
+                      formik.errors.testimonial ? (
+                        <div className="text-red-600">
+                          {formik.errors.testimonial}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        Company licence Proprietor *{" "}
+                      </label>
+                      <input
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "companyLicense")
+                        }
+                        name="companyLicense"
+                      />
+                      {formik.touched.companyLicense &&
+                      formik.errors.companyLicense ? (
+                        <div className="text-red-600">
+                          {formik.errors.companyLicense}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
+                <Button
+                  onClick={() => setFormStep(1)}
+                  variant="outlined"
+                  className="self-start pl-1 w-[7.3em]"
+                >
+                  <ChevronLeft sx={{ marginBottom: "1px" }} />
+                  <p>Page 1</p>
+                </Button>
+                <Button
+                  className="flex items-center justify-center md:self-end p-2 gap-2"
+                  variant="outlined"
+                  type="submit"
+                >
+                  <span>
+                    {loading ? (
+                      <span className="flex items-center gap-2">
+                        Submitting <CircularProgress size={20} />
+                      </span>
+                    ) : (
+                      <span>
+                        Submit{" "}
+                        <SendIcon
+                          fontSize="small"
+                          className="relative -top-[0.08em]"
+                        />
+                      </span>
+                    )}
+                  </span>
+                </Button>
+              </div>
+            )}
           </form>
         )}
-
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
             variant="contained"
