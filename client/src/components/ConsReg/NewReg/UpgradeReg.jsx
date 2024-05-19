@@ -20,6 +20,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -43,7 +44,7 @@ import { useState } from "react";
 import { PdfViewer2 } from "../../PDFViewr.jsx";
 import pdf2 from "../../../../public/upgradeLicense.pdf";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { postUpdateConstReg } from "../../../services/service.js";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
@@ -54,13 +55,11 @@ const UpgradeReg = () => {
   const [formStep, setFormStep] = useState(1);
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [openError, setOpenError] = useState(false);
   const [logInError, setLogInError] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
+  const [openError, setOpenError] = useState(false);
   // const handleClose = () => setSuccessOpen(false);
   const [open, setOpen] = useState(false);
   //step one form values
-  const [educationLevel, setEducationLevel] = useState("");
   const [educationalInstitution, setEducationalInstitution] = useState("");
   const [fieldOfStudy, setFieldOfStudy] = useState("");
   const [professionalTitle, setProfessionalTitle] = useState("");
@@ -71,8 +70,13 @@ const UpgradeReg = () => {
     return skipped.has(step);
   };
 
-  const handleEducationChange = (event) => {
-    setEducationLevel(event.target.value);
+  const handleErrorClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenError(false);
+    setLogInError(false);
   };
 
   const resetEducationLevelData = () => {
@@ -136,10 +140,6 @@ const UpgradeReg = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -147,7 +147,6 @@ const UpgradeReg = () => {
   const handleClose = () => {
     formik.setFieldValue("educationalData", educationalData, true);
     setOpen(false);
-    setSuccessOpen(false);
   };
 
   const captureFile = (event, fieldName) => {
@@ -186,126 +185,126 @@ const UpgradeReg = () => {
       testimonial: null,
       companyLicense: null,
     },
-    validationSchema: Yup.object().shape({
-      fullName: Yup.string().required("Full name is required"),
-      gender: Yup.string().required("Gender is required"),
-      city: Yup.string().required("City is required"),
-      woreda: Yup.string().required("Woreda is required"),
-      mobilePhone: Yup.number().required("Mobile is required"),
-      houseNumber: Yup.number().required("House number is required"),
-      kebele: Yup.string().required("Kebele is required"),
-      currentOrganization: Yup.string().required(
-        "Current organization is required"
-      ), // educationalData: Yup.array().required("educationalData is required"),
-      idCard: Yup.mixed().required("Id is required"),
-      educationEvidence: Yup.mixed().required("education evidence is required"),
-      transcript: Yup.mixed().required("Transcript is required"),
-      COC: Yup.mixed().required("COC is required"),
-      applicantPhoto: Yup.mixed().required("Applicant photo is required"),
-      workExperience: Yup.string()
-        .required("Work experience is required")
-        .oneOf(
-          ["The manager of PLC or Enterprise member", "Employee", "Freelancer"],
-          "Invalid work experience"
-        ),
-      competencyCertification: Yup.mixed()
-        .nullable()
-        .test(
-          "workExperience",
-          "Competency certification is required",
-          function (value) {
-            return this.parent.workExperience ===
-              "The manager of PLC or Enterprise member"
-              ? !!value
-              : true;
-          }
-        ),
-      businessLicense: Yup.mixed()
-        .nullable()
-        .test(
-          "workExperience",
-          "Business license is required",
-          function (value) {
-            return this.parent.workExperience ===
-              "The manager of PLC or Enterprise member"
-              ? !!value
-              : true;
-          }
-        ),
-      contractAgreement: Yup.mixed()
-        .nullable()
-        .test(
-          "workExperience",
-          "Contract agreement is required",
-          function (value) {
-            return this.parent.workExperience ===
-              "The manager of PLC or Enterprise member"
-              ? !!value
-              : true;
-          }
-        ),
-      paymentDocument: Yup.mixed()
-        .nullable()
-        .test(
-          "workExperience",
-          "Payment document is required",
-          function (value) {
-            return this.parent.workExperience ===
-              "The manager of PLC or Enterprise member"
-              ? !!value
-              : true;
-          }
-        ),
-      performanceLetter: Yup.mixed()
-        .nullable()
-        .test(
-          "workExperience",
-          "Performance letter is required",
-          function (value) {
-            return this.parent.workExperience ===
-              "The manager of PLC or Enterprise member"
-              ? !!value
-              : true;
-          }
-        ),
-      enterpriseArticles: Yup.mixed()
-        .nullable()
-        .test(
-          "workExperience",
-          "Enterprise articles is required",
-          function (value) {
-            return this.parent.workExperience ===
-              "The manager of PLC or Enterprise member"
-              ? !!value
-              : true;
-          }
-        ),
-      byLaws: Yup.mixed()
-        .nullable()
-        .test("workExperience", "By laws is required", function (value) {
-          return this.parent.workExperience ===
-            "The manager of PLC or Enterprise member"
-            ? !!value
-            : true;
-        }),
-      // workExperiencePDF: Yup.mixed()
-      //   .nullable()
-      //   .test("workExperience", "By laws is required", function (value) {
-      //     return this.parent.workExperience === "Employee" ? !!value : true;
-      //   }),
+    // validationSchema: Yup.object().shape({
+    //   fullName: Yup.string().required("Full name is required"),
+    //   gender: Yup.string().required("Gender is required"),
+    //   city: Yup.string().required("City is required"),
+    //   woreda: Yup.string().required("Woreda is required"),
+    //   mobilePhone: Yup.number().required("Mobile is required"),
+    //   houseNumber: Yup.number().required("House number is required"),
+    //   kebele: Yup.string().required("Kebele is required"),
+    //   currentOrganization: Yup.string().required(
+    //     "Current organization is required"
+    //   ), // educationalData: Yup.array().required("educationalData is required"),
+    //   idCard: Yup.mixed().required("Id is required"),
+    //   educationEvidence: Yup.mixed().required("education evidence is required"),
+    //   transcript: Yup.mixed().required("Transcript is required"),
+    //   COC: Yup.mixed().required("COC is required"),
+    //   applicantPhoto: Yup.mixed().required("Applicant photo is required"),
+    //   workExperience: Yup.string()
+    //     .required("Work experience is required")
+    //     .oneOf(
+    //       ["The manager of PLC or Enterprise member", "Employee", "Freelancer"],
+    //       "Invalid work experience"
+    //     ),
+    //   competencyCertification: Yup.mixed()
+    //     .nullable()
+    //     .test(
+    //       "workExperience",
+    //       "Competency certification is required",
+    //       function (value) {
+    //         return this.parent.workExperience ===
+    //           "The manager of PLC or Enterprise member"
+    //           ? !!value
+    //           : true;
+    //       }
+    //     ),
+    //   businessLicense: Yup.mixed()
+    //     .nullable()
+    //     .test(
+    //       "workExperience",
+    //       "Business license is required",
+    //       function (value) {
+    //         return this.parent.workExperience ===
+    //           "The manager of PLC or Enterprise member"
+    //           ? !!value
+    //           : true;
+    //       }
+    //     ),
+    //   contractAgreement: Yup.mixed()
+    //     .nullable()
+    //     .test(
+    //       "workExperience",
+    //       "Contract agreement is required",
+    //       function (value) {
+    //         return this.parent.workExperience ===
+    //           "The manager of PLC or Enterprise member"
+    //           ? !!value
+    //           : true;
+    //       }
+    //     ),
+    //   paymentDocument: Yup.mixed()
+    //     .nullable()
+    //     .test(
+    //       "workExperience",
+    //       "Payment document is required",
+    //       function (value) {
+    //         return this.parent.workExperience ===
+    //           "The manager of PLC or Enterprise member"
+    //           ? !!value
+    //           : true;
+    //       }
+    //     ),
+    //   performanceLetter: Yup.mixed()
+    //     .nullable()
+    //     .test(
+    //       "workExperience",
+    //       "Performance letter is required",
+    //       function (value) {
+    //         return this.parent.workExperience ===
+    //           "The manager of PLC or Enterprise member"
+    //           ? !!value
+    //           : true;
+    //       }
+    //     ),
+    //   enterpriseArticles: Yup.mixed()
+    //     .nullable()
+    //     .test(
+    //       "workExperience",
+    //       "Enterprise articles is required",
+    //       function (value) {
+    //         return this.parent.workExperience ===
+    //           "The manager of PLC or Enterprise member"
+    //           ? !!value
+    //           : true;
+    //       }
+    //     ),
+    //   byLaws: Yup.mixed()
+    //     .nullable()
+    //     .test("workExperience", "By laws is required", function (value) {
+    //       return this.parent.workExperience ===
+    //         "The manager of PLC or Enterprise member"
+    //         ? !!value
+    //         : true;
+    //     }),
+    //   // workExperiencePDF: Yup.mixed()
+    //   //   .nullable()
+    //   //   .test("workExperience", "By laws is required", function (value) {
+    //   //     return this.parent.workExperience === "Employee" ? !!value : true;
+    //   //   }),
 
-      // businessLicense: Yup.mixed().required("Business license is required"),
-      // contractAgreement: Yup.mixed().required("Contract agreement is required"),
-      // paymentDocument: Yup.mixed().required("Payment document is required"),
-      // performanceLetter: Yup.mixed().required("Performance letter is required"),
-      // enterpriseArticles: Yup.mixed().required(
-      //   "Enterprise articles is required"
-      // ),
-      // byLaws: Yup.mixed().required("By laws is required"),
-      // workExperiencePDF: Yup.mixed().required(
-      //   "Work experience pdf or doc file is required"
-      // ),
-    }),
+    //   // businessLicense: Yup.mixed().required("Business license is required"),
+    //   // contractAgreement: Yup.mixed().required("Contract agreement is required"),
+    //   // paymentDocument: Yup.mixed().required("Payment document is required"),
+    //   // performanceLetter: Yup.mixed().required("Performance letter is required"),
+    //   // enterpriseArticles: Yup.mixed().required(
+    //   //   "Enterprise articles is required"
+    //   // ),
+    //   // byLaws: Yup.mixed().required("By laws is required"),
+    //   // workExperiencePDF: Yup.mixed().required(
+    //   //   "Work experience pdf or doc file is required"
+    //   // ),
+    // }),
     onSubmit: async (values) => {
       if (!formik.isValid) {
         console.error("Form submission failed due to validation errors");
@@ -342,14 +341,11 @@ const UpgradeReg = () => {
         const { statusCode } = await postUpdateConstReg(formData);
 
         if (statusCode !== 201) {
-          setOpenError(true);
           setLoading(false);
         } else {
-          setSuccessOpen(true);
           setLoading(false);
         }
       } catch (error) {
-        setOpenError(true);
         setLoading(false);
         console.error("An error occurred", error);
       }
@@ -737,6 +733,7 @@ const UpgradeReg = () => {
                     Back) *
                   </label>
                   <input
+                    multiple
                     type="file"
                     onChange={(event) => captureFile(event, "idCard")}
                     name="idCard"
@@ -1114,6 +1111,31 @@ const UpgradeReg = () => {
           </Button>
         </Box>
       </Box>
+      <Snackbar
+        open={openError}
+        autoHideDuration={6000}
+        onClose={handleErrorClose}
+      >
+        <Alert
+          onClose={handleErrorClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Server Error: Apologies! Something went wrong. Our team&apos;s on it.
+          Please retry shortly.
+        </Alert>
+      </Snackbar>
+      <Snackbar open={logInError} onClose={handleErrorClose}>
+        <Alert
+          onClose={handleErrorClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Please Log in first!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
