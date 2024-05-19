@@ -20,6 +20,7 @@ import {
   newLicenseFormGuideInstruction,
 } from "../../../data/constants.js";
 import { PdfViewer } from "../../PDFViewr.jsx";
+import pdf1 from "../../../../public/9ab615bc-9f05-4c98-ab99-19ec88e5f201.pdf";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Radio from "@mui/material/Radio";
@@ -479,7 +480,7 @@ const NewReg = () => {
                       File : Registration directive.pdf
                     </AccordionSummary>
                     <AccordionDetails>
-                      <PdfViewer />
+                      <PdfViewer src={pdf1} />
                     </AccordionDetails>
                   </Accordion>
                 </div>

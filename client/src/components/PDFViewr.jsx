@@ -1,18 +1,27 @@
-import PDF from "../../public/9ab615bc-9f05-4c98-ab99-19ec88e5f201.pdf";
-import PDF2 from "../../public/upgradeLicense.pdf";
+import PropTypes from "prop-types";
 
-export const PdfViewer = () => {
+export const PdfViewer = ({ src }) => {
   return (
     <div>
-      <iframe title="PDF Viewer" src={PDF} width="100%" height="600px" />
+      <iframe title="PDF Viewer" src={src} width="100%" height="600px" />
     </div>
   );
 };
 
-export const pdfViewer2 = () => {
+// export default PdfViewer;
+
+export const PdfViewer2 = ({ src }) => {
   return (
     <div>
-      <iframe title="PDF Viewer" src={PDF2} width="100%" height="600px" />
+      <iframe title="PDF Viewer" src={src} width="100%" height="600px" />
     </div>
   );
+};
+
+PdfViewer.propTypes = {
+  src: PropTypes.string.isRequired,
+};
+
+PdfViewer2.propTypes = {
+  src: PropTypes.string.isRequired,
 };
