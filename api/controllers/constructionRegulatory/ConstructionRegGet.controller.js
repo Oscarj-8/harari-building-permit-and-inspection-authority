@@ -1,5 +1,4 @@
-import { log } from "console";
-import NewLicenseForm from "../../models/constructionRegulatory/constructionRegulatory.model.js";
+import { NewLicenseForm } from "../../models/constructionRegulatory/constructionRegulatory.model.js";
 import fs from "fs/promises";
 import path from "path";
 
