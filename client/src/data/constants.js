@@ -159,3 +159,30 @@ export const upgradeLicenseFormGuide = [
     ],
   },
 ];
+
+export const renewLicenseFormGuide = [
+  {
+    id: 1,
+    description:
+      "Professional license renewal service for existing professionals is provided: -Professional licensing renewal is done every two years, upon completion of two consecutive fiscal years as specified in the Professional License. Similarly, practicing profession licenses are renewed annually. Regarding requirement of professional license renewal is detailed on this service page.",
+  },
+  {
+    id: 2,
+    title: "Who can apply",
+    text: "Any construction Professionals that previously licensed and Professionals that fulfill the services requirement can apply for this service, Professional license renewal is done in every five years. ",
+  },
+  {
+    id: 3,
+    title: "Prerequisite",
+    text: [
+      "Attach previous professional license",
+      "One 3 * 3 recent photograph for e-services",
+      "Attach Educational evidence",
+      "Attach relevant Work experience For Employee",
+      "For contractors or consultants, attach a trade license and competency certificate.",
+      "Attach active/valid COC (from level 1 up to 5) if an Educational evidence is Diploma",
+      "If the applicant is representative attach your delegation letter and renewed resident ID card",
+      "Experience and Educational Evidence acquired from foreign countries should be authenticated",
+    ],
+  },
+];

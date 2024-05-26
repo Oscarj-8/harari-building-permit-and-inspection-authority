@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import NewReg from "../../ConsReg/NewReg/NewReg";
 import UpgradeReg from "../../ConsReg/UpgradeReg/UpgradeReg";
+import RenewReg from "../../ConsReg/RenewReg/RenewReg";
 // Tab starts here
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -93,7 +94,7 @@ const ConstructionRegulatory = () => {
           <NewReg />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          Renewal of Professionals License
+          <RenewReg />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <UpgradeReg />

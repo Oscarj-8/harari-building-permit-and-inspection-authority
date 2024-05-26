@@ -1,62 +1,64 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Alert,
-  AlertTitle,
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Radio,
-  RadioGroup,
-  Select,
-  Snackbar,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-} from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { upgradeLicenseFormGuide } from "../../../data/constants.js";
-import ChevronRight from "@mui/icons-material/ChevronRight";
-import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { v4 as uuidv4 } from "uuid";
+// import Accordion from "@mui/material/Accordion";
+// import AccordionSummary from "@mui/material/AccordionSummary";
+// import AccordionDetails from "@mui/material/AccordionDetails";
+// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import Stepper from "@mui/material/Stepper";
+// import Step from "@mui/material/Step";
+// import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Snackbar from "@mui/material/Snackbar";
+import { renewLicenseFormGuide } from "../../../data/constants";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormControl from "@mui/material/FormControl";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { useState } from "react";
-import { PdfViewer2 } from "../../PDFViewr.jsx";
-import pdf2 from "../../../../public/upgradeLicense.pdf";
-import { useFormik } from "formik";
-// import * as Yup from "yup";
-import { postUpdateConstReg } from "../../../services/service.js";
+import ChevronRight from "@mui/icons-material/ChevronRight";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CircularProgress from "@mui/material/CircularProgress";
+import SendIcon from "@mui/icons-material/Send";
+import { postNewConstRegForm } from "../../../services/service.js";
+import ReusableModal from "../../ReusableModal.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
 
-const UpgradeReg = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
-  const [formStep, setFormStep] = useState(1);
+const RenewReg = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [logInError, setLogInError] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const [logInError, setLogInError] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [formStep, setFormStep] = useState(1);
+  const [skipped, setSkipped] = useState(new Set());
+  const [successOpen, setSuccessOpen] = useState(false);
   // const handleClose = () => setSuccessOpen(false);
   const [open, setOpen] = useState(false);
   //step one form values
@@ -66,8 +68,14 @@ const UpgradeReg = () => {
   const [educationalData, setEducationalData] = useState([]);
   const [filesArray, setFilesArray] = useState([]);
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    formik.setFieldValue("educationalData", educationalData, true);
+    setOpen(false);
+    setSuccessOpen(false);
   };
 
   const handleErrorClose = (event, reason) => {
@@ -79,50 +87,10 @@ const UpgradeReg = () => {
     setLogInError(false);
   };
 
-  const resetEducationLevelData = () => {
-    setEducationalInstitution("");
-    setFieldOfStudy("");
-    setProfessionalTitle("");
-  };
+  // Function to display error and disable scrolling
 
-  const handleEducationDataAdd = () => {
-    // event.preventDefault(); // Prevent default form submission
-    // event.stopPropagation();
-
-    // const formData = new FormData();
-    // formData.append("education level", educationLevel);
-    // formData.appen
-    // const id = uuidv4();
-    // const entryWithId = { id, ...formJson };
-
-    // setEducationalData((prevEducationalData) => [
-    //   ...prevEducationalData,
-    //   entryWithId,
-    // ]);
-    // handleClose();
-    // resetEducationLevelData();
-    const formData = {
-      educationalInstitution,
-      fieldOfStudy,
-      professionalTitle,
-    };
-    const id = uuidv4();
-    const entryWithId = { id, ...formData };
-    setEducationalData((prevEducationData) => [
-      ...prevEducationData,
-      entryWithId,
-    ]);
-    // Close the dialog or perform any other necessary actions
-    handleClose();
-    handleClose();
-    resetEducationLevelData();
-  };
-
-  const handlRemoveEducation = (id) => {
-    const updatedEducationalData = educationalData.filter(
-      (data) => data.id !== id
-    );
-    setEducationalData(updatedEducationalData);
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
   };
 
   const handleNext = () => {
@@ -140,15 +108,6 @@ const UpgradeReg = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    formik.setFieldValue("educationalData", educationalData, true);
-    setOpen(false);
-  };
-
   const captureFile = (event, fieldName) => {
     const newFile = event.target.files[0];
     setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
@@ -156,8 +115,40 @@ const UpgradeReg = () => {
     console.log(filesArray);
   };
 
+  const handlRemoveEducation = (id) => {
+    const updatedEducationalData = educationalData.filter(
+      (data) => data.id !== id
+    );
+    setEducationalData(updatedEducationalData);
+  };
+
+  const resetEducationLevelData = () => {
+    setEducationalInstitution("");
+    setFieldOfStudy("");
+    setProfessionalTitle("");
+  };
+
+  const handleEducationDataAdd = () => {
+    const formData = {
+      educationalInstitution,
+      fieldOfStudy,
+      professionalTitle,
+    };
+    const id = uuidv4();
+    const entryWithId = { id, ...formData };
+    setEducationalData((prevEducationData) => [
+      ...prevEducationData,
+      entryWithId,
+    ]);
+    // Close the dialog or perform any other necessary actions
+    handleClose();
+    handleClose();
+    resetEducationLevelData();
+  };
+
   const formik = useFormik({
     initialValues: {
+      applicantType: "",
       fullName: "",
       gender: "",
       city: "",
@@ -170,143 +161,61 @@ const UpgradeReg = () => {
       profLicense: null,
       idCard: null,
       educationEvidence: null,
-      transcript: null,
       COC: null,
       applicantPhoto: null,
       workExperience: "",
       competencyCertification: null,
       businessLicense: null,
-      contractAgreement: null,
-      paymentDocument: null,
-      performanceLetter: null,
-      enterpriseArticles: null,
-      byLaws: null,
       workExperiencePDF: null,
-      businessLicenseProprietor: null,
-      testimonial: null,
-      companyLicense: null,
     },
-    // validationSchema: Yup.object().shape({
-    //   fullName: Yup.string().required("Full name is required"),
-    //   gender: Yup.string().required("Gender is required"),
-    //   city: Yup.string().required("City is required"),
-    //   woreda: Yup.string().required("Woreda is required"),
-    //   mobilePhone: Yup.number().required("Mobile is required"),
-    //   houseNumber: Yup.number().required("House number is required"),
-    //   kebele: Yup.string().required("Kebele is required"),
-    //   currentOrganization: Yup.string().required(
-    //     "Current organization is required"
-    //   ), // educationalData: Yup.array().required("educationalData is required"),
-    // profLicense: Yup.mixed().required("Professional license is required"),
-    //   idCard: Yup.mixed().required("Id is required"),
-    //   educationEvidence: Yup.mixed().required("education evidence is required"),
-    //   transcript: Yup.mixed().required("Transcript is required"),
-    //   COC: Yup.mixed().required("COC is required"),
-    //   applicantPhoto: Yup.mixed().required("Applicant photo is required"),
-    //   workExperience: Yup.string()
-    //     .required("Work experience is required")
-    //     .oneOf(
-    //       ["The manager of PLC or Enterprise member", "Employee", "Freelancer"],
-    //       "Invalid work experience"
-    //     ),
-    //   competencyCertification: Yup.mixed()
-    //     .nullable()
-    //     .test(
-    //       "workExperience",
-    //       "Competency certification is required",
-    //       function (value) {
-    //         return this.parent.workExperience ===
-    //           "The manager of PLC or Enterprise member"
-    //           ? !!value
-    //           : true;
-    //       }
-    //     ),
-    //   businessLicense: Yup.mixed()
-    //     .nullable()
-    //     .test(
-    //       "workExperience",
-    //       "Business license is required",
-    //       function (value) {
-    //         return this.parent.workExperience ===
-    //           "The manager of PLC or Enterprise member"
-    //           ? !!value
-    //           : true;
-    //       }
-    //     ),
-    //   contractAgreement: Yup.mixed()
-    //     .nullable()
-    //     .test(
-    //       "workExperience",
-    //       "Contract agreement is required",
-    //       function (value) {
-    //         return this.parent.workExperience ===
-    //           "The manager of PLC or Enterprise member"
-    //           ? !!value
-    //           : true;
-    //       }
-    //     ),
-    //   paymentDocument: Yup.mixed()
-    //     .nullable()
-    //     .test(
-    //       "workExperience",
-    //       "Payment document is required",
-    //       function (value) {
-    //         return this.parent.workExperience ===
-    //           "The manager of PLC or Enterprise member"
-    //           ? !!value
-    //           : true;
-    //       }
-    //     ),
-    //   performanceLetter: Yup.mixed()
-    //     .nullable()
-    //     .test(
-    //       "workExperience",
-    //       "Performance letter is required",
-    //       function (value) {
-    //         return this.parent.workExperience ===
-    //           "The manager of PLC or Enterprise member"
-    //           ? !!value
-    //           : true;
-    //       }
-    //     ),
-    //   enterpriseArticles: Yup.mixed()
-    //     .nullable()
-    //     .test(
-    //       "workExperience",
-    //       "Enterprise articles is required",
-    //       function (value) {
-    //         return this.parent.workExperience ===
-    //           "The manager of PLC or Enterprise member"
-    //           ? !!value
-    //           : true;
-    //       }
-    //     ),
-    //   byLaws: Yup.mixed()
-    //     .nullable()
-    //     .test("workExperience", "By laws is required", function (value) {
-    //       return this.parent.workExperience ===
-    //         "The manager of PLC or Enterprise member"
-    //         ? !!value
-    //         : true;
-    //     }),
-    //   // workExperiencePDF: Yup.mixed()
-    //   //   .nullable()
-    //   //   .test("workExperience", "By laws is required", function (value) {
-    //   //     return this.parent.workExperience === "Employee" ? !!value : true;
-    //   //   }),
-
-    //   // businessLicense: Yup.mixed().required("Business license is required"),
-    //   // contractAgreement: Yup.mixed().required("Contract agreement is required"),
-    //   // paymentDocument: Yup.mixed().required("Payment document is required"),
-    //   // performanceLetter: Yup.mixed().required("Performance letter is required"),
-    //   // enterpriseArticles: Yup.mixed().required(
-    //   //   "Enterprise articles is required"
-    //   // ),
-    //   // byLaws: Yup.mixed().required("By laws is required"),
-    //   // workExperiencePDF: Yup.mixed().required(
-    //   //   "Work experience pdf or doc file is required"
-    //   // ),
-    // }),
+    validationSchema: Yup.object().shape({
+      applicantType: Yup.string().required("Applicant type is required"),
+      fullName: Yup.string().required("Full name is required"),
+      gender: Yup.string().required("Gender is required"),
+      city: Yup.string().required("City is required"),
+      woreda: Yup.string().required("Woreda is required"),
+      mobilePhone: Yup.number().required("Mobile is required"),
+      houseNumber: Yup.number().required("House number is required"),
+      kebele: Yup.string().required("Kebele is required"),
+      currentOrganization: Yup.string().required(
+        "Current organization is required"
+      ), // educationalData: Yup.array().required("educationalData is required"),
+      profLicense: Yup.string().required("Professional license is required"),
+      idCard: Yup.mixed().required("Id is required"),
+      educationEvidence: Yup.mixed().required("education evidence is required"),
+      COC: Yup.mixed().required("COC is required"),
+      applicantPhoto: Yup.mixed().required("Applicant photo is required"),
+      workExperience: Yup.string()
+        .required("Work experience is required")
+        .oneOf(
+          ["The manager of PLC or Enterprise member", "Employee", "Unemployed"],
+          "Invalid work experience"
+        ),
+      competencyCertification: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Competency certification is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+      businessLicense: Yup.mixed()
+        .nullable()
+        .test(
+          "workExperience",
+          "Business license is required",
+          function (value) {
+            return this.parent.workExperience ===
+              "The manager of PLC or Enterprise member"
+              ? !!value
+              : true;
+          }
+        ),
+    }),
     onSubmit: async (values) => {
       if (!formik.isValid) {
         console.error("Form submission failed due to validation errors");
@@ -335,83 +244,71 @@ const UpgradeReg = () => {
         const edu = JSON.stringify(educationalData);
 
         formData.educationalData = edu;
-
+        // for (const [key, value] of formData) {
+        //   console.log(key, value);
+        // }
         for (const [key, value] of formData.entries()) {
           console.log(key, value);
         }
 
-        const { statusCode } = await postUpdateConstReg(formData);
+        const { statusCode } = await postNewConstRegForm(formData);
 
         if (statusCode !== 201) {
+          setOpenError(true);
           setLoading(false);
         } else {
+          setSuccessOpen(true);
           setLoading(false);
         }
       } catch (error) {
+        setOpenError(true);
         setLoading(false);
         console.error("An error occurred", error);
       }
+      console.log(values);
     },
   });
 
   return (
     <div className="relative flex flex-col gap-4">
-      <h1 className="text-lg font-medium">Upgrade of Professionals License </h1>
+      <h1 className="text-lg font-medium">Renewal of Professionals License </h1>
       <hr className="" />
-      <p className="text-gray-700">{upgradeLicenseFormGuide[0].description}</p>
+      <p className="text-gray-700">{renewLicenseFormGuide[0].description}</p>
       <Box
         className="border p-2 flex flex-col gap-4 bg-gray-50 rounded-md"
         sx={{ width: "100%" }}
       >
-        <h1 className="text-slate-600 text-xl font-light">Fill form</h1>
+        <h1 className="text-slate-600 text-xl font-light"> Fill form</h1>
         <hr />
         {activeStep === 0 && (
-          <>
+          <div className="flex flex-col">
+            <h3 className="text-lg -mb-6">Service Description</h3>
             <div className="flex flex-col gap-2">
-              {" "}
-              <p
-                className="text-lg
-          "
-              >
-                Service description
-              </p>
-              <div className="flex flex-col gap-8">
-                {upgradeLicenseFormGuide.slice(1).map((guide) => (
-                  <div key={guide.id} className="flex flex-col gap-2">
-                    <h4>
-                      <span className="font-medium">{guide.title}</span>
-                    </h4>
+              {renewLicenseFormGuide.map((item) => (
+                <div className="flex flex-col" key={item.id}>
+                  <h4 className="font-medium mt-4" key={item.id}>
+                    {item.title}
+                  </h4>
+                  {Array.isArray(item.text) ? (
                     <ul className="list-decimal">
-                      {Array.isArray(guide.text) ? (
-                        guide.text.map((textItem, index) => (
-                          <li className="ml-8" key={index}>
-                            {textItem}
-                          </li>
-                        ))
-                      ) : (
-                        <p>{guide.text}</p>
-                      )}
+                      {item.text.map((textItem, index) => (
+                        <li className="ml-8" key={index}>
+                          {textItem}
+                        </li>
+                      ))}
                     </ul>
-                  </div>
-                ))}
-              </div>
+                  ) : (
+                    <p>{item.text}</p>
+                  )}
+                </div>
+              ))}
             </div>
-            <div className="max-w-[50em]">
-              <h4 className="font-medium">List of attached files</h4>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1-content"
-                  id="panel1-header"
-                  className="bg-gray-200 underline"
-                >
-                  File : Registration directive.pdf
-                </AccordionSummary>
-                <AccordionDetails>
-                  <PdfViewer2 src={pdf2} />
-                </AccordionDetails>
-              </Accordion>
-            </div>
+            <p className="font-medium">
+              N.B{" "}
+              <span className="font-normal">
+                The file that you have attached must be in PDF format.
+              </span>
+            </p>
             <Alert severity="info">
               <AlertTitle>Info</AlertTitle>
               <p>
@@ -424,7 +321,7 @@ const UpgradeReg = () => {
                 </a>
               </span>
             </Alert>
-          </>
+          </div>
         )}
         {activeStep === 1 && (
           <form onSubmit={formik.handleSubmit}>
@@ -450,6 +347,30 @@ const UpgradeReg = () => {
             </div>
             {formStep === 1 && (
               <div className="flex flex-col gap-6">
+                <Box>
+                  <FormLabel id="demo-controlled-radio-buttons-group">
+                    Applicant type{" "}
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="applicantType"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.applicantType}
+                  >
+                    <FormControlLabel
+                      value="owner"
+                      control={<Radio />}
+                      label="Owner"
+                    />
+                    <FormControlLabel
+                      value="representative"
+                      control={<Radio />}
+                      label="Representative"
+                    />
+                  </RadioGroup>
+                </Box>
                 <TextField
                   required
                   id="fullName"
@@ -600,6 +521,22 @@ const UpgradeReg = () => {
                 </Box>
                 {formik.touched.woreda && formik.errors.woreda ? (
                   <div className="text-red-600">{formik.errors.woreda}</div>
+                ) : null}
+                <TextField
+                  required
+                  name="currentOrganization"
+                  label="Currently working at (Name of Organization)"
+                  variant="filled"
+                  size="small"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.currentOrganization}
+                />
+                {formik.touched.currentOrganization &&
+                formik.errors.currentOrganization ? (
+                  <div className="text-red-600">
+                    {formik.errors.currentOrganization}
+                  </div>
                 ) : null}
                 <div className="flex flex-col gap-3 items-center justify-center">
                   <div className="w-full flex justify-between">
@@ -752,7 +689,6 @@ const UpgradeReg = () => {
                     Back) *
                   </label>
                   <input
-                    multiple
                     type="file"
                     onChange={(event) => captureFile(event, "idCard")}
                     name="idCard"
@@ -777,22 +713,6 @@ const UpgradeReg = () => {
                   formik.errors.educationEvidence ? (
                     <div className="text-red-600">
                       {formik.errors.educationEvidence}
-                    </div>
-                  ) : null}
-                </div>
-                <hr />
-                <div className="flex flex-col gap-2">
-                  <label className="font-medium">
-                    Student copy / transcript
-                  </label>
-                  <input
-                    type="file"
-                    onChange={(event) => captureFile(event, "transcript")}
-                    name="transcript"
-                  />
-                  {formik.touched.transcript && formik.errors.transcript ? (
-                    <div className="text-red-600">
-                      {formik.errors.transcript}
                     </div>
                   ) : null}
                 </div>
@@ -843,7 +763,7 @@ const UpgradeReg = () => {
                         The manager of PLC or Enterprise member
                       </MenuItem>
                       <MenuItem value="Employee">Employee</MenuItem>
-                      <MenuItem value="Freelancer">Freelancer</MenuItem>
+                      <MenuItem value="Unemployed">Unemployed</MenuItem>
                     </Select>
                   </FormControl>
                   {formik.touched.workExperience &&
@@ -856,25 +776,6 @@ const UpgradeReg = () => {
                 {formik.values.workExperience ===
                   "The manager of PLC or Enterprise member" && (
                   <div className="flex flex-col gap-6">
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Competency certification of company *
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) =>
-                          captureFile(event, "competencyCertification")
-                        }
-                        name="competencyCertification"
-                      />
-                      {formik.touched.competencyCertification &&
-                      formik.errors.competencyCertification ? (
-                        <div className="text-red-600">
-                          {formik.errors.competencyCertification}
-                        </div>
-                      ) : null}
-                    </div>
-                    <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">Business license *</label>
                       <input
@@ -894,96 +795,22 @@ const UpgradeReg = () => {
                     <hr />
                     <div className="flex flex-col gap-2">
                       <label className="font-medium">
-                        Contract Agreement *
+                        Competency certification of company *
                       </label>
                       <input
                         type="file"
                         onChange={(event) =>
-                          captureFile(event, "contractAgreement")
+                          captureFile(event, "competencyCertification")
                         }
-                        name="contractAgreement"
+                        name="competencyCertification"
                       />
-                      {formik.touched.contractAgreement &&
-                      formik.errors.contractAgreement ? (
+                      {formik.touched.competencyCertification &&
+                      formik.errors.competencyCertification ? (
                         <div className="text-red-600">
-                          {formik.errors.contractAgreement}
-                        </div>
-                      ) : null}
-                    </div>{" "}
-                    <hr />
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Payment document or certificate *
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) =>
-                          captureFile(event, "paymentDocument")
-                        }
-                        name="paymentDocument"
-                      />
-                      {formik.touched.paymentDocument &&
-                      formik.errors.paymentDocument ? (
-                        <div className="text-red-600">
-                          {formik.errors.paymentDocument}
-                        </div>
-                      ) : null}
-                    </div>{" "}
-                    <hr />
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Good job performance letter *
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) =>
-                          captureFile(event, "performanceLetter")
-                        }
-                        name="performanceLetter"
-                      />
-                      {formik.touched.performanceLetter &&
-                      formik.errors.performanceLetter ? (
-                        <div className="text-red-600">
-                          {formik.errors.performanceLetter}
-                        </div>
-                      ) : null}
-                    </div>{" "}
-                    <hr />
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Articles of Enterprise(መመስረቻ ደንብ) *
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) =>
-                          captureFile(event, "enterpriseArticles")
-                        }
-                        name="enterpriseArticles"
-                      />
-                      {formik.touched.enterpriseArticles &&
-                      formik.errors.enterpriseArticles ? (
-                        <div className="text-red-600">
-                          {formik.errors.enterpriseArticles}
-                        </div>
-                      ) : null}
-                    </div>{" "}
-                    <hr />
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        The bylaws of the organization(መተዳደሪያ ደንብ)
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) => captureFile(event, "byLaws")}
-                        name="byLaws"
-                      />
-                      {formik.touched.byLaws && formik.errors.byLaws ? (
-                        <div className="text-red-600">
-                          {formik.errors.byLaws}
+                          {formik.errors.competencyCertification}
                         </div>
                       ) : null}
                     </div>
-                    <hr />
                   </div>
                 )}
                 {formik.values.workExperience === "Employee" && (
@@ -1004,62 +831,6 @@ const UpgradeReg = () => {
                         {formik.errors.workExperiencePDF}
                       </div>
                     ) : null}
-                  </div>
-                )}
-                {formik.values.workExperience === "Freelancer" && (
-                  <div className="flex flex-col gap-6">
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Business Licence of Proprietor *
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) =>
-                          captureFile(event, "businessLicenseProprietor")
-                        }
-                        name="businessLicenseProprietor"
-                      />
-                      {formik.touched.businessLicenseProprietor &&
-                      formik.errors.businessLicenseProprietor ? (
-                        <div className="text-red-600">
-                          {formik.errors.businessLicenseProprietor}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Letter of testimonial for Approved Projects *
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) => captureFile(event, "testimonial")}
-                        name="testimonial"
-                      />
-                      {formik.touched.testimonial &&
-                      formik.errors.testimonial ? (
-                        <div className="text-red-600">
-                          {formik.errors.testimonial}
-                        </div>
-                      ) : null}
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="font-medium">
-                        Company licence Proprietor *{" "}
-                      </label>
-                      <input
-                        type="file"
-                        onChange={(event) =>
-                          captureFile(event, "companyLicense")
-                        }
-                        name="companyLicense"
-                      />
-                      {formik.touched.companyLicense &&
-                      formik.errors.companyLicense ? (
-                        <div className="text-red-600">
-                          {formik.errors.companyLicense}
-                        </div>
-                      ) : null}
-                    </div>
                   </div>
                 )}
                 <Button
@@ -1107,6 +878,7 @@ const UpgradeReg = () => {
             <span className="mr-3"> Back</span>
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />
+
           <Button
             onClick={handleNext}
             variant="contained"
@@ -1130,6 +902,28 @@ const UpgradeReg = () => {
           </Button>
         </Box>
       </Box>
+      <ReusableModal open={successOpen} onClose={handleClose}>
+        <div className="flex flex-col items-center min-w-[300px] max-w-[500px]">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirmation
+          </Typography>
+          <Typography
+            className="text-green-700 text-center"
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            You have successfully uploaded and sent the request, we will get in
+            touch with in a few days
+          </Typography>
+          <Button
+            variant="contained"
+            className="w-[100px] bg-blue-700 mt-6"
+            onClick={handleClose}
+          >
+            Ok
+          </Button>
+        </div>
+      </ReusableModal>
       <Snackbar
         open={openError}
         autoHideDuration={6000}
@@ -1159,4 +953,4 @@ const UpgradeReg = () => {
   );
 };
 
-export default UpgradeReg;
+export default RenewReg;
