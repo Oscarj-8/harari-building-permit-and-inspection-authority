@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import NewReg from "../../ConsReg/NewReg/NewReg";
-import UpgradeReg from "../../ConsReg/NewReg/UpgradeReg";
+import UpgradeReg from "../../ConsReg/UpgradeReg/UpgradeReg";
 // Tab starts here
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
