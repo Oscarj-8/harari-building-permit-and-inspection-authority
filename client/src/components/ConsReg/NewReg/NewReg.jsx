@@ -54,6 +54,7 @@ import { postNewConstRegForm } from "../../../services/service.js";
 import ReusableModal from "../../ReusableModal.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
+let c = console.log.bind(document);
 
 const NewReg = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -149,21 +150,6 @@ const NewReg = () => {
   };
 
   const handleEducationDataAdd = () => {
-    // event.preventDefault(); // Prevent default form submission
-    // event.stopPropagation();
-
-    // const formData = new FormData();
-    // formData.append("education level", educationLevel);
-    // formData.appen
-    // const id = uuidv4();
-    // const entryWithId = { id, ...formJson };
-
-    // setEducationalData((prevEducationalData) => [
-    //   ...prevEducationalData,
-    //   entryWithId,
-    // ]);
-    // handleClose();
-    // resetEducationLevelData();
     const formData = {
       educationLevel,
       institution,
@@ -174,14 +160,13 @@ const NewReg = () => {
     };
     const id = uuidv4();
     const entryWithId = { id, ...formData };
-    setEducationalData((prevEducationData) => [
-      ...prevEducationData,
+
+    formik.setFieldValue("educationalData", [
+      ...formik.values.educationalData,
       entryWithId,
     ]);
-    // Close the dialog or perform any other necessary actions
-    handleClose();
-    handleClose();
-    // resetEducationLevelData();
+
+    setOpen(false);
   };
 
   const formik = useFormik({
@@ -220,7 +205,8 @@ const NewReg = () => {
       kebele: Yup.string().required("Kebele is required"),
       currentOrganization: Yup.string().required(
         "Current organization is required"
-      ), // educationalData: Yup.array().required("educationalData is required"),
+      ),
+      educationalData: Yup.array().required("educationalData is required"),
       idCard: Yup.mixed().required("Id is required"),
       educationEvidence: Yup.mixed().required("education evidence is required"),
       transcript: Yup.mixed().required("Transcript is required"),
@@ -312,34 +298,20 @@ const NewReg = () => {
             ? !!value
             : true;
         }),
-      // workExperiencePDF: Yup.mixed()
-      //   .nullable()
-      //   .test("workExperience", "By laws is required", function (value) {
-      //     return this.parent.workExperience === "Employee" ? !!value : true;
-      //   }),
-
-      // businessLicense: Yup.mixed().required("Business license is required"),
-      // contractAgreement: Yup.mixed().required("Contract agreement is required"),
-      // paymentDocument: Yup.mixed().required("Payment document is required"),
-      // performanceLetter: Yup.mixed().required("Performance letter is required"),
-      // enterpriseArticles: Yup.mixed().required(
-      //   "Enterprise articles is required"
-      // ),
-      // byLaws: Yup.mixed().required("By laws is required"),
-      // workExperiencePDF: Yup.mixed().required(
-      //   "Work experience pdf or doc file is required"
-      // ),
+      workExperiencePDF: Yup.mixed()
+        .nullable()
+        .test("workExperience", "By laws is required", function (value) {
+          return this.parent.workExperience === "Employee" ? !!value : true;
+        }),
     }),
     onSubmit: async (values) => {
       if (!formik.isValid) {
         console.error("Form submission failed due to validation errors");
         return;
       }
-
       try {
         setLoading(true);
         const formData = new FormData();
-
         if (currentUser === null) {
           setLogInError(true);
           setLoading(false);
@@ -355,23 +327,11 @@ const NewReg = () => {
           }
         }
 
-        const edu = JSON.stringify(educationalData);
-
-        formData.educationalData = edu;
-
-        console.log("This is the new log", formData);
-        console.log("====================================");
-
-        console.log("====================================");
-        // for (const [key, value] of formData) {
-        //   console.log(key, value);
-        // }
-        for (const [key, value] of formData.entries()) {
-          console.log(key, value);
-        }
+        Object.entries(formData).forEach(([key, value]) => {
+          c(key, value);
+        });
 
         const { statusCode } = await postNewConstRegForm(formData);
-
         if (statusCode !== 201) {
           setOpenError(true);
           setLoading(false);
@@ -578,19 +538,6 @@ const NewReg = () => {
                     {formik.touched.city && formik.errors.city ? (
                       <div className="text-red-600">{formik.errors.city}</div>
                     ) : null}
-                    {/* <TextField
-                      required
-                      id="woreda"
-                      label="Woreda/Kebele"
-                      variant="filled"
-                      size="small"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.woreda}
-                    />
-                    {formik.touched.woreda && formik.errors.woreda ? (
-                      <div className="text-red-600">{formik.errors.woreda}</div>
-                    ) : null} */}
                     <TextField
                       required
                       id="mobilePhone"

@@ -29,6 +29,10 @@ const newLicenseFormSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  educationalData: {
+    type: Array,
+    required: true,
+  },
   idCard: {
     name: { type: String, required: true },
     path: { type: String, required: true },

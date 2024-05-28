@@ -601,6 +601,22 @@ const UpgradeReg = () => {
                 {formik.touched.woreda && formik.errors.woreda ? (
                   <div className="text-red-600">{formik.errors.woreda}</div>
                 ) : null}
+                <TextField
+                  required
+                  name="currentOrganization"
+                  label="Currently working at (Name of Organization)"
+                  variant="filled"
+                  size="small"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.currentOrganization}
+                />
+                {formik.touched.currentOrganization &&
+                formik.errors.currentOrganization ? (
+                  <div className="text-red-600">
+                    {formik.errors.currentOrganization}
+                  </div>
+                ) : null}
                 <div className="flex flex-col gap-3 items-center justify-center">
                   <div className="w-full flex justify-between">
                     <label> Education *</label>
