@@ -157,6 +157,7 @@ const RenewReg = () => {
       houseNumber: "",
       kebele: "",
       currentOrganization: "",
+      licenseRenewalStatus: "",
       educationalData: [],
       profLicense: null,
       idCard: null,
@@ -167,6 +168,8 @@ const RenewReg = () => {
       competencyCertification: null,
       businessLicense: null,
       workExperiencePDF: null,
+      delegationLetter: null,
+      repID: null,
     },
     validationSchema: Yup.object().shape({
       applicantType: Yup.string().required("Applicant type is required"),
@@ -179,7 +182,11 @@ const RenewReg = () => {
       kebele: Yup.string().required("Kebele is required"),
       currentOrganization: Yup.string().required(
         "Current organization is required"
-      ), // educationalData: Yup.array().required("educationalData is required"),
+      ),
+      licenseRenewalStatus: Yup.string().required(
+        "License renewal status is required"
+      ),
+      // educationalData: Yup.array().required("educationalData is required"),
       profLicense: Yup.string().required("Professional license is required"),
       idCard: Yup.mixed().required("Id is required"),
       educationEvidence: Yup.mixed().required("education evidence is required"),
@@ -370,6 +377,12 @@ const RenewReg = () => {
                       label="Representative"
                     />
                   </RadioGroup>
+                  {formik.touched.applicantType &&
+                  formik.errors.applicantType ? (
+                    <div className="text-red-600">
+                      {formik.errors.applicantType}
+                    </div>
+                  ) : null}
                 </Box>
                 <TextField
                   required
@@ -407,10 +420,10 @@ const RenewReg = () => {
                       label="Male"
                     />
                   </RadioGroup>
+                  {formik.touched.gender && formik.errors.gender ? (
+                    <div className="text-red-600">{formik.errors.gender}</div>
+                  ) : null}
                 </Box>
-                {formik.touched.gender && formik.errors.gender ? (
-                  <div className="text-red-600">{formik.errors.gender}</div>
-                ) : null}
                 <TextField
                   required
                   id="city"
@@ -538,6 +551,36 @@ const RenewReg = () => {
                     {formik.errors.currentOrganization}
                   </div>
                 ) : null}
+                <Box>
+                  <FormLabel id="demo-controlled-radio-buttons-group">
+                    Did you apply for renewal of professionals license{" "}
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="licenseRenewalStatus"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.licenseRenewalStatus}
+                  >
+                    <FormControlLabel
+                      value="yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="no"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                  {formik.touched.licenseRenewalStatus &&
+                  formik.errors.licenseRenewalStatus ? (
+                    <div className="text-red-600">
+                      {formik.errors.licenseRenewalStatus}
+                    </div>
+                  ) : null}
+                </Box>
                 <div className="flex flex-col gap-3 items-center justify-center">
                   <div className="w-full flex justify-between">
                     <label> Education *</label>
@@ -664,8 +707,47 @@ const RenewReg = () => {
                 </Button>
               </div>
             )}
+
             {formStep === 2 && (
               <div className="flex flex-col gap-6">
+                {formik.values.applicantType === "representative" && (
+                  <>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">Delegation letter *</label>
+                      <input
+                        multiple
+                        type="file"
+                        onChange={(event) =>
+                          captureFile(event, "delegationLetter")
+                        }
+                        name="delegationLetter"
+                      />
+                      {formik.touched.delegationLetter &&
+                      formik.errors.delegationLetter ? (
+                        <div className="text-red-600">
+                          {formik.errors.delegationLetter}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium">
+                        {" "}
+                        Representative id *
+                      </label>
+                      <input
+                        multiple
+                        type="file"
+                        onChange={(event) => captureFile(event, "repID")}
+                        name="repID"
+                      />
+                      {formik.touched.repID && formik.errors.repID ? (
+                        <div className="text-red-600">
+                          {formik.errors.repID}
+                        </div>
+                      ) : null}
+                    </div>
+                  </>
+                )}
                 <div className="flex flex-col gap-2">
                   <label className="font-medium">
                     Professional License (Front & Back) *
