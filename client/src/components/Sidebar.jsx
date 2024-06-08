@@ -4,8 +4,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyIcon from "@mui/icons-material/Key";
 import LineWeightIcon from "@mui/icons-material/LineWeight";
-import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
-import TuneIcon from "@mui/icons-material/Tune";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -88,10 +86,12 @@ const Sidebar = () => {
               key={item.id}
               className={({
                 isActive,
-              }) => `w-full p-2 flex gap-2 items-center justify-start
+              }) => `relative w-full p-2 flex gap-2 items-center justify-start
               cursor-pointer transition-all duration-300 ease-in-out
-              hover:bg-slate-600 hover:text-white text-start ${
-                isActive ? "bg-slate-800 text-white shadow-lg" : ""
+              hover:bg-slate-600 hover:text-white text-start overflow-hidden ${
+                isActive
+                  ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl"
+                  : ""
               }
               ${screenIsSmall ? "flex-col" : ""} rounded-md`}
             >
