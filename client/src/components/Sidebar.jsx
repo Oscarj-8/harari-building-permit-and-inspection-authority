@@ -1,9 +1,9 @@
-import AdjustIcon from "@mui/icons-material/Adjust";
-import StorageIcon from "@mui/icons-material/Storage";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import KeyIcon from "@mui/icons-material/Key";
-import LineWeightIcon from "@mui/icons-material/LineWeight";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -12,25 +12,25 @@ import MobileDrawer from "./MobileDrawer";
 const consoleItems = [
   {
     id: 1,
-    Icon: <AdjustIcon />,
+    Icon: <DesignServicesIcon />,
     Description: "Plan consent",
     path: "plan-consent-request",
   },
   {
     id: 2,
-    Icon: <StorageIcon />,
+    Icon: <WorkspacePremiumIcon />,
     Description: "Design evaluation",
     path: "design-eval-request",
   },
   {
     id: 3,
-    Icon: <LineWeightIcon />,
+    Icon: <HomeWorkIcon />,
     Description: "Building inspection",
     path: "building-ins-request",
   },
   {
     id: 4,
-    Icon: <KeyIcon />,
+    Icon: <ConstructionIcon />,
     Description: "Construction regulation",
     path: "construction-reg-request",
   },
