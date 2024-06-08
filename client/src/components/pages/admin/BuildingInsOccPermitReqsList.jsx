@@ -3,7 +3,7 @@ import { List, ListItem, Button } from "@mui/material";
 import ReusableModal from "../../ReusableModal";
 import Typography from "@mui/material/Typography";
 
-const BuildingInsOccPermit = () => {
+const BuildingInsOccPermitReqsList = () => {
   const [userFolders, setUserFolders] = useState([]);
   const [noFolder, setNoFolder] = useState(false);
   const [message, setMessage] = useState("");
@@ -151,4 +151,4 @@ const BuildingInsOccPermit = () => {
   );
 };
 
-export default BuildingInsOccPermit;
+export default BuildingInsOccPermitReqsList;
