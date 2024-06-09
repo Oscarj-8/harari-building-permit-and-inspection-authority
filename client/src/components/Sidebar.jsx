@@ -74,7 +74,7 @@ const Sidebar = () => {
 
       <div
         className={`hidden md:flex gap-2 py-4 flex-col min-h-[100%] items-start ${
-          screenIsSmall ? "w-[8em] text-xs " : "w-[17em] text-sm"
+          screenIsSmall ? "w-[9em] text-xs " : "w-[17em] text-sm"
         } overflow-hidden transition-all duration-500 ease-in-out bg-gray-100 shadow-[1px_6px_2px_2px_#00000024]`}
       >
         <div
@@ -111,7 +111,9 @@ const Sidebar = () => {
                       : ""
                   } ${screenIsSmall ? "flex-col" : ""} rounded-md`
                 }
-                onClick={item.children ? toggleSubmenu : undefined}
+                onClick={
+                  item.children ? toggleSubmenu : () => setSubmenuOpen(false)
+                }
               >
                 <span className={`bg-white p-1 rounded-sm text-slate-800`}>
                   {item.Icon}
@@ -127,7 +129,9 @@ const Sidebar = () => {
               {item.children && (
                 <ul
                   className={`${
-                    submenuOpen ? "max-h-80 opacity-100 " : "max-h-0 -mt-10"
+                    submenuOpen
+                      ? "max-h-80 opacity-100 "
+                      : "max-h-0 -mt-10 opacity-0"
                   } relative bottom-1 p-4 transition-all duration-500 ease-in-out overflow-hidden bg-slate-800 text-white space-y-2 rounded-b-lg shadow-lg before:content-[''] before:absolute before:-top-8 before:h-[1.5em] before:bg-gray-50 before:w-full before:rounded-full before:left-0 before:blur-xl`}
                 >
                   {item.children.map((child) => (
@@ -136,7 +140,7 @@ const Sidebar = () => {
                       key={child.id}
                       onClick={toggleSubmenu}
                       className={({ isActive }) =>
-                        `group relative w-full p-2 flex gap-2 items-center justify-start cursor-pointer transition-all duration-300 ease-in-out hover:bg-slate-600 hover:text-white text-start overflow-hidden ${
+                        `group relative w-full p-2 flex gap-2 items-center justify-start cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:ring-1 hover:ring-gray-400  from-slate-800 via-slate-700 to-slate-600 hover:text-white text-start overflow-hidden ${
                           isActive
                             ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl before:opacity-50"
                             : ""
@@ -149,7 +153,11 @@ const Sidebar = () => {
                         }`}
                       >
                         {child.Description}{" "}
-                        <TrendingFlatIcon className="relative -left-2 group-hover:-left-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-100" />
+                        <TrendingFlatIcon
+                          className={`-left-2 group-hover:-left-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-100 ${
+                            screenIsSmall ? "hidden" : "relative"
+                          }`}
+                        />
                       </span>
                     </NavLink>
                   ))}
