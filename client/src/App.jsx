@@ -42,6 +42,7 @@
 //     </BrowserRouter>
 //   );
 // }
+
 import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
@@ -64,13 +65,125 @@ import PlanConsentReqsList from "./components/pages/admin/PlanConsentReqsList";
 import DesignEvalBuildingPermitReqsList from "./components/pages/admin/DesignEvalBuildingPermitReqsList";
 import BuildingInsOccPermitReqsList from "./components/pages/admin/BuildingInsOccPermitReqsList";
 import ConstructionRegulatoryList from "./components/pages/admin/ConstructionRegulatoryList";
-
+import UserDetails from "./components/pages/admin/UserDetails";
+import NewLicenseReq from "./components/pages/admin/NewLicenseReq";
+import UpdateLicenseReq from "./components/pages/admin/UpdateLicenseReq";
+import UpgradeLicenseReq from "./components/pages/admin/UpgradeLicenseReq";
 const Layout = () => (
   <>
     <HeaderContainer />
     <Outlet />
   </>
 );
+
+// const router = createBrowserRouter([
+//   {
+//     element: <Layout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <HomePage />,
+//       },
+//       {
+//         path: "/sign-in",
+//         element: <SignIn />,
+//       },
+//       {
+//         path: "/sign-up",
+//         element: <SignUp />,
+//       },
+//       {
+//         path: "/user-sign-in",
+//         element: <UserSignIn />,
+//       },
+//       {
+//         path: "/user-sign-up",
+//         element: <UserSignUp />,
+//       },
+//       {
+//         element: <UserPrivateRoute />,
+//         children: [
+//           {
+//             path: "/user-profile",
+//             element: <UserProfile />,
+//           },
+//           {
+//             path: "/plan-consent",
+//             element: <PlanConsent />,
+//           },
+//           {
+//             path: "/design-eval",
+//             element: <DesignEvaBuildingPermit />,
+//           },
+//           {
+//             path: "/building-ins",
+//             element: <BuildingInsOccPermit />,
+//           },
+//           {
+//             path: "/construction-reg",
+//             element: <ConstructionRegulatory />,
+//           },
+//         ],
+//       },
+
+//       {
+//         path: "/license",
+//         element: <License />,
+//       },
+//       {
+//         element: <PrivateRoute />,
+//         children: [
+//           {
+//             path: "/admin-page",
+//             element: <AdminPage />,
+//             children: [
+//               {
+//                 path: "plan-consent-request",
+//                 element: <PlanConsentReqsList />,
+//               },
+//               {
+//                 path: "design-eval-request",
+//                 element: <DesignEvalBuildingPermitReqsList />,
+//               },
+//               {
+//                 path: "building-ins-request",
+//                 element: <BuildingInsOccPermitReqsList />,
+//               },
+//               {
+//                 path: "construction-reg-request",
+//                 element: <ConstructionRegulatoryList />,
+//                 children: [
+//                   {
+//                     path: "/construction-reg-request/new-license",
+//                     element: <NewLicenseReq />,
+//                   },
+//                   {
+//                     path: "/construction-reg-request/update-license",
+//                     element: <UpdateLicenseReq />,
+//                   },
+//                   {
+//                     path: "/construction-reg-request/upgrade-license",
+//                     element: <UpgradeLicenseReq />,
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//           {
+//             path: "/admin-profile",
+//             element: <AdminProfile />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ]);
+
+// export default function App() {
+//   // const { currentUser } = useSelector((state) => state.user);
+
+//   return <RouterProvider router={router} />;
+// }
 
 const router = createBrowserRouter([
   {
@@ -103,24 +216,25 @@ const router = createBrowserRouter([
             path: "/user-profile",
             element: <UserProfile />,
           },
+          {
+            path: "/plan-consent",
+            element: <PlanConsent />,
+          },
+          {
+            path: "/design-eval",
+            element: <DesignEvaBuildingPermit />,
+          },
+          {
+            path: "/building-ins",
+            element: <BuildingInsOccPermit />,
+          },
+          {
+            path: "/construction-reg",
+            element: <ConstructionRegulatory />,
+          },
         ],
       },
-      {
-        path: "/plan-consent",
-        element: <PlanConsent />,
-      },
-      {
-        path: "/design-eval",
-        element: <DesignEvaBuildingPermit />,
-      },
-      {
-        path: "/building-ins",
-        element: <BuildingInsOccPermit />,
-      },
-      {
-        path: "/construction-reg",
-        element: <ConstructionRegulatory />,
-      },
+
       {
         path: "/license",
         element: <License />,
@@ -147,6 +261,20 @@ const router = createBrowserRouter([
               {
                 path: "construction-reg-request",
                 element: <ConstructionRegulatoryList />,
+                children: [
+                  {
+                    path: "new-license", // Removed leading slash
+                    element: <NewLicenseReq />,
+                  },
+                  {
+                    path: "update-license", // Removed leading slash
+                    element: <UpdateLicenseReq />,
+                  },
+                  {
+                    path: "upgrade-license", // Removed leading slash
+                    element: <UpgradeLicenseReq />,
+                  },
+                ],
               },
             ],
           },
@@ -161,7 +289,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const { currentUser } = useSelector((state) => state.user);
-
   return <RouterProvider router={router} />;
 }

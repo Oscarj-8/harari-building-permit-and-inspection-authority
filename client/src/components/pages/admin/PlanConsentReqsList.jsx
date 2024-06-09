@@ -90,7 +90,9 @@ const PlanConsentReqsList = () => {
 
   return (
     <div className="flex flex-col p-1">
-      <h1 className="text-lg underline">Plan Consent Requests List</h1>
+      <h1 className="text-lg underline text-center md:text-start">
+        Plan Consent Requests List
+      </h1>
       <List className="flex flex-wrap gap-3 items-stretch ">
         {userFolders.map((folder, index) => (
           <ListItem

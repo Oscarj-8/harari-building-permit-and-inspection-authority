@@ -31,7 +31,7 @@ export default function MobileDrawer({ consoleItems }) {
             className={({ isActive }) =>
               `flex items-center justify-center ${
                 isActive
-                  ? "bg-secondary-blue text-white border border-gray-300 shadow-xl"
+                  ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl"
                   : ""
               } w-full p-3 rounded-md`
             }
@@ -49,7 +49,7 @@ export default function MobileDrawer({ consoleItems }) {
   return (
     <div>
       <div
-        className="cursor-pointer absolute top-4 left-4 border-2 border-slate-500 rounded-full p-1 z-50"
+        className="cursor-pointer absolute top-4 left-4 border-2 border-slate-800 rounded-full p-1 z-50"
         onClick={toggleDrawer(true)}
       >
         {" "}

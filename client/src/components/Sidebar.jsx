@@ -8,7 +8,7 @@ import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import MobileDrawer from "./MobileDrawer";
-
+import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 const consoleItems = [
   {
     id: 1,
@@ -33,15 +33,36 @@ const consoleItems = [
     Icon: <ConstructionIcon />,
     Description: "Construction regulation",
     path: "construction-reg-request",
+    children: [
+      {
+        id: 5,
+        Description: "New license",
+        path: "construction-reg-request/new-license",
+      },
+      {
+        id: 6,
+        Description: "Update license",
+        path: "construction-reg-request/update-license",
+      },
+      {
+        id: 7,
+        Description: "Upgrade license",
+        path: "construction-reg-request/upgrade-license",
+      },
+    ],
   },
 ];
 
 const Sidebar = () => {
   const [screenIsSmall, setScreensSmall] = useState(false);
-  // const [navIsOpen, setNavIsOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
 
   const handleClose = () => {
     setScreensSmall(!screenIsSmall);
+  };
+
+  const toggleSubmenu = () => {
+    setSubmenuOpen(!submenuOpen);
   };
 
   return (
@@ -51,9 +72,8 @@ const Sidebar = () => {
         <MobileDrawer consoleItems={consoleItems} />
       </div>
 
-      {/* This is displayed when the screen is greater than mid */}
       <div
-        className={`hidden md:flex  gap-2 py-4 flex-col min-h-[100%] items-start ${
+        className={`hidden md:flex gap-2 py-4 flex-col min-h-[100%] items-start ${
           screenIsSmall ? "w-[8em] text-xs " : "w-[17em] text-sm"
         } overflow-hidden transition-all duration-500 ease-in-out bg-gray-100 shadow-[1px_6px_2px_2px_#00000024]`}
       >
@@ -79,33 +99,63 @@ const Sidebar = () => {
           )}
         </div>
         <hr className="w-full" />
-        <ul className="flex w-full flex-col items-center justify-center overflow-hidden px-2 gap-1">
+        <ul className="relative flex w-full flex-col items-center justify-center px-2 gap-1">
           {consoleItems.map((item) => (
-            <NavLink
-              to={item.path}
-              key={item.id}
-              className={({
-                isActive,
-              }) => `relative w-full p-2 flex gap-2 items-center justify-start
-              cursor-pointer transition-all duration-300 ease-in-out
-              hover:bg-slate-600 hover:text-white text-start overflow-hidden ${
-                isActive
-                  ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl"
-                  : ""
-              }
-              ${screenIsSmall ? "flex-col" : ""} rounded-md`}
-            >
-              <span className={` bg-white p-1 rounded-sm text-slate-800`}>
-                {item.Icon}
-              </span>
-              <span
-                className={`tracking-wide ${
-                  screenIsSmall ? "text-center" : "text-start"
-                }`}
+            <div key={item.id} className="relative w-full">
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `relative z-10 w-full p-2 flex gap-2 items-center justify-start cursor-pointer transition-all duration-300 ease-in-out hover:bg-slate-600 hover:text-white text-start overflow-hidden ${
+                    isActive
+                      ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl"
+                      : ""
+                  } ${screenIsSmall ? "flex-col" : ""} rounded-md`
+                }
+                onClick={item.children ? toggleSubmenu : undefined}
               >
-                {item.Description}
-              </span>
-            </NavLink>
+                <span className={`bg-white p-1 rounded-sm text-slate-800`}>
+                  {item.Icon}
+                </span>
+                <span
+                  className={`tracking-wide ${
+                    screenIsSmall ? "text-center" : "text-start"
+                  }`}
+                >
+                  {item.Description}
+                </span>
+              </NavLink>
+              {item.children && (
+                <ul
+                  className={`${
+                    submenuOpen ? "max-h-80 opacity-100 " : "max-h-0 -mt-10"
+                  } relative bottom-1 p-4 transition-all duration-500 ease-in-out overflow-hidden bg-slate-800 text-white space-y-2 rounded-b-lg shadow-lg before:content-[''] before:absolute before:-top-8 before:h-[1.5em] before:bg-gray-50 before:w-full before:rounded-full before:left-0 before:blur-xl`}
+                >
+                  {item.children.map((child) => (
+                    <NavLink
+                      to={child.path}
+                      key={child.id}
+                      onClick={toggleSubmenu}
+                      className={({ isActive }) =>
+                        `group relative w-full p-2 flex gap-2 items-center justify-start cursor-pointer transition-all duration-300 ease-in-out hover:bg-slate-600 hover:text-white text-start overflow-hidden ${
+                          isActive
+                            ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl before:opacity-50"
+                            : ""
+                        } ${screenIsSmall ? "flex-col" : ""} rounded-md`
+                      }
+                    >
+                      <span
+                        className={`flex items-center justify-between w-full tracking-wide ${
+                          screenIsSmall ? "text-center" : "text-start"
+                        }`}
+                      >
+                        {child.Description}{" "}
+                        <TrendingFlatIcon className="relative -left-2 group-hover:-left-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-100" />
+                      </span>
+                    </NavLink>
+                  ))}
+                </ul>
+              )}
+            </div>
           ))}
         </ul>
       </div>
