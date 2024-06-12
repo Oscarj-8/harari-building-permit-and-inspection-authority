@@ -1,46 +1,7 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import { getNewLicenseReq } from "@services/service.js";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-
-let c = console.log.bind(document);
-
-const NewLicenseReq = () => {
-  const [newRequest, setNewRequest] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetchNewLicenseReq();
-  }, []);
-
-  const fetchNewLicenseReq = async () => {
-    try {
-      const data = await getNewLicenseReq();
-      setNewRequest(data);
-    } catch (error) {
-      console.error("Error fetching new license request:", error.message);
-      setError(error.message);
-    }
-  };
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  c("This one, ", newRequest);
-
-  return (
-    <div>
-      <h1>New License Requests</h1>
-      <div className="w-full">
-        <DataTable newRequest={newRequest} />
-      </div>
-    </div>
-  );
-};
-
-export default NewLicenseReq;
 
 const columns = [
   {
@@ -100,21 +61,34 @@ const columns = [
   },
 ];
 
-function DataTable({ newRequest }) {
+function NewLicenseDataTable() {
+  const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
 
-  c(selectedRows);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      // const response = await axios.get("/api/constructionReg-list");
+      const response = await axios.get("api/constructionReg-list");
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const handleRowSelection = (selectionModel) => {
     const selectedRowData = selectionModel.map((id) =>
-      newRequest.find((row) => row._id === id)
+      data.find((row) => row._id === id)
     );
     setSelectedRows(selectedRowData);
   };
 
   return (
     <DataGrid
-      rows={newRequest}
+      rows={data}
       columns={columns}
       initialState={{
         pagination: {
@@ -130,17 +104,4 @@ function DataTable({ newRequest }) {
   );
 }
 
-DataTable.propTypes = {
-  newRequest: PropTypes.arrayOf(
-    PropTypes.shape({
-      fullName: PropTypes.string.isRequired,
-      gender: PropTypes.string.isRequired,
-      woreda: PropTypes.string.isRequired,
-      mobilePhone: PropTypes.string.isRequired,
-      houseNumber: PropTypes.string.isRequired,
-      kebele: PropTypes.string.isRequired,
-      currentOrganization: PropTypes.string.number,
-      workExperience: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-};
+export default NewLicenseDataTable;

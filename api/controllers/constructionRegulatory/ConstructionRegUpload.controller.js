@@ -5,6 +5,10 @@ const submitNewLicenseForm = async (req, res) => {
     const formData = req.body;
     const files = req.files;
 
+    // Parse educationalData if needed
+    const educationalData = JSON.parse(formData.educationalData);
+
+    // Create a new instance of NewLicenseForm
     const newForm = new NewLicenseForm({
       fullName: formData.fullName,
       gender: formData.gender,
@@ -13,20 +17,13 @@ const submitNewLicenseForm = async (req, res) => {
       houseNumber: formData.houseNumber,
       kebele: formData.kebele,
       currentOrganization: formData.currentOrganization,
+      educationalData: educationalData,
+      workExperience: formData.workExperience,
       idCard: null,
       educationEvidence: null,
       transcript: null,
       COC: null,
       applicantPhoto: null,
-      workExperience: formData.workExperience,
-      competencyCertification: null,
-      businessLicense: null,
-      contractAgreement: null,
-      paymentDocument: null,
-      performanceLetter: null,
-      enterpriseArticles: null,
-      byLaws: null,
-      workExperiencePDF: null,
     });
 
     const fileFields = {
@@ -52,7 +49,7 @@ const submitNewLicenseForm = async (req, res) => {
         "applicantPhoto",
         "workExperiencePDF",
       ],
-      Freelancer: [
+      Unemployed: [
         "idCard",
         "educationEvidence",
         "transcript",
@@ -65,6 +62,7 @@ const submitNewLicenseForm = async (req, res) => {
     if (fieldsToSet) {
       for (const field of fieldsToSet) {
         if (files[field]) {
+          // Populate each file field with name and path
           newForm[field] = {
             name: files[field][0].filename,
             path: files[field][0].path,
@@ -72,21 +70,20 @@ const submitNewLicenseForm = async (req, res) => {
         }
       }
     }
-    try {
-      await newForm.save();
-    } catch (err) {
-      res.status.json({ message: "Database error", "Error,": err });
-    }
+
+    // Save the new form to the database
+    await newForm.save();
+
+    // Return success response
     return res.status(201).json({
       message: "New license form submitted successfully",
       data: newForm,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({ message: "Server Error" });
   }
 };
-
 const submitUpgradeLicenseForm = async (req, res) => {
   try {
     const formData = req.body;

@@ -138,11 +138,10 @@ const Sidebar = () => {
                     <NavLink
                       to={child.path}
                       key={child.id}
-                      onClick={toggleSubmenu}
                       className={({ isActive }) =>
                         `group relative w-full p-2 flex gap-2 items-center justify-start cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:ring-1 hover:ring-gray-400  from-slate-800 via-slate-700 to-slate-600 hover:text-white text-start overflow-hidden ${
                           isActive
-                            ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl before:opacity-50"
+                            ? "bg-slate-900 text-white shadow-lg before:content-[''] before:absolute before:-top-7 before:h-[2em] ring-1 ring-gray-400 before:bg-white before:w-full before:rounded-full before:left-0 before:blur-xl before:opacity-50"
                             : ""
                         } ${screenIsSmall ? "flex-col" : ""} rounded-md`
                       }

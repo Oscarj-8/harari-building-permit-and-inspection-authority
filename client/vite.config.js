@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import path from "node:path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +12,11 @@ export default defineConfig({
         target: "http://localhost:3000",
         secure: false,
       },
+    },
+  },
+  resolve: {
+    alias: {
+      "@services": path.resolve(__dirname, "src/services"),
     },
   },
 });

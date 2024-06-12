@@ -35,3 +35,19 @@ export const postUpdateConstReg = async (formData) => {
       throw new Error(error.message);
     });
 };
+
+export const getNewLicenseReq = async () => {
+  return axios
+    .get("http://localhost:3000/api/constructionReg-list")
+    .then((response) => {
+      if (response) {
+        return response.data.data;
+      } else {
+        return "Server Error";
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+      throw new Error(error.message);
+    });
+};

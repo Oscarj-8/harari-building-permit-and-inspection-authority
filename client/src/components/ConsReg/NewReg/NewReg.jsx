@@ -160,11 +160,12 @@ const NewReg = () => {
     };
     const id = uuidv4();
     const entryWithId = { id, ...formData };
-
-    formik.setFieldValue("educationalData", [
-      ...formik.values.educationalData,
-      entryWithId,
-    ]);
+    setEducationalData([...educationalData, entryWithId]);
+    c(entryWithId);
+    // formik.setFieldValue("educationalData", [
+    //   ...formik.values.educationalData,
+    //   entryWithId,
+    // ]);
 
     setOpen(false);
   };
@@ -304,6 +305,54 @@ const NewReg = () => {
           return this.parent.workExperience === "Employee" ? !!value : true;
         }),
     }),
+    // onSubmit: async (values) => {
+    //   if (!formik.isValid) {
+    //     console.error("Form submission failed due to validation errors");
+    //     return;
+    //   }
+    //   try {
+    //     setLoading(true);
+    //     const formData = new FormData();
+    //     if (currentUser === null) {
+    //       setLogInError(true);
+    //       setLoading(false);
+    //       return;
+    //     }
+
+    //     for (const key in values) {
+    //       const value = values[key];
+    //       if (value instanceof File) {
+    //         formData.append(key, value);
+    //       } else {
+    //         formData.append(key, value);
+    //       }
+    //     }
+
+    //     const educationalDataJson = JSON.stringify(educationalData);
+    //     formData.append("educationalData", educationalDataJson);
+
+    //     // Logging the formData to verify the contents
+    //     for (const [key, value] of formData.entries()) {
+    //       console.log(key, value);
+    //     }
+    //     Object.entries(formData).forEach(([key, value]) => {
+    //       c(key, value);
+    //     });
+
+    //     const { statusCode } = await postNewConstRegForm(formData);
+    //     if (statusCode !== 201) {
+    //       setOpenError(true);
+    //       setLoading(false);
+    //     } else {
+    //       setSuccessOpen(true);
+    //       setLoading(false);
+    //     }
+    //   } catch (error) {
+    //     setOpenError(true);
+    //     setLoading(false);
+    //     console.error("An error occurred", error);
+    //   }
+    // },
     onSubmit: async (values) => {
       if (!formik.isValid) {
         console.error("Form submission failed due to validation errors");
@@ -322,14 +371,19 @@ const NewReg = () => {
           const value = values[key];
           if (value instanceof File) {
             formData.append(key, value);
-          } else {
+          } else if (key !== "educationalData") {
             formData.append(key, value);
           }
         }
 
-        Object.entries(formData).forEach(([key, value]) => {
-          c(key, value);
-        });
+        // Convert educationalData to a JSON string and append it to formData
+        const educationalDataJson = JSON.stringify(educationalData);
+        formData.append("educationalData", educationalDataJson);
+
+        // Logging the formData to verify the contents
+        for (const [key, value] of formData.entries()) {
+          console.log(key, value);
+        }
 
         const { statusCode } = await postNewConstRegForm(formData);
         if (statusCode !== 201) {
@@ -818,7 +872,7 @@ const NewReg = () => {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {educationalData.map((data, index) => (
+                            {educationalData?.map((data, index) => (
                               <TableRow key={index}>
                                 <TableCell>{data["educationLevel"]}</TableCell>
                                 <TableCell align="right">
