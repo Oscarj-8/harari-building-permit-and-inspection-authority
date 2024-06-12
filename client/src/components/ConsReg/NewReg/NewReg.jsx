@@ -54,7 +54,7 @@ import { postNewConstRegForm } from "../../../services/service.js";
 import ReusableModal from "../../ReusableModal.jsx";
 
 const steps = ["Read Instruction", "Fill Form", "Get Confirmation"];
-let c = console.log.bind(document);
+// let c = console.log.bind(document);
 
 const NewReg = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -75,6 +75,7 @@ const NewReg = () => {
   const [qualification, setQualification] = useState("");
   const [remarks, setRemarks] = useState("");
   const [educationalData, setEducationalData] = useState([]);
+  const [educationalDataError, setEducationalDataError] = useState(false);
   const [filesArray, setFilesArray] = useState([]);
 
   const handleClickOpen = () => {
@@ -94,6 +95,7 @@ const NewReg = () => {
 
     setOpenError(false);
     setLogInError(false);
+    setEducationalDataError(false);
   };
 
   // Function to display error and disable scrolling
@@ -161,11 +163,6 @@ const NewReg = () => {
     const id = uuidv4();
     const entryWithId = { id, ...formData };
     setEducationalData([...educationalData, entryWithId]);
-    c(entryWithId);
-    // formik.setFieldValue("educationalData", [
-    //   ...formik.values.educationalData,
-    //   entryWithId,
-    // ]);
 
     setOpen(false);
   };
@@ -305,59 +302,12 @@ const NewReg = () => {
           return this.parent.workExperience === "Employee" ? !!value : true;
         }),
     }),
-    // onSubmit: async (values) => {
-    //   if (!formik.isValid) {
-    //     console.error("Form submission failed due to validation errors");
-    //     return;
-    //   }
-    //   try {
-    //     setLoading(true);
-    //     const formData = new FormData();
-    //     if (currentUser === null) {
-    //       setLogInError(true);
-    //       setLoading(false);
-    //       return;
-    //     }
-
-    //     for (const key in values) {
-    //       const value = values[key];
-    //       if (value instanceof File) {
-    //         formData.append(key, value);
-    //       } else {
-    //         formData.append(key, value);
-    //       }
-    //     }
-
-    //     const educationalDataJson = JSON.stringify(educationalData);
-    //     formData.append("educationalData", educationalDataJson);
-
-    //     // Logging the formData to verify the contents
-    //     for (const [key, value] of formData.entries()) {
-    //       console.log(key, value);
-    //     }
-    //     Object.entries(formData).forEach(([key, value]) => {
-    //       c(key, value);
-    //     });
-
-    //     const { statusCode } = await postNewConstRegForm(formData);
-    //     if (statusCode !== 201) {
-    //       setOpenError(true);
-    //       setLoading(false);
-    //     } else {
-    //       setSuccessOpen(true);
-    //       setLoading(false);
-    //     }
-    //   } catch (error) {
-    //     setOpenError(true);
-    //     setLoading(false);
-    //     console.error("An error occurred", error);
-    //   }
-    // },
     onSubmit: async (values) => {
       if (!formik.isValid) {
         console.error("Form submission failed due to validation errors");
         return;
       }
+
       try {
         setLoading(true);
         const formData = new FormData();
@@ -365,6 +315,16 @@ const NewReg = () => {
           setLogInError(true);
           setLoading(false);
           return;
+        }
+
+        if (educationalData.length < 1) {
+          setEducationalDataError(true);
+          setLoading(false);
+          return;
+        } else {
+          // Convert educationalData to a JSON string and append it to formData
+          const educationalDataJson = JSON.stringify(educationalData);
+          formData.append("educationalData", educationalDataJson);
         }
 
         for (const key in values) {
@@ -375,10 +335,6 @@ const NewReg = () => {
             formData.append(key, value);
           }
         }
-
-        // Convert educationalData to a JSON string and append it to formData
-        const educationalDataJson = JSON.stringify(educationalData);
-        formData.append("educationalData", educationalDataJson);
 
         // Logging the formData to verify the contents
         for (const [key, value] of formData.entries()) {
@@ -907,11 +863,11 @@ const NewReg = () => {
                         </Table>
                       </TableContainer>
                     </div>
-                    {educationalData.length < 1 ? (
+                    {educationalDataError && (
                       <div className="text-red-600">
-                        <p>Please endter </p>
+                        <p>Please add educational data </p>
                       </div>
-                    ) : null}
+                    )}
                     <Button
                       onClick={() => setFormStep(2)}
                       variant="outlined"
@@ -1307,6 +1263,16 @@ const NewReg = () => {
           sx={{ width: "100%" }}
         >
           Please Log in first!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={educationalDataError} onClose={handleErrorClose}>
+        <Alert
+          onClose={handleErrorClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Please make sure that you have added educational data!
         </Alert>
       </Snackbar>
     </div>
