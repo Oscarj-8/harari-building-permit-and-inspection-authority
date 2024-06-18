@@ -38,7 +38,7 @@ export const postUpdateConstReg = async (formData) => {
 
 export const getNewLicenseReq = async () => {
   return axios
-    .get("http://localhost:3000/api/constructionReg-list")
+    .get("/api/constructionReg-list")
     .then((response) => {
       if (response) {
         return response.data.data;
