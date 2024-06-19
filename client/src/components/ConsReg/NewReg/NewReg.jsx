@@ -199,7 +199,7 @@ const NewReg = () => {
       city: Yup.string().required("City is required"),
       woreda: Yup.string().required("Woreda is required"),
       mobilePhone: Yup.number().required("Mobile is required"),
-      houseNumber: Yup.number().required("House number is required"),
+      houseNumber: Yup.string().required("House number is required"),
       kebele: Yup.string().required("Kebele is required"),
       currentOrganization: Yup.string().required(
         "Current organization is required"
@@ -567,7 +567,6 @@ const NewReg = () => {
                       required
                       name="houseNumber"
                       label="House Number"
-                      type="text"
                       variant="filled"
                       size="small"
                       onChange={formik.handleChange}
