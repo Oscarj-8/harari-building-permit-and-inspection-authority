@@ -567,7 +567,7 @@ const NewReg = () => {
                       required
                       name="houseNumber"
                       label="House Number"
-                      type="number"
+                      type="text"
                       variant="filled"
                       size="small"
                       onChange={formik.handleChange}
