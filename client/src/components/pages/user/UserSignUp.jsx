@@ -52,20 +52,20 @@ export default function SignUp() {
           id="username"
           onChange={handleChange}
         />
-        {/* <input
+        <input
           type="email"
           placeholder="email"
           className="border p-3 rounded-lg"
           id="email"
           onChange={handleChange}
-        /> */}
-        <input
+        />
+        {/* <input
           type="number"
           placeholder="phone number"
           className="border p-3 rounded-lg"
           id="phoneNumber"
           onChange={handleChange}
-        />
+        /> */}
         <input
           type="password"
           placeholder="password"

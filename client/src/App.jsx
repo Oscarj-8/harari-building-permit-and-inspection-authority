@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import PlanConsent from "./components/pages/user/PlanConsent";
@@ -23,6 +22,7 @@ import ConstructionRegulatoryList from "./components/pages/admin/ConstructionReg
 import NewLicenseReq from "./components/pages/admin/NewLicenseReq";
 import UpdateLicenseReq from "./components/pages/admin/UpdateLicenseReq";
 import UpgradeLicenseReq from "./components/pages/admin/UpgradeLicenseReq";
+import UserDetails from "./components/pages/admin/UserDetails";
 const Layout = () => (
   <>
     <HeaderContainer />
@@ -78,6 +78,10 @@ const router = createBrowserRouter([
             element: <ConstructionRegulatory />,
           },
         ],
+      },
+      {
+        path: "/user-details/:id",
+        element: <UserDetails />,
       },
 
       {
