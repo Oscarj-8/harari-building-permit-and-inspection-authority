@@ -282,7 +282,7 @@ const upgradeLicenseFormSchema = new mongoose.Schema({
   gender: { type: String, required: true },
   woreda: { type: String, required: true },
   mobilePhone: { type: Number, required: true },
-  houseNumber: { type: Number, required: true },
+  houseNumber: { type: String, required: true },
   kebele: { type: String, required: true },
   currentOrganization: { type: String, required: true },
   educationalData: { type: [educationalDataSchema], required: true },
