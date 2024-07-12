@@ -16,6 +16,7 @@ import designEvaBuildingPerFileUpload from "./routes/designEvaBuildingPer/Design
 import designEvaBuildingPerFileGetRoutes from "./routes/designEvaBuildingPer/DesignEvaBuildingPerFileGet.route.js";
 import constructionRegUpload from "./routes/constructionRegulatory/ConstructionRegUpload.route.js";
 import constructionRegGetRoutes from "./routes/constructionRegulatory/ConstructionRegGet.route.js";
+import newConstructionRegGetUserRoute from "./routes/constructionRegulatory/newConstructionRegGetUser.route.js";
 import path from "path";
 import messageRoute from "./routes/message/messages.route.js";
 
@@ -49,6 +50,7 @@ app.use("/api", designEvaBuildingPerFileUpload);
 app.use("/api", designEvaBuildingPerFileGetRoutes);
 app.use("/api", constructionRegUpload);
 app.use("/api", constructionRegGetRoutes);
+app.use("/api/users/", newConstructionRegGetUserRoute);
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", adminAuthRouter);

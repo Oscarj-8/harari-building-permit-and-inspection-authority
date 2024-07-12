@@ -9,7 +9,7 @@ function UserDetails() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://api.example.com/users/${id}`);
+        const response = await axios.get(`/api/users/${id}`);
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
