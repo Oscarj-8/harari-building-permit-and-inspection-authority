@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@128.140.36.228 << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@128.140.36.228 << 'EOF'
             cd /root/harari-building-permit-and-inspection-authority
             echo "Pulling latest changes..."
             git pull
