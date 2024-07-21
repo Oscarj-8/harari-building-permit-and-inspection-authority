@@ -136,7 +136,6 @@ const NewReg = () => {
     const newFile = event.target.files[0];
     setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
     formik.setFieldValue(fieldName, newFile);
-    console.log(filesArray);
   };
 
   // modal functions
@@ -337,9 +336,9 @@ const NewReg = () => {
         }
 
         // Logging the formData to verify the contents
-        for (const [key, value] of formData.entries()) {
-          console.log(key, value);
-        }
+        // for (const [key, value] of formData.entries()) {
+        //   console.log(key, value);
+        // }
 
         const { statusCode } = await postNewConstRegForm(formData);
         if (statusCode !== 201) {

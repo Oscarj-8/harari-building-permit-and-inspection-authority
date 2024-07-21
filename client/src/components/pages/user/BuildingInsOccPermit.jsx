@@ -28,7 +28,6 @@ export default function BuildingInsOccPermit() {
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
-      console.log(formData);
       try {
         const response = await fetch("/api/uploadbuildingInsOccPermit", {
           method: "POST",

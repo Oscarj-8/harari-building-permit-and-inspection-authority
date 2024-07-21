@@ -66,7 +66,6 @@ const PlanConsentReqsList = () => {
         setUserFolders((prevFolders) =>
           prevFolders.filter((folder) => folder !== selectedFolder)
         );
-        console.log("Folder deleted successfully");
         handleDeleteClose();
         setDeleteConfirmation(true);
         setTimeout(() => {

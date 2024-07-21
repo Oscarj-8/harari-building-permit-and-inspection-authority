@@ -27,7 +27,6 @@ export default function PlanConsent() {
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
-      console.log(formData);
       try {
         const response = await fetch("/api/uploadplanconsent", {
           method: "POST",
@@ -35,7 +34,6 @@ export default function PlanConsent() {
         });
 
         if (response.ok) {
-          console.log("File uploaded successfully");
           setOpen(true);
           setDocumentFile(null);
           setScannedImages(null);

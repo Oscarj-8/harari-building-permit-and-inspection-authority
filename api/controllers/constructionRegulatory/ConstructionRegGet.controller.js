@@ -63,8 +63,6 @@ const getConstructionRegList = async (req, res) => {
         document.applicantPhoto.base64
     );
 
-    console.log(documents.map((d) => d.idCard.base64));
-
     res.json({
       success: true,
       data: documents,

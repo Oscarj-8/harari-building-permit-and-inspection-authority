@@ -153,7 +153,6 @@ const UpgradeReg = () => {
     const newFile = event.target.files[0];
     setFilesArray((prevFilesArray) => [...prevFilesArray, newFile]);
     formik.setFieldValue(fieldName, newFile);
-    console.log(filesArray);
   };
 
   const formik = useFormik({
@@ -336,9 +335,9 @@ const UpgradeReg = () => {
 
         formData.educationalData = edu;
 
-        for (const [key, value] of formData.entries()) {
-          console.log(key, value);
-        }
+        // for (const [key, value] of formData.entries()) {
+        //   console.log(key, value);
+        // }
 
         const { statusCode } = await postUpdateConstReg(formData);
 

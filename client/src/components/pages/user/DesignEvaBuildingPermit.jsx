@@ -30,7 +30,6 @@ export default function DesignEvaBuildingPermit() {
       for (let i = 0; i < scannedImages.length; i++) {
         formData.append("scannedImages", scannedImages[i]);
       }
-      console.log(formData);
       try {
         const response = await fetch("/api/uploadDesignEvaBuildingPer", {
           method: "POST",
@@ -38,7 +37,6 @@ export default function DesignEvaBuildingPermit() {
         });
 
         if (response.ok) {
-          console.log("File uploaded successfully");
           setOpen(true);
           setDocumentFiles(null);
           setScannedImages(null);
