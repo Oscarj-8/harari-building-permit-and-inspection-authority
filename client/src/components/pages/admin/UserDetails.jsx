@@ -1,16 +1,53 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Modal from "react-modal";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
-Modal.setAppElement("#root"); // Ensure this is set to your app's root element
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function UserDetails() {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
   const [images, setImages] = useState({});
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
+
+  const handleOpen = (image) => {
+    setCurrentImage(image);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setCurrentImage(null);
+  };
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "calc(100vw - 8em)",
+    maxWidth: "calc(100vw - 8em)",
+    height: "auto",
+    maxHeight: "calc(100vh - 8em)",
+    bgcolor: "transparent",
+    p: 0, // Remove padding to avoid overflow issues
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden", // Ensure content does not overflow
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,16 +62,6 @@ function UserDetails() {
 
     fetchUserData();
   }, [id]);
-
-  const openModal = (imagePath) => {
-    setCurrentImage(imagePath);
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setCurrentImage(null);
-  };
 
   if (!userData) return <div>Loading...</div>;
 
@@ -121,7 +148,7 @@ function UserDetails() {
                     alt={field}
                     className="w-32 h-32 object-cover cursor-pointer"
                     onClick={() =>
-                      openModal(`data:image/jpeg;base64,${images[field]}`)
+                      handleOpen(`data:image/jpeg;base64,${images[field]}`)
                     }
                   />
                 </td>
@@ -132,18 +159,24 @@ function UserDetails() {
       </div>
 
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Image Modal"
-        className="flex justify-center items-center bg-black bg-opacity-75"
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        {currentImage && (
-          <img
-            src={currentImage}
-            alt="Full size"
-            className="max-w-full max-h-full"
-          />
-        )}
+        <Box sx={style}>
+          {currentImage && (
+            <img
+              src={currentImage}
+              alt="Full size"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          )}
+        </Box>
       </Modal>
     </div>
   );
