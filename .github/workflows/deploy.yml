@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main # Adjust this to the branch you want to trigger the deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH known hosts
+        run: echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no user@128.140.36.228 << 'EOF'
+            cd /root/harari-building-permit-and-inspection-authority
+            echo "Pulling latest changes..."
+            git pull
+
+            echo "Installing dependencies for client..."
+            cd client
+            npm install
+            npm run build
+
+            echo "Installing dependencies for server..."
+            cd ../api
+            npm install
+
+            echo "Restarting server..."
+            pm2 restart all
+          EOF
